@@ -10,4 +10,54 @@ public class Images {
     private String description;
     private int placeId;
 
+    public Images() { }
+
+    public Images(int id, Image image, String author, String description, int placeId) {
+        this.id = id;
+        this.image = image;
+        this.author = author;
+        this.description = description;
+        this.placeId = placeId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
+    }
+    
 }
