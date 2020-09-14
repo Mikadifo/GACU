@@ -45,6 +45,8 @@ public class DB_Connection {
 	    return resultSet;
 	} catch (SQLException ex) {
 	    System.err.println("Error executing the query");
+            
+            return null;
 	}
     }
 
