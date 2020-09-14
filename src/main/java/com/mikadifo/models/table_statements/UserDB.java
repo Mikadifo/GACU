@@ -5,6 +5,7 @@
  */
 package com.mikadifo.models.table_statements;
 
+import com.mikadifo.models.DB_Connection;
 import com.mikadifo.models.db_tables.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,8 @@ import java.util.logging.Logger;
  */
 public class UserDB extends User{
     //attributes
-    ConnectPG conecta = new ConnectPG();
-    VistaPersonas vista = new VistaPersonas();
+    DB_Connection conect = new DB_Connection();
+    VistaPersonas view = new VistaPersonas();
     
     //Constructor
     public UserDB() {
@@ -39,7 +40,7 @@ public class UserDB extends User{
         nsql += "VALUES('" + getId()+ "','" + getRoleId() + "','"
                 + getLogin()+ "','" + getPassword()+ "','" + getUsername()
                 + "','" + getCityId()+ "');";
-        if (conecta.noQuery(nsql) == null) {
+        if (conect.statement(nsql) == null) {
             return true;
         } else {
             System.out.println("ERROR");
@@ -47,11 +48,11 @@ public class UserDB extends User{
         } 
     
 }
-    public List<User> ShowDataUser() {
+    public List<User> showDataUser() {
         try {
             String sql = "SELECT * FROM Users";
-            ResultSet resultSet = conecta.query(sql);
-            List<User> listUser = new ArrayList<User>();
+            ResultSet resultSet = conect.query(sql);
+            List<User> userList = new ArrayList<User>();
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(Integer.valueOf(resultSet.getString("user_id")));
@@ -61,11 +62,11 @@ public class UserDB extends User{
                 user.setUsername(resultSet.getString("username"));
                 user.setCityId(Integer.valueOf(resultSet.getString("city_id")));
                 
-                listUser.add(user);
+                userList.add(user);
 
             }
             resultSet.close();
-            return listUser;
+            return userList;
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -73,10 +74,10 @@ public class UserDB extends User{
         
     }
     
-    public UserDB GetUser(String IdUser){
+    public UserDB getUser(String IdUser){
         UserDB user = new UserDB();
         String sql = "SELECT * FROM Users where user_id='" + IdUser + "'";
-            try (ResultSet resultSet = conecta.query(sql)) {
+            try (ResultSet resultSet = conect.query(sql)) {
                 resultSet.next();
                 user.setId(Integer.valueOf(resultSet.getString("user_id")));
                 user.setRoleId(Short.valueOf(resultSet.getString("role_id")));
@@ -91,12 +92,12 @@ public class UserDB extends User{
             }
             return null;
     }
-    public boolean DeleteDataUser(String data) {
+    public boolean deleteDataUser(String data) {
 
         String nsql;
         nsql = "DELETE FROM Users WHERE user_id = ('" + data + "')"; 
 
-        if (conecta.noQuery(nsql) == null) {
+        if (conect.statement(nsql) == null) {
             return true;
         } else {
             System.out.println("ERROR");
@@ -110,7 +111,7 @@ public class UserDB extends User{
         nsql = "UPDATE Users SET user_id='" + getId()+ "',role_id='" + getRoleId()+ "',login_user='"
                 + getLogin()+ "',pass_user='" + getPassword()+ "',username='" + 
                 getUsername()+ "',city_id='" + getCityId()+ "'";
-        if (conecta.noQuery(nsql) == null) {
+        if (conect.statement(nsql) == null) {
             return true;
         } else {
             System.out.println("Error");
