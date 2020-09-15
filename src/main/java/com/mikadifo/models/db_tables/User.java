@@ -2,6 +2,10 @@ package com.mikadifo.models.db_tables;
 
 public class User {
     
+    public final String TABLE = "\"Users\"";
+    public final String COLUMNS = "role_id, login_user, pass_user, username, city_id";
+    public final String ATTRIBUTES = "?, ?, ?, ?, ?";
+    
     private int id;
     private String login;
     private String password;
@@ -11,7 +15,8 @@ public class User {
 
     public User() { }
 
-    public User(int id, String login, String password, String username, int cityId, short roleId) {
+    public User(int id, String login, String password, String username, 
+            int cityId, short roleId) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -22,10 +27,6 @@ public class User {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -67,6 +68,6 @@ public class User {
     public void setRoleId(short roleId) {
         this.roleId = roleId;
     }
-
+    
 }
 

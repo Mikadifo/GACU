@@ -1,122 +1,173 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.models.table_statements;
 
 import com.mikadifo.models.DB_Connection;
 import com.mikadifo.models.db_tables.User;
+import com.mikadifo.models.SQL_Statement;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author MIKADIFO
- */
-public class UserDB extends User{
-    //attributes
-    DB_Connection conect = new DB_Connection();
-    VistaPersonas view = new VistaPersonas();
-    
-    //Constructor
-    public UserDB() {
-    }
+public class UserDB extends User implements SQL_Statement {
 
-    public UserDB(int id, String login, String password, String username, int cityId, short roleId) {
+    private DB_Connection dbConnection = new DB_Connection();
+
+    public UserDB() { }
+
+    public UserDB(int id, String login, String password, String username, 
+            int cityId, short roleId) {
         super(id, login, password, username, cityId, roleId);
     }
     
-    //Methods
-    public boolean insertUser(){
-    
-    String nsql;
-        nsql = "INSERT INTO Users";
-        nsql += "(user_id, role_id, login_user, pass_user, username, city_id)";
-        nsql += "VALUES('" + getId()+ "','" + getRoleId() + "','"
-                + getLogin()+ "','" + getPassword()+ "','" + getUsername()
-                + "','" + getCityId()+ "');";
-        if (conect.statement(nsql) == null) {
-            return true;
-        } else {
-            System.out.println("ERROR");
-            return false;
-        } 
-    
-}
-    public List<User> showDataUser() {
+    @Override
+    public boolean selectAll() {        
         try {
-            String sql = "SELECT * FROM Users";
-            ResultSet resultSet = conect.query(sql);
-            List<User> userList = new ArrayList<User>();
-            while (resultSet.next()) {
-                User user = new User();
-                user.setId(Integer.valueOf(resultSet.getString("user_id")));
-                user.setRoleId(Short.valueOf(resultSet.getString("role_id")));
-                user.setLogin(resultSet.getString("login_user"));
-                user.setPassword(resultSet.getString("pass_user"));
-                user.setUsername(resultSet.getString("username"));
-                user.setCityId(Integer.valueOf(resultSet.getString("city_id")));
-                
-                userList.add(user);
-
-            }
-            resultSet.close();
-            return userList;
+            dbConnection.buildAndPrepareSelect(TABLE);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("ERROR SELECT ALL");
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public List<User> getResults() {
+        List<User> users = new ArrayList<>();
+        ResultSet results;
+        
+        try {
+            results = dbConnection.executeQuery();
+            
+            while(results.next()) {
+                users.add(getUser(results));
+            }
+            
+            results.close();
+            dbConnection.closeStatement();
+        } catch (SQLException ex) {            
             return null;
         }
         
+        return users;
     }
     
-    public UserDB getUser(String IdUser){
-        UserDB user = new UserDB();
-        String sql = "SELECT * FROM Users where user_id='" + IdUser + "'";
-            try (ResultSet resultSet = conect.query(sql)) {
-                resultSet.next();
-                user.setId(Integer.valueOf(resultSet.getString("user_id")));
-                user.setRoleId(Short.valueOf(resultSet.getString("role_id")));
-                user.setLogin(resultSet.getString("login_user"));
-                user.setPassword(resultSet.getString("pass_user"));
-                user.setUsername(resultSet.getString("username"));
-                user.setCityId(Integer.valueOf(resultSet.getString("city_id")));
-                return user;
-            }catch(SQLException ex) {
-            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+    @Override
+    public boolean selectById() {
+        try {
+            dbConnection.buildAndPrepareSelect(TABLE, "login_user");
             
-            }
-            return null;
-    }
-    public boolean deleteDataUser(String data) {
-
-        String nsql;
-        nsql = "DELETE FROM Users WHERE user_id = ('" + data + "')"; 
-
-        if (conect.statement(nsql) == null) {
-            return true;
-        } else {
-            System.out.println("ERROR");
+            setLoginColumnValue(1);
+        } catch (SQLException ex) {
+            System.err.println("ERROR");
+            
             return false;
+        }
+        
+        return true;
+    }
+    
+    public User getUser() {
+        return getResults().get(0);
+    }
+    
+    private User getUser(ResultSet resultSet) {        
+        try {
+            return new User (
+                resultSet.getInt("user_id"),
+                resultSet.getString("login_user"),
+                resultSet.getString("pass_user"),
+                resultSet.getString("username"),
+                resultSet.getInt("city_id"),
+                resultSet.getShort("role_id")
+            );
+        } catch (SQLException ex) {
+            System.err.println("Error");
+            
+            return null;
         }
     }
     
-    public boolean editDataUser() {
-
-        String nsql;
-        nsql = "UPDATE Users SET user_id='" + getId()+ "',role_id='" + getRoleId()+ "',login_user='"
-                + getLogin()+ "',pass_user='" + getPassword()+ "',username='" + 
-                getUsername()+ "',city_id='" + getCityId()+ "'";
-        if (conect.statement(nsql) == null) {
-            return true;
-        } else {
-            System.out.println("Error");
+    @Override
+    public boolean insert() {
+        try {
+            dbConnection.buildAndPrepareInsert(TABLE, COLUMNS, ATTRIBUTES);
+            
+            setValues();
+            
+            dbConnection.executeAndClose();
+        } catch (SQLException ex) {
+            System.err.print("ERROR INSERTING USER");
+            
             return false;
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean update() {
+        try {
+            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "login_user");
+
+            setValues();
+            setLoginColumnValue(6);
+            
+            dbConnection.executeAndClose();
+            return true;
+        } catch (SQLException ex) {
+            System.err.println("ERROR UPDATING");
+        }
+        
+        return false;
+    }
+    
+    private String build_UPDATE_SET() {
+        return "role_id = ?, " +
+               "login_user = ?, " +
+               "pass_user = ?, " +
+               "username = ?, " +
+               "city_id = ?";
+    }
+    
+    private void setValues() throws SQLException {  
+        PreparedStatement statement = dbConnection.getStatement();
+        
+        statement.setShort(1, getRoleId());
+        statement.setString(2, getLogin());
+        statement.setString(3, getPassword());
+        statement.setString(4, getUsername());
+        statement.setInt(5, getCityId());
+        
+        dbConnection.setStatement(statement);
+    }
+
+    @Override
+    public boolean delete() {
+        try {
+            dbConnection.buildAndPrepareDelete(TABLE, "login_user");
+            
+            setLoginColumnValue(1);
+            
+            dbConnection.executeAndClose();
+        } catch (SQLException ex) {
+            System.err.println("ERROR DELETING");
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private void setLoginColumnValue(int index) throws SQLException {
+        PreparedStatement statement = dbConnection.getStatement();
+        
+        statement.setString(index, getLogin());
+        
+        dbConnection.setStatement(statement);
     }
     
 }
