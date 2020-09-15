@@ -4,13 +4,18 @@ import java.awt.Image;
 
 public class Images {
 
+    public final String TABLE = "\"Images\"";
+    public final String COLUMNS = "place_id, image, image_author, image_description";
+    public final String ATTRIBUTES = "?, ?, ?, ?";
+
     private int id;
     private Image image;
     private String author;
     private String description;
     private int placeId;
 
-    public Images() { }
+    public Images() {
+    }
 
     public Images(int id, Image image, String author, String description, int placeId) {
         this.id = id;
@@ -59,5 +64,5 @@ public class Images {
     public void setPlaceId(int placeId) {
         this.placeId = placeId;
     }
-    
+
 }

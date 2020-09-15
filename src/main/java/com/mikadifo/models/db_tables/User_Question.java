@@ -4,6 +4,10 @@ import java.time.LocalTime;
 
 public class User_Question {
 
+    public final String TABLE = "\"User_Questions\"";
+    public final String COLUMNS = "user_id, question_id, answer_id, started_at, finished_at, user_answer, is_correct";
+    public final String ATTRIBUTES = "?, ?, ?, ?, ?, ?, ?";
+
     private int id;
     private int userId;
     private int questionId;
@@ -13,7 +17,8 @@ public class User_Question {
     private String userAnswer;
     private boolean correct;
 
-    public User_Question() { }
+    public User_Question() {
+    }
 
     public User_Question(int id, int userId, int questionId, int answerId, LocalTime startedAt, LocalTime finishedAt, String userAnswer, boolean correct) {
         this.id = id;
@@ -91,4 +96,3 @@ public class User_Question {
     }
 
 }
-

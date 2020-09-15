@@ -2,11 +2,16 @@ package com.mikadifo.models.db_tables;
 
 public class User_Place {
 
+    public final String TABLE = "\"User_Places\"";
+    public final String COLUMNS = "user_id, place_id";
+    public final String ATTRIBUTES = "?, ?";
+
     private int id;
     private int userId;
     private int placeId;
 
-    public User_Place() { }
+    public User_Place() {
+    }
 
     public User_Place(int id, int userId, int placeId) {
         this.id = id;
@@ -39,4 +44,3 @@ public class User_Place {
     }
 
 }
-

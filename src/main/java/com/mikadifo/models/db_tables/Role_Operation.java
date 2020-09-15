@@ -2,11 +2,16 @@ package com.mikadifo.models.db_tables;
 
 public class Role_Operation {
 
+    public final String TABLE = "\"Role_Operations\"";
+    public final String COLUMNS = "role_id, operation_module_id";
+    public final String ATTRIBUTES = "?, ?";
+
     private int id;
     private short roleId;
     private int operationModuleId;
 
-    public Role_Operation() { }
+    public Role_Operation() {
+    }
 
     public Role_Operation(int id, short roleId, int operationModuleId) {
         this.id = id;
@@ -39,4 +44,3 @@ public class Role_Operation {
     }
 
 }
-

@@ -2,11 +2,16 @@ package com.mikadifo.models.db_tables;
 
 public class City {
 
+    public final String TABLE = "\"Cities\"";
+    public final String COLUMNS = "city_name, country_id";
+    public final String ATTRIBUTES = "?, ?";
+
     private int id;
     private String name;
     private int countryId;
 
-    public City() { }
+    public City() {
+    }
 
     public City(int id, String name, int countryId) {
         this.id = id;

@@ -2,10 +2,15 @@ package com.mikadifo.models.db_tables;
 
 public class Category {
 
+    public final String TABLE = "\"Categories\"";
+    public final String COLUMNS = "category_name";
+    public final String ATTRIBUTES = "?";
+
     private int id;
     private String name;
 
-    public Category() { }
+    public Category() {
+    }
 
     public Category(int id, String name) {
         this.id = id;

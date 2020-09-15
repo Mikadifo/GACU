@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class Question {
 
+    public final String TABLE = "\"Questions\"";
+    public final String COLUMNS = "place_id, question_content, question_content, difficulty, type_id";
+    public final String ATTRIBUTES = "?, ?, ?, ?, ?";
+
     private int id;
     private String content;
     private Date createdDate;
@@ -11,7 +15,8 @@ public class Question {
     private int placeId;
     private int typeId;
 
-    public Question() { }
+    public Question() {
+    }
 
     public Question(int id, String content, Date createdDate, short difficulty, int placeId, int typeId) {
         this.id = id;
@@ -71,4 +76,3 @@ public class Question {
     }
 
 }
-

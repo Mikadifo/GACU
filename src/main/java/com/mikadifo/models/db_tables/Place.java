@@ -2,12 +2,17 @@ package com.mikadifo.models.db_tables;
 
 public class Place {
 
+    public final String TABLE = "\"Places\"";
+    public final String COLUMNS = "place_name, place_info, category_id";
+    public final String ATTRIBUTES = "?, ?, ?";
+
     private int id;
     private String name;
     private String info;
     private int categoryId;
 
-    public Place() { }
+    public Place() {
+    }
 
     public Place(int id, String name, String info, int categoryId) {
         this.id = id;

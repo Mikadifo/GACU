@@ -2,10 +2,15 @@ package com.mikadifo.models.db_tables;
 
 public class Country {
 
+    public final String TABLE = "\"Countries\"";
+    public final String COLUMNS = "country_name";
+    public final String ATTRIBUTES = "?";
+
     private int id;
     private String name;
 
-    public Country() { }
+    public Country() {
+    }
 
     public Country(int id, String name) {
         this.id = id;

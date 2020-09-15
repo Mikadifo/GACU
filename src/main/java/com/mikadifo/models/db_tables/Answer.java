@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class Answer {
 
+    public final String TABLE = "\"Answers\"";
+    public final String COLUMNS = "place_id, answer_content, answer_is_correct, created_date, type_id";
+    public final String ATTRIBUTES = "?, ?, ?, ?, ?";
+
     private int id;
     private String content;
     private boolean correct;
@@ -11,7 +15,8 @@ public class Answer {
     private int placeId;
     private int typeId;
 
-    public Answer() { }
+    public Answer() {
+    }
 
     public Answer(int id, String content, boolean correct, Date createdDate, int placeId, int typeId) {
         this.id = id;
@@ -71,4 +76,3 @@ public class Answer {
     }
 
 }
-

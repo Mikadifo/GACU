@@ -2,11 +2,16 @@ package com.mikadifo.models.db_tables;
 
 public class Type {
 
+    public final String TABLE = "\"Types\"";
+    public final String COLUMNS = "type_name, type_description";
+    public final String ATTRIBUTES = "?, ?";
+
     private int id;
     private String name;
     private String description;
 
-    public Type() { }
+    public Type() {
+    }
 
     public Type(int id, String name, String description) {
         this.id = id;
@@ -39,4 +44,3 @@ public class Type {
     }
 
 }
-
