@@ -1,7 +1,7 @@
 package com.mikadifo.models.table_statements;
 
 import com.mikadifo.models.DB_Connection;
-import com.mikadifo.models.db_tables.User;
+import com.mikadifo.models.db_tables.Question_Answer;
 import com.mikadifo.models.SQL_Statement;
 
 import java.sql.PreparedStatement;
@@ -11,15 +11,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDB extends User implements SQL_Statement {
-
+public class Question_AnswerDB extends Question_Answer implements SQL_Statement {
+    
     private DB_Connection dbConnection = new DB_Connection();
 
-    public UserDB() { }
+    public Question_AnswerDB() { }
 
-    public UserDB(int id, String login, String password, String username, 
-            int cityId, short roleId) {
-        super(id, login, password, username, cityId, roleId);
+    public Question_AnswerDB(int id, int questionId, int answerId) {
+        super(id, questionId, answerId);
     }
     
     @Override
@@ -35,15 +34,15 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public List<User> getResults() {
-        List<User> users = new ArrayList<>();
+    public List<Question_Answer> getResults() {
+        List<Question_Answer> question_answers = new ArrayList<>();
         ResultSet results;
         
         try {
             results = dbConnection.executeQuery();
             
             while(results.next()) {
-                users.add(getUser(results));
+                question_answers.add(getQuestion_Answer(results));
             }
             
             results.close();
@@ -52,15 +51,15 @@ public class UserDB extends User implements SQL_Statement {
             return null;
         }
         
-        return users;
+        return question_answers;
     }
     
     @Override
     public boolean selectById() {
         try {
-            dbConnection.buildAndPrepareSelect(TABLE, "login_user");
+            dbConnection.buildAndPrepareSelect(TABLE, "question_answer_id");
             
-            setLoginColumnValue(1);
+            setIdColumnValue(1);
         } catch (SQLException ex) {
             System.err.println("ERROR");
             
@@ -70,19 +69,16 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public User getUser() {
+    public Question_Answer getQuestion_Answer() {
         return getResults().get(0);
     }
     
-    private User getUser(ResultSet resultSet) {        
+    private Question_Answer getQuestion_Answer(ResultSet resultSet) {        
         try {
-            return new User (
-                resultSet.getInt("user_id"),
-                resultSet.getString("login_user"),
-                resultSet.getString("pass_user"),
-                resultSet.getString("username"),
-                resultSet.getInt("city_id"),
-                resultSet.getShort("role_id")
+            return new Question_Answer (
+                resultSet.getInt("question_answer_id"),
+                resultSet.getInt("question_id"),
+                resultSet.getInt("answer_id")
             );
         } catch (SQLException ex) {
             System.err.println("Error");
@@ -100,21 +96,21 @@ public class UserDB extends User implements SQL_Statement {
             
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
-            System.err.print("ERROR INSERTING USER");
+            System.err.print("ERROR INSERTING QUESTION_ANSWER");
             
             return false;
         }
 
         return true;
     }
-
+    
     @Override
     public boolean update() {
         try {
-            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "login_user");
+            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "question_answer_id");
 
             setValues();
-            setLoginColumnValue(6);
+            setIdColumnValue(3);
             
             dbConnection.executeAndClose();
             
@@ -127,31 +123,26 @@ public class UserDB extends User implements SQL_Statement {
     }
     
     private String build_UPDATE_SET() {
-        return "role_id = ?, " +
-               "login_user = ?, " +
-               "pass_user = ?, " +
-               "username = ?, " +
-               "city_id = ?";
+        return "question_id = ?, " +
+               "answer_id = ?";
     }
     
     private void setValues() throws SQLException {  
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setShort(1, getRoleId());
-        statement.setString(2, getLogin());
-        statement.setString(3, getPassword());
-        statement.setString(4, getUsername());
-        statement.setInt(5, getCityId());
+        statement.setInt(1, getId());
+        statement.setInt(2, getQuestionId());
+        statement.setInt(3, getAnswerId());
         
         dbConnection.setStatement(statement);
     }
-
+    
     @Override
     public boolean delete() {
         try {
-            dbConnection.buildAndPrepareDelete(TABLE, "login_user");
+            dbConnection.buildAndPrepareDelete(TABLE, "question_answer_id");
             
-            setLoginColumnValue(1);
+            setIdColumnValue(1);
             
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
@@ -163,10 +154,10 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    private void setLoginColumnValue(int index) throws SQLException {
+    private void setIdColumnValue(int index) throws SQLException {
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setString(index, getLogin());
+        statement.setInt(index, getId());
         
         dbConnection.setStatement(statement);
     }
