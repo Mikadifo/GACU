@@ -80,7 +80,7 @@ public class QuestionDB extends Question implements SQL_Statement {
             return new Question (
                 resultSet.getInt("question_id"),
                 resultSet.getString("question_content"),
-                Date.valueOf(resultSet.getString("created_date")),
+                resultSet.getDate("created_date"),
                 resultSet.getShort("difficulty"),
                 resultSet.getInt("place_id"),
                 resultSet.getInt("type_id")
