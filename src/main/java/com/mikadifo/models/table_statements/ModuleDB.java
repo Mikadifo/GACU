@@ -1,7 +1,7 @@
 package com.mikadifo.models.table_statements;
 
 import com.mikadifo.models.DB_Connection;
-import com.mikadifo.models.db_tables.Role;
+import com.mikadifo.models.db_tables.Module;
 import com.mikadifo.models.SQL_Statement;
 
 import java.sql.PreparedStatement;
@@ -11,15 +11,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleDB extends Role implements SQL_Statement {
+public class ModuleDB extends Module implements SQL_Statement {
 
     private DB_Connection dbConnection = new DB_Connection();
 
-    public RoleDB(int id, String name) {
+    public ModuleDB(int id, String name) {
         super(id, name);
     }
 
-    public RoleDB() { }
+    public ModuleDB() { }
 
     @Override
     public boolean selectAll() {
@@ -34,15 +34,15 @@ public class RoleDB extends Role implements SQL_Statement {
         return true;
     }
 
-    public List<Role> getResults() {
-        List<Role> roles = new ArrayList<>();
+    public List<Module> getResults() {
+        List<Module> modules = new ArrayList<>();
         ResultSet results;
 
         try {
             results = dbConnection.executeQuery();
 
             while (results.next()) {
-                roles.add(getRole(results));
+                modules.add(getModule(results));
             }
 
             results.close();
@@ -51,15 +51,15 @@ public class RoleDB extends Role implements SQL_Statement {
             return null;
         }
 
-        return roles;
+        return modules;
     }
 
     @Override
     public boolean selectById() {
         try {
-            dbConnection.buildAndPrepareSelect(TABLE, "role_id");
+            dbConnection.buildAndPrepareSelect(TABLE, "module_id");
 
-            setRoleIdColumnValue(1);
+            setModuleIdColumnValue(1);
         } catch (SQLException ex) {
             System.err.println("ERROR");
 
@@ -69,15 +69,15 @@ public class RoleDB extends Role implements SQL_Statement {
         return true;
     }
 
-    public Role getRole() {
+    public Module getModule() {
         return getResults().get(0);
     }
 
-    private Role getRole(ResultSet resultSet) {
+    private Module getModule(ResultSet resultSet) {
         try {
-            return new Role(
-                    resultSet.getInt("role_id"),
-                    resultSet.getString("role_name")
+            return new Module(
+                    resultSet.getInt("module_id"),
+                    resultSet.getString("module_name")
             );
         } catch (SQLException ex) {
             System.err.println("Error");
@@ -95,7 +95,7 @@ public class RoleDB extends Role implements SQL_Statement {
 
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
-            System.err.print("ERROR INSERTING ROLE");
+            System.err.print("ERROR INSERTING MODULE");
 
             return false;
         }
@@ -106,10 +106,10 @@ public class RoleDB extends Role implements SQL_Statement {
     @Override
     public boolean update() {
         try {
-            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "role_id");
+            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "module_id");
 
             setValues();
-            setRoleIdColumnValue(2);
+            setModuleIdColumnValue(2);
 
             dbConnection.executeAndClose();
             
@@ -122,7 +122,7 @@ public class RoleDB extends Role implements SQL_Statement {
     }
 
     private String build_UPDATE_SET() {
-        return "role_name = ?";
+        return "module_name = ?";
     }
 
     private void setValues() throws SQLException {
@@ -136,9 +136,9 @@ public class RoleDB extends Role implements SQL_Statement {
     @Override
     public boolean delete() {
         try {
-            dbConnection.buildAndPrepareDelete(TABLE, "role_id");
+            dbConnection.buildAndPrepareDelete(TABLE, "module_id");
 
-            setRoleIdColumnValue(1);
+            setModuleIdColumnValue(1);
 
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
@@ -150,10 +150,10 @@ public class RoleDB extends Role implements SQL_Statement {
         return true;
     }
 
-    private void setRoleIdColumnValue(int index) throws SQLException {
+    private void setModuleIdColumnValue(int index) throws SQLException {
         PreparedStatement statement = dbConnection.getStatement();
 
-        statement.setInt(index, getId());
+        statement.setString(index, getName());
 
         dbConnection.setStatement(statement);
     }

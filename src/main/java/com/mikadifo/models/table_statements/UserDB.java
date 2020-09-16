@@ -77,7 +77,7 @@ public class UserDB extends User implements SQL_Statement {
     private User getUser(ResultSet resultSet) {        
         try {
             return new User (
-                resultSet.getInt("user_id"),
+                resultSet.getInt("user_questions_id"),
                 resultSet.getString("login_user"),
                 resultSet.getString("pass_user"),
                 resultSet.getString("username"),

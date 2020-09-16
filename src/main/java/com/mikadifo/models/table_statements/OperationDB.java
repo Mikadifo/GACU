@@ -19,8 +19,7 @@ public class OperationDB extends Operation implements SQL_Statement {
         super(id, name);
     }
 
-    public OperationDB() {
-    }
+    public OperationDB() { }
 
     @Override
     public boolean selectAll() {
@@ -36,23 +35,24 @@ public class OperationDB extends Operation implements SQL_Statement {
     }
 
     public List<Operation> getResults() {
-        List<Operation> operation = new ArrayList<>();
+        List<Operation> operations = new ArrayList<>();
         ResultSet results;
 
         try {
             results = dbConnection.executeQuery();
 
             while (results.next()) {
-                operation.add(getOperation(results));
+                operations.add(getOperation(results));
             }
 
             results.close();
             dbConnection.closeStatement();
         } catch (SQLException ex) {
+            
             return null;
         }
 
-        return operation;
+        return operations;
     }
 
     @Override
@@ -76,6 +76,7 @@ public class OperationDB extends Operation implements SQL_Statement {
 
     private Operation getOperation(ResultSet resultSet) {
         try {
+            
             return new Operation(
                     resultSet.getInt("operation_id"),
                     resultSet.getString("operation_name")
@@ -113,6 +114,7 @@ public class OperationDB extends Operation implements SQL_Statement {
             setOperationIdColumnValue(2);
             
             dbConnection.executeAndClose();
+            
             return true;
         } catch (SQLException ex) {
             System.err.println("ERROR UPDATING");
@@ -122,7 +124,8 @@ public class OperationDB extends Operation implements SQL_Statement {
     }
     
     private String build_UPDATE_SET() {
-        return "operation_id = ?, ";
+        
+        return "operation_name = ?";
     }
     
     private void setValues() throws SQLException {  
