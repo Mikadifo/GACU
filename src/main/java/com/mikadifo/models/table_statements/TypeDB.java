@@ -1,7 +1,7 @@
 package com.mikadifo.models.table_statements;
 
 import com.mikadifo.models.DB_Connection;
-import com.mikadifo.models.db_tables.User;
+import com.mikadifo.models.db_tables.Type;
 import com.mikadifo.models.SQL_Statement;
 
 import java.sql.PreparedStatement;
@@ -11,17 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDB extends User implements SQL_Statement {
-
+public class TypeDB extends Type implements SQL_Statement {
+    
     private DB_Connection dbConnection = new DB_Connection();
 
-    public UserDB() { }
+    public TypeDB() { }
 
-    public UserDB(int id, String login, String password, String username, 
-            int cityId, short roleId) {
-        super(id, login, password, username, cityId, roleId);
+    public TypeDB(int id, String name, String description) {
+        super(id, name, description);
     }
-    
+
     @Override
     public boolean selectAll() {        
         try {
@@ -35,15 +34,15 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public List<User> getResults() {
-        List<User> users = new ArrayList<>();
+    public List<Type> getResults() {
+        List<Type> types = new ArrayList<>();
         ResultSet results;
         
         try {
             results = dbConnection.executeQuery();
             
             while(results.next()) {
-                users.add(getUser(results));
+                types.add(getType(results));
             }
             
             results.close();
@@ -52,15 +51,15 @@ public class UserDB extends User implements SQL_Statement {
             return null;
         }
         
-        return users;
+        return types;
     }
     
     @Override
     public boolean selectById() {
         try {
-            dbConnection.buildAndPrepareSelect(TABLE, "login_user");
+            dbConnection.buildAndPrepareSelect(TABLE, "type_id");
             
-            setLoginColumnValue(1);
+            setIdColumnValue(1);
         } catch (SQLException ex) {
             System.err.println("ERROR");
             
@@ -70,19 +69,16 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public User getUser() {
+    public Type getType() {
         return getResults().get(0);
     }
     
-    private User getUser(ResultSet resultSet) {        
+    private Type getType(ResultSet resultSet) {        
         try {
-            return new User (
-                resultSet.getInt("user_questions_id"),
-                resultSet.getString("login_user"),
-                resultSet.getString("pass_user"),
-                resultSet.getString("username"),
-                resultSet.getInt("city_id"),
-                resultSet.getShort("role_id")
+            return new Type (
+                resultSet.getInt("type_id"),
+                resultSet.getString("type_name"),
+                resultSet.getString("type_description")
             );
         } catch (SQLException ex) {
             System.err.println("Error");
@@ -100,7 +96,7 @@ public class UserDB extends User implements SQL_Statement {
             
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
-            System.err.print("ERROR INSERTING USER");
+            System.err.print("ERROR INSERTING TYPE");
             
             return false;
         }
@@ -111,10 +107,10 @@ public class UserDB extends User implements SQL_Statement {
     @Override
     public boolean update() {
         try {
-            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "login_user");
+            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "type_id");
 
             setValues();
-            setLoginColumnValue(6);
+            setIdColumnValue(3);
             
             dbConnection.executeAndClose();
             
@@ -127,21 +123,16 @@ public class UserDB extends User implements SQL_Statement {
     }
     
     private String build_UPDATE_SET() {
-        return "role_id = ?, " +
-               "login_user = ?, " +
-               "pass_user = ?, " +
-               "username = ?, " +
-               "city_id = ?";
+        return "type_name = ?, " +
+               "type_description = ?";
     }
     
     private void setValues() throws SQLException {  
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setShort(1, getRoleId());
-        statement.setString(2, getLogin());
-        statement.setString(3, getPassword());
-        statement.setString(4, getUsername());
-        statement.setInt(5, getCityId());
+        statement.setInt(1, getId());
+        statement.setString(2, getName());
+        statement.setString(3, getDescription());
         
         dbConnection.setStatement(statement);
     }
@@ -149,9 +140,9 @@ public class UserDB extends User implements SQL_Statement {
     @Override
     public boolean delete() {
         try {
-            dbConnection.buildAndPrepareDelete(TABLE, "login_user");
+            dbConnection.buildAndPrepareDelete(TABLE, "type_id");
             
-            setLoginColumnValue(1);
+            setIdColumnValue(1);
             
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
@@ -163,10 +154,10 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    private void setLoginColumnValue(int index) throws SQLException {
+    private void setIdColumnValue(int index) throws SQLException {
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setString(index, getLogin());
+        statement.setInt(index, getId());
         
         dbConnection.setStatement(statement);
     }

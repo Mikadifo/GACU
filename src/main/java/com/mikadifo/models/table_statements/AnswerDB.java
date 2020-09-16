@@ -1,25 +1,26 @@
 package com.mikadifo.models.table_statements;
 
 import com.mikadifo.models.DB_Connection;
-import com.mikadifo.models.db_tables.User;
+import com.mikadifo.models.db_tables.Answer;
 import com.mikadifo.models.SQL_Statement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDB extends User implements SQL_Statement {
-
+public class AnswerDB extends Answer implements SQL_Statement {
+    
     private DB_Connection dbConnection = new DB_Connection();
 
-    public UserDB() { }
+    public AnswerDB() { }
 
-    public UserDB(int id, String login, String password, String username, 
-            int cityId, short roleId) {
-        super(id, login, password, username, cityId, roleId);
+    public AnswerDB(int id, String content, boolean correct,
+            Date createdDate, int placeId, int typeId) {
+        super(id, content, correct, createdDate, placeId, typeId);
     }
     
     @Override
@@ -35,15 +36,15 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public List<User> getResults() {
-        List<User> users = new ArrayList<>();
+    public List<Answer> getResults() {
+        List<Answer> answers = new ArrayList<>();
         ResultSet results;
         
         try {
             results = dbConnection.executeQuery();
             
             while(results.next()) {
-                users.add(getUser(results));
+                answers.add(getAnswer(results));
             }
             
             results.close();
@@ -52,15 +53,15 @@ public class UserDB extends User implements SQL_Statement {
             return null;
         }
         
-        return users;
+        return answers;
     }
     
     @Override
     public boolean selectById() {
         try {
-            dbConnection.buildAndPrepareSelect(TABLE, "login_user");
+            dbConnection.buildAndPrepareSelect(TABLE, "answer_id");
             
-            setLoginColumnValue(1);
+            setIdColumnValue(1);
         } catch (SQLException ex) {
             System.err.println("ERROR");
             
@@ -70,19 +71,19 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public User getUser() {
+    public Answer getAnswer() {
         return getResults().get(0);
     }
     
-    private User getUser(ResultSet resultSet) {        
+    private Answer getAnswer(ResultSet resultSet) {        
         try {
-            return new User (
-                resultSet.getInt("user_questions_id"),
-                resultSet.getString("login_user"),
-                resultSet.getString("pass_user"),
-                resultSet.getString("username"),
-                resultSet.getInt("city_id"),
-                resultSet.getShort("role_id")
+            return new Answer (
+                resultSet.getInt("answer_id"),
+                resultSet.getString("answer_content"),
+                resultSet.getBoolean("answer_is_correct"),
+                Date.valueOf(resultSet.getString("created_date")),
+                resultSet.getInt("place_id"),
+                resultSet.getInt("type_id")
             );
         } catch (SQLException ex) {
             System.err.println("Error");
@@ -111,10 +112,10 @@ public class UserDB extends User implements SQL_Statement {
     @Override
     public boolean update() {
         try {
-            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "login_user");
+            dbConnection.buildAndPrepareUpdate(TABLE, build_UPDATE_SET(), "answer_id");
 
             setValues();
-            setLoginColumnValue(6);
+            setIdColumnValue(6);
             
             dbConnection.executeAndClose();
             
@@ -127,21 +128,22 @@ public class UserDB extends User implements SQL_Statement {
     }
     
     private String build_UPDATE_SET() {
-        return "role_id = ?, " +
-               "login_user = ?, " +
-               "pass_user = ?, " +
-               "username = ?, " +
-               "city_id = ?";
+        return "place_id = ?, " +
+               "answer_content = ?, " +
+               "answer_is_correct = ?, " +
+               "created_date = ?, " +
+               "type_id = ?";
     }
     
     private void setValues() throws SQLException {  
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setShort(1, getRoleId());
-        statement.setString(2, getLogin());
-        statement.setString(3, getPassword());
-        statement.setString(4, getUsername());
-        statement.setInt(5, getCityId());
+        statement.setInt(1, getPlaceId());
+        statement.setString(2, getContent());
+        statement.setBoolean(3, isCorrect());
+        statement.setDate(4, Date.valueOf(getCreatedDate().toString()));
+        statement.setInt(5, getTypeId());
+        
         
         dbConnection.setStatement(statement);
     }
@@ -149,9 +151,9 @@ public class UserDB extends User implements SQL_Statement {
     @Override
     public boolean delete() {
         try {
-            dbConnection.buildAndPrepareDelete(TABLE, "login_user");
+            dbConnection.buildAndPrepareDelete(TABLE, "answer_id");
             
-            setLoginColumnValue(1);
+            setIdColumnValue(1);
             
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
@@ -163,10 +165,10 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    private void setLoginColumnValue(int index) throws SQLException {
+    private void setIdColumnValue(int index) throws SQLException {
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setString(index, getLogin());
+        statement.setInt(index, getId());
         
         dbConnection.setStatement(statement);
     }
