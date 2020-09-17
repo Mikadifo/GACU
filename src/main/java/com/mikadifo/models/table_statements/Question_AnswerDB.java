@@ -130,7 +130,6 @@ public class Question_AnswerDB extends Question_Answer implements SQL_Statement 
     private void setValues() throws SQLException {  
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setInt(1, getId());
         statement.setInt(2, getQuestionId());
         statement.setInt(3, getAnswerId());
         

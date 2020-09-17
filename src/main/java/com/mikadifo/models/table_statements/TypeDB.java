@@ -130,7 +130,6 @@ public class TypeDB extends Type implements SQL_Statement {
     private void setValues() throws SQLException {  
         PreparedStatement statement = dbConnection.getStatement();
         
-        statement.setInt(1, getId());
         statement.setString(2, getName());
         statement.setString(3, getDescription());
         

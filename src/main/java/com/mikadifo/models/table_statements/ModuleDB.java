@@ -153,7 +153,7 @@ public class ModuleDB extends Module implements SQL_Statement {
     private void setModuleIdColumnValue(int index) throws SQLException {
         PreparedStatement statement = dbConnection.getStatement();
 
-        statement.setString(index, getName());
+        statement.setInt(index, getId());
 
         dbConnection.setStatement(statement);
     }

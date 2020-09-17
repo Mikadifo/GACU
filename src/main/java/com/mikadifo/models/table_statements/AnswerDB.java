@@ -101,7 +101,7 @@ public class AnswerDB extends Answer implements SQL_Statement {
             
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
-            System.err.print("ERROR INSERTING USER");
+            System.err.print("ERROR INSERTING ANSWER");
             
             return false;
         }

@@ -15,8 +15,7 @@ public class Answer {
     private int placeId;
     private int typeId;
 
-    public Answer() {
-    }
+    public Answer() { }
 
     public Answer(int id, String content, boolean correct, Date createdDate, int placeId, int typeId) {
         this.id = id;

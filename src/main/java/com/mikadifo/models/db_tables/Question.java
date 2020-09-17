@@ -5,7 +5,7 @@ import java.util.Date;
 public class Question {
 
     public final String TABLE = "\"Questions\"";
-    public final String COLUMNS = "place_id, question_content, question_content, difficulty, type_id";
+    public final String COLUMNS = "place_id, question_content, created_date, difficulty, type_id";
     public final String ATTRIBUTES = "?, ?, ?, ?, ?";
 
     private int id;

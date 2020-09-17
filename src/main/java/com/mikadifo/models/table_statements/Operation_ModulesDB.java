@@ -123,7 +123,7 @@ public class Operation_ModulesDB extends Operation_Module implements SQL_Stateme
     
     private String build_UPDATE_SET() {
         return "operation_id = ?, " +
-               "operation_id = ?";
+               "module_id = ?";
     }
     
     private void setValues() throws SQLException {  
