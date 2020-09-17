@@ -3,7 +3,6 @@ package com.mikadifo.models.table_statements;
 import com.mikadifo.models.DB_Connection;
 import com.mikadifo.models.db_tables.Images;
 import com.mikadifo.models.SQL_Statement;
-import java.awt.Image;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ public class ImageDB extends Images implements SQL_Statement{
 
     public ImageDB() { }
 
-    public ImageDB(int id, Image image, String author, String description, int placeId) {
+    public ImageDB(int id, byte[] image, String author, String description, int placeId) {
         super(id, image, author, description, placeId);
     }
     

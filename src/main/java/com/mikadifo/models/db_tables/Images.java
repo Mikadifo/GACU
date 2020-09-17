@@ -1,7 +1,5 @@
 package com.mikadifo.models.db_tables;
 
-import java.awt.Image;
-
 public class Images {
 
     public final String TABLE = "\"Images\"";
@@ -9,7 +7,7 @@ public class Images {
     public final String ATTRIBUTES = "?, ?, ?, ?";
 
     private int id;
-    private Image image;
+    private byte[] image;
     private String author;
     private String description;
     private int placeId;
@@ -17,7 +15,7 @@ public class Images {
     public Images() {
     }
 
-    public Images(int id, Image image, String author, String description, int placeId) {
+    public Images(int id, byte[] image, String author, String description, int placeId) {
         this.id = id;
         this.image = image;
         this.author = author;
@@ -33,11 +31,11 @@ public class Images {
         this.id = id;
     }
 
-    public Image getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
