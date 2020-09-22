@@ -4,7 +4,7 @@ public class Role {
     public final String TABLE = "\"Roles\"";
     public final String COLUMNS = "role_name";
     public final String ATTRIBUTES = "?";
-    
+
     private int id;
     private String name;
 

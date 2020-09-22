@@ -11,8 +11,7 @@ public class Place {
     private String info;
     private int categoryId;
 
-    public Place() {
-    }
+    public Place() { }
 
     public Place(int id, String name, String info, int categoryId) {
         this.id = id;

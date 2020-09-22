@@ -15,8 +15,7 @@ public class Question {
     private int placeId;
     private int typeId;
 
-    public Question() {
-    }
+    public Question() { }
 
     public Question(int id, String content, Date createdDate, short difficulty, int placeId, int typeId) {
         this.id = id;
@@ -76,3 +75,4 @@ public class Question {
     }
 
 }
+

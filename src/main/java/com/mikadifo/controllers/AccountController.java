@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.db_tables.City;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -30,7 +31,7 @@ public class AccountController implements Initializable {
     @FXML
     private TextField txtLogin;
     @FXML
-    private ComboBox<?> comboCity;
+    private ComboBox<City> comboCity;
 
     /**
      * Initializes the controller class.

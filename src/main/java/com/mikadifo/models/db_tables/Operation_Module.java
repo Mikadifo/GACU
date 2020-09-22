@@ -10,8 +10,7 @@ public class Operation_Module {
     private int operationId;
     private int moduleId;
 
-    public Operation_Module() {
-    }
+    public Operation_Module() { }
 
     public Operation_Module(int id, int operationId, int moduleId) {
         this.id = id;
@@ -44,3 +43,4 @@ public class Operation_Module {
     }
 
 }
+

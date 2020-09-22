@@ -10,8 +10,7 @@ public class Question_Answer {
     private int questionId;
     private int answerId;
 
-    public Question_Answer() {
-    }
+    public Question_Answer() { }
 
     public Question_Answer(int id, int questionId, int answerId) {
         this.id = id;
@@ -44,3 +43,4 @@ public class Question_Answer {
     }
 
 }
+
