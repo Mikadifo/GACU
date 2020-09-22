@@ -43,17 +43,6 @@ public class AccountController implements Initializable {
         // TODO //
     }    
 
-    @FXML
-    private void OnCancelClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void OnDeleteAccountClick(ActionEvent event) {
-    }
-
-    @FXML
-    private void OnUptadeClick(ActionEvent event) {
-    }
 
     @FXML
     private void onUsernameKeyReleased(KeyEvent event) {
@@ -65,6 +54,18 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onLoginKeyReleased(KeyEvent event) {
+    }
+
+    @FXML
+    private void onCancelClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void onDeleteAccountClick(ActionEvent event) {
+    }
+
+    @FXML
+    private void onUptadeClick(ActionEvent event) {
     }
     
 }
