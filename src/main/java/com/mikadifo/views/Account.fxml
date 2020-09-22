@@ -25,9 +25,9 @@
                <children>
                   <HBox layoutX="192.0" layoutY="-1.0" prefHeight="60.0" prefWidth="622.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#OnCancelClick" text="Cancelar" />
-                        <Button fx:id="btnDeleteAccount" mnemonicParsing="false" onAction="#OnDeleteAccountClick" text="Eliminar Cuenta" />
-                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#OnUptadeClick" text="Actualizar" />
+                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelClick" text="Cancelar" />
+                        <Button fx:id="btnDeleteAccount" mnemonicParsing="false" onAction="#onDeleteAccountClick" text="Eliminar Cuenta" />
+                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#onUptadeClick" text="Actualizar" />
                      </children>
                   </HBox>
                </children>
