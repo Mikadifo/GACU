@@ -9,8 +9,7 @@ public class Module {
     private int id;
     private String name;
 
-    public Module() {
-    }
+    public Module() { }
 
     public Module(int id, String name) {
         this.id = id;
@@ -34,3 +33,4 @@ public class Module {
     }
 
 }
+

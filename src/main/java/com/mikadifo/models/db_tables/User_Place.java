@@ -10,8 +10,7 @@ public class User_Place {
     private int userId;
     private int placeId;
 
-    public User_Place() {
-    }
+    public User_Place() { }
 
     public User_Place(int id, int userId, int placeId) {
         this.id = id;
@@ -44,3 +43,4 @@ public class User_Place {
     }
 
 }
+

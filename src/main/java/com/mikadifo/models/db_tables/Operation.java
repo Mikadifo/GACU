@@ -9,8 +9,7 @@ public class Operation {
     private int id;
     private String name;
 
-    public Operation() {
-    }
+    public Operation() { }
 
     public Operation(int id, String name) {
         this.id = id;
@@ -34,3 +33,4 @@ public class Operation {
     }
 
 }
+

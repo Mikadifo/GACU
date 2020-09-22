@@ -10,8 +10,7 @@ public class Type {
     private String name;
     private String description;
 
-    public Type() {
-    }
+    public Type() { }
 
     public Type(int id, String name, String description) {
         this.id = id;
@@ -44,3 +43,4 @@ public class Type {
     }
 
 }
+
