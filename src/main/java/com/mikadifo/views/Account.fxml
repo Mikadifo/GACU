@@ -41,19 +41,19 @@
                         <HBox prefHeight="31.0" prefWidth="100.0" spacing="20.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE USUARIO " />
-                              <TextField fx:id="txtUsername" onKeyReleased="#OnUsernameKeyReleased" />
+                              <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" />
                            </children>
                         </HBox>
                         <HBox prefHeight="23.0" prefWidth="100.0" spacing="20.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CONTRASEÑA" />
-                              <TextField fx:id="txtPassword" onKeyReleased="#OnPasswordKeyReleased" />
+                              <TextField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" />
                            </children>
                         </HBox>
                         <HBox prefHeight="41.0" prefWidth="100.0" spacing="20.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEDULA" />
-                              <TextField fx:id="txtLogin" onKeyReleased="#OnLoginKeyReleased" />
+                              <TextField fx:id="txtLogin" onKeyReleased="#onLoginKeyReleased" />
                            </children>
                         </HBox>
                         <HBox prefHeight="36.0" prefWidth="100.0" spacing="20.0">

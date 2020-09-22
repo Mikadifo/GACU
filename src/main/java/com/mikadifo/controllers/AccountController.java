@@ -55,15 +55,15 @@ public class AccountController implements Initializable {
     }
 
     @FXML
-    private void OnUsernameKeyReleased(KeyEvent event) {
+    private void onUsernameKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void OnPasswordKeyReleased(KeyEvent event) {
+    private void onPasswordKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void OnLoginKeyReleased(KeyEvent event) {
+    private void onLoginKeyReleased(KeyEvent event) {
     }
     
 }
