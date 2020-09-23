@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.db_tables.City;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -30,7 +31,7 @@ public class AccountController implements Initializable {
     @FXML
     private TextField txtLogin;
     @FXML
-    private ComboBox<?> comboCity;
+    private ComboBox<City> comboCity;
 
     /**
      * Initializes the controller class.
@@ -39,31 +40,32 @@ public class AccountController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO //
     }    
 
+
     @FXML
-    private void OnCancelClick(ActionEvent event) {
+    private void onUsernameKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void OnDeleteAccountClick(ActionEvent event) {
+    private void onPasswordKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void OnUptadeClick(ActionEvent event) {
+    private void onLoginKeyReleased(KeyEvent event) {
     }
 
     @FXML
-    private void OnUsernameKeyReleased(KeyEvent event) {
+    private void onCancelClick(ActionEvent event) {
     }
 
     @FXML
-    private void OnPasswordKeyReleased(KeyEvent event) {
+    private void onDeleteAccountClick(ActionEvent event) {
     }
 
     @FXML
-    private void OnLoginKeyReleased(KeyEvent event) {
+    private void onUptadeClick(ActionEvent event) {
     }
     
 }

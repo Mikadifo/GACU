@@ -10,8 +10,7 @@ public class Role_Operation {
     private short roleId;
     private int operationModuleId;
 
-    public Role_Operation() {
-    }
+    public Role_Operation() { }
 
     public Role_Operation(int id, short roleId, int operationModuleId) {
         this.id = id;
@@ -44,3 +43,4 @@ public class Role_Operation {
     }
 
 }
+

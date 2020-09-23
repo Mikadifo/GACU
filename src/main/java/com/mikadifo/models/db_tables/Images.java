@@ -12,8 +12,7 @@ public class Images {
     private String description;
     private int placeId;
 
-    public Images() {
-    }
+    public Images() { }
 
     public Images(int id, byte[] image, String author, String description, int placeId) {
         this.id = id;
@@ -62,5 +61,5 @@ public class Images {
     public void setPlaceId(int placeId) {
         this.placeId = placeId;
     }
-
+    
 }

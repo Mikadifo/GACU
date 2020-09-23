@@ -17,8 +17,7 @@ public class User_Question {
     private String userAnswer;
     private boolean correct;
 
-    public User_Question() {
-    }
+    public User_Question() { }
 
     public User_Question(int id, int userId, int questionId, int answerId, LocalTime startedAt, LocalTime finishedAt, String userAnswer, boolean correct) {
         this.id = id;
@@ -96,3 +95,4 @@ public class User_Question {
     }
 
 }
+
