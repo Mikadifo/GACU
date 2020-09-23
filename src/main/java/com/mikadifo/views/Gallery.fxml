@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.GalleryController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.mikadifo.controllers.GalleryController">
+   <children>
+      <BorderPane layoutX="127.0" layoutY="123.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ComboBox fx:id="cbxOrderBy" layoutX="14.0" layoutY="17.0" onKeyReleased="#onOrderByKeyReleased" prefWidth="150.0" promptText="Ordenar por" />
+               </children>
+            </AnchorPane>
+         </top>
+         <bottom>
+            <AnchorPane prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox layoutY="-20.0" prefHeight="80.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
+                        <Button fx:id="btnTrivia" mnemonicParsing="false" onAction="#onTriviaAction" text="Trivia" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="7.0" prefHeight="282.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="139.0" prefWidth="600.0" spacing="10.0">
+                           <children>
+                              <ImageView fx:id="img1" fitHeight="141.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="img2" fitHeight="139.0" fitWidth="184.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="img3" fitHeight="137.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="146.0" prefWidth="600.0" spacing="10.0">
+                           <children>
+                              <ImageView fx:id="img4" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="img5" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="img6" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>
