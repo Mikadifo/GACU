@@ -39,12 +39,14 @@
                               <HBox prefHeight="30.0" prefWidth="208.0">
                                  <children>
                                     <Label prefHeight="30.0" prefWidth="108.0" text="NOMBRE USUARIO:" />
+                                    <Region prefHeight="200.0" prefWidth="200.0" />
                                     <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" prefHeight="25.0" prefWidth="166.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="32.0" prefWidth="100.0">
                                  <children>
                                     <Label prefHeight="32.0" prefWidth="82.0" text="CONTRASEÑA:" />
+                                    <Region prefHeight="200.0" prefWidth="200.0" />
                                     <PasswordField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" prefHeight="25.0" prefWidth="132.0" />
                                  </children>
                               </HBox>

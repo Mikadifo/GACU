@@ -36,24 +36,28 @@
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
                               <Label text="NOMBRE USUARIO:" />
+                              <Region prefHeight="200.0" prefWidth="200.0" />
                               <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" />
                            </children>
                         </HBox>
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
                               <Label text="CEDULA:" />
+                              <Region prefHeight="200.0" prefWidth="200.0" />
                               <TextField fx:id="txtLogin" onKeyReleased="#onLoginKeyPressed" />
                            </children>
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="247.0">
                            <children>
                               <Label text="CONTRASEÑA:" />
+                              <Region prefHeight="200.0" prefWidth="200.0" />
                               <PasswordField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" />
                            </children>
                         </HBox>
                         <HBox prefHeight="54.0" prefWidth="247.0">
                            <children>
                               <Label text="CIUDAD:" />
+                              <Region prefHeight="200.0" prefWidth="200.0" />
                               <ComboBox fx:id="comboCity" onKeyReleased="#onCityKeyRekeased" prefWidth="150.0" promptText="Seleccione" />
                            </children>
                         </HBox>
