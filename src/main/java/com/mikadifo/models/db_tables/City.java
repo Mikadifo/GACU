@@ -10,8 +10,7 @@ public class City {
     private String name;
     private int countryId;
 
-    public City() {
-    }
+    public City() { }
 
     public City(int id, String name, int countryId) {
         this.id = id;
