@@ -1,11 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.TriviaController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.mikadifo.controllers.TriviaController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <AnchorPane prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox layoutX="-42.0" layoutY="-20.0" prefHeight="80.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button fx:id="bntInicio" mnemonicParsing="false" onAction="#onInicioAction" text="Inicio" />
+                        <Button fx:id="btnContinuar" mnemonicParsing="false" onAction="#onContinuarAction" text="Continuar" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="279.0" layoutY="14.0" prefHeight="17.0" prefWidth="60.0" text="Trivia" />
+                  <Pane layoutX="39.0" layoutY="41.0" prefHeight="234.0" prefWidth="526.0">
+                     <children>
+                        <VBox layoutX="1.0" layoutY="1.0" prefHeight="232.0" prefWidth="524.0">
+                           <children>
+                              <HBox prefHeight="73.0" prefWidth="524.0">
+                                 <children>
+                                    <Label prefHeight="81.0" prefWidth="524.0">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="91.0" prefWidth="524.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="btn1" mnemonicParsing="false" onAction="#on1Action" prefHeight="25.0" prefWidth="58.0" text="1." />
+                                    <Button fx:id="btn2" mnemonicParsing="false" onAction="#on2Action" prefHeight="25.0" prefWidth="87.0" text="2." />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="80.0" prefWidth="524.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="btn3" mnemonicParsing="false" onAction="#on3btn" prefHeight="25.0" prefWidth="67.0" text="3." />
+                                    <Button fx:id="btn4" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="4." />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>
