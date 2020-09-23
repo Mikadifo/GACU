@@ -10,24 +10,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.AccountController">
+<AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="622.0" stylesheets="@../../../../../../target/classes/styles/account.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.AccountController">
    <children>
       <BorderPane layoutX="200.0" layoutY="48.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="60.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="284.0" layoutY="21.0" prefHeight="17.0" prefWidth="64.0" text="Mi cuenta" />
+                  <Label id="title" layoutX="284.0" layoutY="21.0" prefHeight="60.0" prefWidth="622.0" text="Mi Cuenta" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane prefHeight="59.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="192.0" layoutY="-1.0" prefHeight="60.0" prefWidth="622.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox layoutX="192.0" layoutY="-1.0" prefHeight="60.0" prefWidth="622.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelClick" text="Cancelar" />
-                        <Button fx:id="btnDeleteAccount" mnemonicParsing="false" onAction="#onDeleteAccountClick" text="Eliminar Cuenta" />
-                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#onUptadeClick" text="Actualizar" />
+                        <Button id="secondary_button" fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#onCancelClick" text="Cancelar" />
+                        <Button id="delete_button" fx:id="btnDeleteAccount" mnemonicParsing="false" onAction="#onDeleteAccountClick" text="Eliminar Cuenta" />
+                        <Button id="main_button" fx:id="btnUpdate" defaultButton="true" mnemonicParsing="false" onAction="#onUptadeClick" text="Actualizar" />
                      </children>
                   </HBox>
                </children>
@@ -36,30 +36,30 @@
          <center>
             <AnchorPane prefHeight="299.0" prefWidth="292.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="14.0" layoutY="40.0" prefHeight="299.0" prefWidth="622.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox id="vertical_box" layoutX="127.0" layoutY="-8.0" prefHeight="299.0" prefWidth="622.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox prefHeight="31.0" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE USUARIO " />
-                              <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE USUARIO:" />
+                              <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="23.0" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CONTRASEÑA" />
-                              <TextField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CONTRASEÑA:" />
+                              <TextField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="41.0" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEDULA" />
-                              <TextField fx:id="txtLogin" onKeyReleased="#onLoginKeyReleased" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEDULA:" />
+                              <TextField fx:id="txtLogin" onKeyReleased="#onLoginKeyReleased" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="36.0" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CIUDAD" />
-                              <ComboBox fx:id="comboCity" prefWidth="150.0" promptText="Seleccione" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CIUDAD:" />
+                              <ComboBox id="combo_box" fx:id="comboCity" prefWidth="150.0" promptText="Seleccione" />
                            </children>
                         </HBox>
                      </children>
