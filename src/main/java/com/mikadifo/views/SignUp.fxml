@@ -7,16 +7,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="418.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SignUpController">
+<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SignUpController">
    <children>
       <BorderPane layoutX="48.0" layoutY="25.0" prefHeight="418.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="59.0" prefWidth="622.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="106.0" layoutY="21.0" prefHeight="60.0" prefWidth="720.0" text="Crear Cuenta" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
          </top>
          <bottom>
-            <AnchorPane prefHeight="59.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="8.0" layoutY="-20.0" prefHeight="80.0" prefWidth="622.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox layoutX="8.0" layoutY="-20.0" prefHeight="80.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
                         <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#onCreateAction" text="Crear" />
@@ -28,38 +31,43 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="119.0" layoutY="54.0" prefHeight="210.0" prefWidth="399.0" spacing="20.0">
+                  <VBox layoutX="119.0" layoutY="54.0" prefHeight="330.0" prefWidth="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox prefHeight="42.0" prefWidth="247.0" spacing="20.0">
+                        <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
-                              <Label text="NOMBRE USUSARIO" />
+                              <Label text="NOMBRE USUARIO:" />
                               <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="42.0" prefWidth="247.0" spacing="20.0">
+                        <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
-                              <Label text="CEDULA" />
-                              <TextField fx:id="txtLogIn" onKeyReleased="#onLogInKeyPressed" />
+                              <Label text="CEDULA:" />
+                              <TextField fx:id="txtLogin" onKeyReleased="#onLoginKeyPressed" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="50.0" prefWidth="247.0" spacing="20.0">
+                        <HBox prefHeight="50.0" prefWidth="247.0">
                            <children>
-                              <Label text="CONTRASEÑA" />
+                              <Label text="CONTRASEÑA:" />
                               <PasswordField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="54.0" prefWidth="247.0" spacing="20.0">
+                        <HBox prefHeight="54.0" prefWidth="247.0">
                            <children>
-                              <Label text="CIUDAD" />
-                              <ComboBox fx:id="cbxCity" onKeyReleased="#onCityKeyReleased" prefWidth="150.0" promptText="Seleccione" />
+                              <Label text="CIUDAD:" />
+                              <ComboBox fx:id="comboCity" onKeyReleased="#onCityKeyRekeased" prefWidth="150.0" promptText="Seleccione" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <Label layoutX="292.0" layoutY="14.0" prefHeight="17.0" prefWidth="86.0" text="Crear Cuenta" />
                </children>
             </AnchorPane>
          </center>
+         <left>
+            <AnchorPane prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>
