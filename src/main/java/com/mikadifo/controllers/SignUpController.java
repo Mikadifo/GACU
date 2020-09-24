@@ -50,6 +50,20 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void onCreateAction(ActionEvent event) {
+try {
+            FXMLLoader loader= new FXMLLoader(SingUpController.class.getResource("/com/mikadifo/views/SingUp.fxml"));
+            Parent root=loader.load();
+            
+            Scene scene=new Scene(root);
+            Stage stage=new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            Stage currentStage=(Stage)btnCreate.getScene().getWindow();
+            currentStage.close();
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

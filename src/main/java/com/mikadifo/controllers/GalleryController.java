@@ -41,6 +41,21 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onTriviaAction(ActionEvent event) {
+try {
+            FXMLLoader loader= new FXMLLoader(GalleryController.class.getResource("/com/mikadifo/views/Trivia.fxml"));
+            Parent root=loader.load();
+            
+            Scene scene=new Scene(root);
+            Stage stage=new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            Stage currentStage=(Stage)btnTrivia.getScene().getWindow();
+            currentStage.close();
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     }
     
 }

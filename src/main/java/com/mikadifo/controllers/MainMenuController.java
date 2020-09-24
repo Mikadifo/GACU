@@ -1,12 +1,21 @@
 package com.mikadifo.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import sun.applet.Main;
 
 /**
  * FXML Controller class
@@ -41,25 +50,57 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onGuestAction(ActionEvent event) {
- FXMLLoader=new FXMLLoader(Main.clas.getResourse("/com/mikadifo/views/Gallery.fxml"));
-Parent root=loader.load();
-
-Scene scene=new Scene(root);
-Stage stage=new Stage();
-stage.initModality(Modality.APPLICATION_MODAL);
-stage.setScene(scane);
-Stage currentStage=(Stage)btnGuest.getScene().getWindow();
-currentStage.close();
-stage.show();
+        try {
+            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
+            Parent root=loader.load();
+            
+            Scene scene=new Scene(root);
+            Stage stage=new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+            currentStage.close();
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     @FXML
     private void onLoginAction(ActionEvent event) {
+try {
+            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/LogIn.fxml"));
+            Parent root=loader.load();
+            
+            Scene scene=new Scene(root);
+            Stage stage=new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+            currentStage.close();
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void onSigninAction(ActionEvent event) {
+try {
+            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/SingUp.fxml"));
+            Parent root=loader.load();
+            
+            Scene scene=new Scene(root);
+            Stage stage=new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+            currentStage.close();
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
