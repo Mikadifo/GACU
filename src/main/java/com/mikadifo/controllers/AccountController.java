@@ -28,7 +28,6 @@ public class AccountController implements Initializable {
     private Button btnUpdate;
     @FXML
     private TextField txtUsername;
-    @FXML
     private TextField txtPassword;
     @FXML
     private TextField txtLogin;
@@ -50,9 +49,6 @@ public class AccountController implements Initializable {
     private void onUsernameKeyReleased(KeyEvent event) {
     }
 
-    @FXML
-    private void onPasswordKeyReleased(KeyEvent event) {
-    }
 
     @FXML
     private void onLoginKeyReleased(KeyEvent event) {
@@ -82,5 +78,9 @@ public class AccountController implements Initializable {
 
         return (UserDB) user;
 
+    }
+
+    @FXML
+    private void onCityKeyReleased(KeyEvent event) {
     }
 }
