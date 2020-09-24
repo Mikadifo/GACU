@@ -7,13 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SignUpController">
+<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" stylesheets="@../../../../resources/styles/account.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SignUpController">
    <children>
-      <BorderPane layoutX="48.0" layoutY="25.0" prefHeight="418.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane id="root" layoutX="48.0" layoutY="25.0" prefHeight="418.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="106.0" layoutY="21.0" prefHeight="60.0" prefWidth="720.0" text="Crear Cuenta" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label id="title" layoutX="106.0" layoutY="21.0" prefHeight="60.0" prefWidth="720.0" text="Crear Cuenta" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
          </top>
          <bottom>
@@ -21,8 +21,8 @@
                <children>
                   <HBox layoutX="8.0" layoutY="-20.0" prefHeight="80.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
-                        <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#onCreateAction" text="Crear" />
+                        <Button id="secondary_button" fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
+                        <Button id="main_button" fx:id="btnCreate" mnemonicParsing="false" onAction="#onCreateAction" text="Crear" />
                      </children>
                   </HBox>
                </children>
@@ -31,34 +31,34 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="119.0" layoutY="54.0" prefHeight="330.0" prefWidth="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox id="vertical_box" layoutX="119.0" layoutY="54.0" prefHeight="330.0" prefWidth="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
-                              <Label text="NOMBRE USUARIO:" />
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" />
+                              <Label styleClass="labels" text="NOMBRE USUARIO:" />
+                              <Region prefHeight="200.0" prefWidth="50.0" />
+                              <TextField fx:id="txtUsername" minWidth="250.0" onKeyReleased="#onUsernameKeyReleased" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
-                              <Label text="CEDULA:" />
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <TextField fx:id="txtLogin" onKeyReleased="#onLoginKeyPressed" />
+                              <Label styleClass="labels" text="CEDULA:" />
+                              <Region prefHeight="200.0" prefWidth="50.0" />
+                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyReleased="#onLoginKeyPressed" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="247.0">
                            <children>
-                              <Label text="CONTRASEÑA:" />
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <PasswordField fx:id="txtPassword" onKeyReleased="#onPasswordKeyReleased" />
+                              <Label styleClass="labels" text="CONTRASEÑA:" />
+                              <Region prefHeight="200.0" prefWidth="50.0" />
+                              <PasswordField fx:id="txtPassword" minWidth="250.0" onKeyReleased="#onPasswordKeyReleased" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="54.0" prefWidth="247.0">
                            <children>
-                              <Label text="CIUDAD:" />
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <ComboBox fx:id="comboCity" onKeyReleased="#onCityKeyRekeased" prefWidth="150.0" promptText="Seleccione" />
+                              <Label styleClass="labels" text="CIUDAD:" />
+                              <Region prefHeight="200.0" prefWidth="50.0" />
+                              <ComboBox fx:id="comboCity" minWidth="250.0" onKeyReleased="#onCityKeyRekeased" prefWidth="250.0" promptText="Seleccione" />
                            </children>
                         </HBox>
                      </children>
