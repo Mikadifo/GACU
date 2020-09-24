@@ -88,7 +88,7 @@ try {
     @FXML
     private void onSigninAction(ActionEvent event) {
 try {
-            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/SingUp.fxml"));
+            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/SignUp.fxml"));
             Parent root=loader.load();
             
             Scene scene=new Scene(root);
