@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -8,27 +9,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.GalleryController">
+<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" stylesheets="@../../../../../../target/classes/styles/gallery.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.GalleryController">
    <children>
-      <BorderPane layoutX="127.0" layoutY="123.0" prefHeight="450.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane id="root" layoutX="127.0" layoutY="123.0" prefHeight="450.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox layoutX="120.0" layoutY="-20.0" prefHeight="60.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ComboBox fx:id="comboSort" prefWidth="150.0" />
-                     </children></HBox>
+                        <ComboBox fx:id="comboSort" prefHeight="96.0" prefWidth="165.0" promptText="Ordenar por" />
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" top="15.0" />
+                     </padding></HBox>
                </children>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutY="-20.0" prefHeight="60.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox layoutY="-20.0" prefHeight="60.0" prefWidth="720.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
-                        <Button fx:id="btnTrivia" mnemonicParsing="false" onAction="#onTriviaAction" text="Trivia" />
+                        <Button id="secondary_button" fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
+                        <Button id="main_button" fx:id="btnTrivia" mnemonicParsing="false" onAction="#onTriviaAction" text="Trivia" />
                      </children>
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
                   </HBox>
                </children>
             </AnchorPane>
@@ -43,7 +50,7 @@
                               <Insets left="10.0" />
                            </padding>
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="img" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>

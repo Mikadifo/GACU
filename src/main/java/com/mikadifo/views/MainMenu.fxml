@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -8,31 +9,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.MainMenuController">
+<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" stylesheets="@../../../../../../target/classes/styles/menu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.MainMenuController">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane id="root" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label id="title" layoutX="155.0" layoutY="22.0" prefHeight="60.0" prefWidth="720.0" text="BIENVENIDO" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets bottom="15.0" top="15.0" />
+                     </padding>
+                  </Label>
+               </children></AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="200.0" minWidth="520.0" prefHeight="200.0" prefWidth="520.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="imgLogo" fitHeight="333.0" fitWidth="521.0" layoutX="146.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView id="logo" fx:id="imgLogo" fitHeight="316.0" fitWidth="520.0" layoutX="146.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </center>
          <bottom>
             <AnchorPane prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutY="-20.0" prefHeight="60.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox layoutY="-20.0" prefHeight="60.0" prefWidth="720.0" spacing="20.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnGuest" mnemonicParsing="false" onAction="#onGuestAction" text="Invitado" />
-                        <Button fx:id="btnLogIn" mnemonicParsing="false" onAction="#onLogInAction" text="Iniciar Sesión" />
-                        <Button fx:id="btnSignIn" mnemonicParsing="false" onAction="#onSignInAction" text="Registrarse" />
-                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
+                        <Button id="main_button" fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
+                        <Button id="main_button" fx:id="btnGuest" mnemonicParsing="false" onAction="#onGuestAction" text="Invitado" />
+                        <Button id="main_button" fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginAction" text="Iniciar Sesión" />
+                        <Button id="main_button" fx:id="btnSignin" mnemonicParsing="false" onAction="#onSigninAction" text="Registrarse" />
                      </children>
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
                   </HBox>
                </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
             </AnchorPane>
          </bottom>
          <left>
