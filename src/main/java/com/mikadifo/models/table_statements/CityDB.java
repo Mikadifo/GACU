@@ -34,8 +34,8 @@ public class CityDB extends City implements SQL_Statement{
         return true;
     }
     
-    public List<City> getResults() {
-        List<City> cities = new ArrayList<>();
+    public List<CityDB> getResults() {
+        List<CityDB> cities = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class CityDB extends City implements SQL_Statement{
         return true;
     }
     
-    public City getCity() {
+    public CityDB getCity() {
         return getResults().get(0);
     }
     
-    private City getCity(ResultSet resultSet) {        
+    private CityDB getCity(ResultSet resultSet) {        
         try {
-            return new City (
+            return new CityDB (
                 resultSet.getInt("city_id"),
                 resultSet.getString("city_name"),
                 resultSet.getInt("country_id")

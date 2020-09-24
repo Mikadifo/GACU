@@ -36,8 +36,8 @@ public class AnswerDB extends Answer implements SQL_Statement {
         return true;
     }
     
-    public List<Answer> getResults() {
-        List<Answer> answers = new ArrayList<>();
+    public List<AnswerDB> getResults() {
+        List<AnswerDB> answers = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -71,13 +71,13 @@ public class AnswerDB extends Answer implements SQL_Statement {
         return true;
     }
     
-    public Answer getAnswer() {
+    public AnswerDB getAnswer() {
         return getResults().get(0);
     }
     
-    private Answer getAnswer(ResultSet resultSet) {        
+    private AnswerDB getAnswer(ResultSet resultSet) {        
         try {
-            return new Answer (
+            return new AnswerDB (
                 resultSet.getInt("answer_id"),
                 resultSet.getString("answer_content"),
                 resultSet.getBoolean("answer_is_correct"),

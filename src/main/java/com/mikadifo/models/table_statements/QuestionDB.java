@@ -36,8 +36,8 @@ public class QuestionDB extends Question implements SQL_Statement {
         return true;
     }
     
-    public List<Question> getResults() {
-        List<Question> questions = new ArrayList<>();
+    public List<QuestionDB> getResults() {
+        List<QuestionDB> questions = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -71,13 +71,13 @@ public class QuestionDB extends Question implements SQL_Statement {
         return true;
     }
     
-    public Question getQuestion() {
+    public QuestionDB getQuestion() {
         return getResults().get(0);
     }
     
-    private Question getQuestion(ResultSet resultSet) {        
+    private QuestionDB getQuestion(ResultSet resultSet) {        
         try {
-            return new Question (
+            return new QuestionDB (
                 resultSet.getInt("question_id"),
                 resultSet.getString("question_content"),
                 resultSet.getDate("created_date"),

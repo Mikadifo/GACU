@@ -34,8 +34,8 @@ public class RoleDB extends Role implements SQL_Statement {
         return true;
     }
 
-    public List<Role> getResults() {
-        List<Role> roles = new ArrayList<>();
+    public List<RoleDB> getResults() {
+        List<RoleDB> roles = new ArrayList<>();
         ResultSet results;
 
         try {
@@ -69,13 +69,13 @@ public class RoleDB extends Role implements SQL_Statement {
         return true;
     }
 
-    public Role getRole() {
+    public RoleDB getRole() {
         return getResults().get(0);
     }
 
-    private Role getRole(ResultSet resultSet) {
+    private RoleDB getRole(ResultSet resultSet) {
         try {
-            return new Role(
+            return new RoleDB (
                     resultSet.getInt("role_id"),
                     resultSet.getString("role_name")
             );

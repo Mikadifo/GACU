@@ -34,8 +34,8 @@ public class PlaceDB extends Place implements SQL_Statement{
         return true;
     }
     
-    public List<Place> getResults() {
-        List<Place> places = new ArrayList<>();
+    public List<PlaceDB> getResults() {
+        List<PlaceDB> places = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class PlaceDB extends Place implements SQL_Statement{
         return true;
     }
     
-    public Place getPlace() {
+    public PlaceDB getPlace() {
         return getResults().get(0);
     }
     
-    private Place getPlace(ResultSet resultSet) {        
+    private PlaceDB getPlace(ResultSet resultSet) {        
         try {
-            return new Place (
+            return new PlaceDB (
                 resultSet.getInt("place_id"),
                 resultSet.getString("place_name"),
                 resultSet.getString("place_info"),

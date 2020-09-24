@@ -35,8 +35,8 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public List<User> getResults() {
-        List<User> users = new ArrayList<>();
+    public List<UserDB> getResults() {
+        List<UserDB> users = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -70,13 +70,13 @@ public class UserDB extends User implements SQL_Statement {
         return true;
     }
     
-    public User getUser() {
+    public UserDB getUser() {
         return getResults().get(0);
     }
     
-    private User getUser(ResultSet resultSet) {        
+    private UserDB getUser(ResultSet resultSet) {        
         try {
-            return new User (
+            return new UserDB (
                 resultSet.getInt("user_questions_id"),
                 resultSet.getString("login_user"),
                 resultSet.getString("pass_user"),

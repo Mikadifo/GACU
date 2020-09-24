@@ -34,8 +34,8 @@ public class Role_OperationDB extends Role_Operation implements SQL_Statement{
         return true;
     }
     
-    public List<Role_Operation> getResults() {
-        List<Role_Operation> role_operation = new ArrayList<>();
+    public List<Role_OperationDB> getResults() {
+        List<Role_OperationDB> role_operation = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class Role_OperationDB extends Role_Operation implements SQL_Statement{
         return true;
     }
     
-    public Role_Operation getRole_Operation() {
+    public Role_OperationDB getRole_Operation() {
         return getResults().get(0);
     }
     
-    private Role_Operation getRole_Operation(ResultSet resultSet) {        
+    private Role_OperationDB getRole_Operation(ResultSet resultSet) {        
         try {
-            return new Role_Operation (
+            return new Role_OperationDB (
                 resultSet.getInt("role_operation_id"),
                 resultSet.getShort("role_id"),
                 resultSet.getInt("operation_module_id")

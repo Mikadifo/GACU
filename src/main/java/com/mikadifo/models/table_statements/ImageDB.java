@@ -34,8 +34,8 @@ public class ImageDB extends Images implements SQL_Statement{
         return true;
     }
     
-    public List<Images> getResults() {
-        List<Images> images = new ArrayList<>();
+    public List<ImageDB> getResults() {
+        List<ImageDB> images = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class ImageDB extends Images implements SQL_Statement{
         return true;
     }
     
-    public Images getImages() {
+    public ImageDB getImages() {
         return getResults().get(0);
     }
     
-    private Images getImages(ResultSet resultSet) {        
+    private ImageDB getImages(ResultSet resultSet) {        
         try {
-            return new Images (
+            return new ImageDB (
                 resultSet.getInt("image_id"),
                 resultSet.getBytes("image"),
                 resultSet.getString("image_author"),

@@ -15,8 +15,7 @@ public class User_PlaceDB extends User_Place implements SQL_Statement{
     
     private DB_Connection dbConnection = new DB_Connection();
 
-    public User_PlaceDB() {
-    }
+    public User_PlaceDB() { }
 
     public User_PlaceDB(int id, int userId, int placeId) {
         super(id, userId, placeId);
@@ -35,8 +34,8 @@ public class User_PlaceDB extends User_Place implements SQL_Statement{
         return true;
     }
     
-    public List<User_Place> getResults() {
-        List<User_Place> user_places = new ArrayList<>();
+    public List<User_PlaceDB> getResults() {
+        List<User_PlaceDB> user_places = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -70,13 +69,13 @@ public class User_PlaceDB extends User_Place implements SQL_Statement{
         return true;
     }
     
-    public User_Place getUser_Place() {
+    public User_PlaceDB getUser_Place() {
         return getResults().get(0);
     }
     
-    private User_Place getUser_Place(ResultSet resultSet) {        
+    private User_PlaceDB getUser_Place(ResultSet resultSet) {        
         try {
-            return new User_Place (
+            return new User_PlaceDB (
                 resultSet.getInt("user_places_id"),
                 resultSet.getInt("user_id"),
                 resultSet.getInt("place_id")

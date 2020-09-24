@@ -34,8 +34,8 @@ public class ModuleDB extends Module implements SQL_Statement {
         return true;
     }
 
-    public List<Module> getResults() {
-        List<Module> modules = new ArrayList<>();
+    public List<ModuleDB> getResults() {
+        List<ModuleDB> modules = new ArrayList<>();
         ResultSet results;
 
         try {
@@ -69,13 +69,13 @@ public class ModuleDB extends Module implements SQL_Statement {
         return true;
     }
 
-    public Module getModule() {
+    public ModuleDB getModule() {
         return getResults().get(0);
     }
 
-    private Module getModule(ResultSet resultSet) {
+    private ModuleDB getModule(ResultSet resultSet) {
         try {
-            return new Module(
+            return new ModuleDB(
                     resultSet.getInt("module_id"),
                     resultSet.getString("module_name")
             );

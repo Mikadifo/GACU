@@ -34,8 +34,8 @@ public class OperationDB extends Operation implements SQL_Statement {
         return true;
     }
 
-    public List<Operation> getResults() {
-        List<Operation> operations = new ArrayList<>();
+    public List<OperationDB> getResults() {
+        List<OperationDB> operations = new ArrayList<>();
         ResultSet results;
 
         try {
@@ -70,14 +70,14 @@ public class OperationDB extends Operation implements SQL_Statement {
         return true;
     }
 
-    public Operation getOperation() {
+    public OperationDB getOperation() {
         return getResults().get(0);
     }
 
-    private Operation getOperation(ResultSet resultSet) {
+    private OperationDB getOperation(ResultSet resultSet) {
         try {
             
-            return new Operation(
+            return new OperationDB (
                     resultSet.getInt("operation_id"),
                     resultSet.getString("operation_name")
             );

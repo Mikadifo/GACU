@@ -34,8 +34,8 @@ public class Question_AnswerDB extends Question_Answer implements SQL_Statement 
         return true;
     }
     
-    public List<Question_Answer> getResults() {
-        List<Question_Answer> question_answers = new ArrayList<>();
+    public List<Question_AnswerDB> getResults() {
+        List<Question_AnswerDB> question_answers = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class Question_AnswerDB extends Question_Answer implements SQL_Statement 
         return true;
     }
     
-    public Question_Answer getQuestion_Answer() {
+    public Question_AnswerDB getQuestion_Answer() {
         return getResults().get(0);
     }
     
-    private Question_Answer getQuestion_Answer(ResultSet resultSet) {        
+    private Question_AnswerDB getQuestion_Answer(ResultSet resultSet) {        
         try {
-            return new Question_Answer (
+            return new Question_AnswerDB (
                 resultSet.getInt("question_answer_id"),
                 resultSet.getInt("question_id"),
                 resultSet.getInt("answer_id")

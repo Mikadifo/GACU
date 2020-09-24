@@ -34,8 +34,8 @@ public class Operation_ModulesDB extends Operation_Module implements SQL_Stateme
         return true;
     }
     
-    public List<Operation_Module> getResults() {
-        List<Operation_Module> operations_modules = new ArrayList<>();
+    public List<Operation_ModulesDB> getResults() {
+        List<Operation_ModulesDB> operations_modules = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class Operation_ModulesDB extends Operation_Module implements SQL_Stateme
         return true;
     }
     
-    public Operation_Module getOperation_Module() {
+    public Operation_ModulesDB getOperation_Module() {
         return getResults().get(0);
     }
     
-    private Operation_Module getOperation_Module(ResultSet resultSet) {        
+    private Operation_ModulesDB getOperation_Module(ResultSet resultSet) {        
         try {
-            return new Operation_Module (
+            return new Operation_ModulesDB (
                 resultSet.getInt("operation_module_id"),
                 resultSet.getInt("operation_id"),
                 resultSet.getInt("module_id")

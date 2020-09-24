@@ -34,8 +34,8 @@ public class CategoryDB extends Category implements SQL_Statement{
         return true;
     }
     
-    public List<Category> getResults() {
-        List<Category> categories = new ArrayList<>();
+    public List<CategoryDB> getResults() {
+        List<CategoryDB> categories = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class CategoryDB extends Category implements SQL_Statement{
         return true;
     }
     
-    public Category getCategory() {
+    public CategoryDB getCategory() {
         return getResults().get(0);
     }
     
-    private Category getCategory(ResultSet resultSet) {        
+    private CategoryDB getCategory(ResultSet resultSet) {        
         try {
-            return new Category (
+            return new CategoryDB (
                 resultSet.getInt("category_id"),
                 resultSet.getString("category_name")
             );

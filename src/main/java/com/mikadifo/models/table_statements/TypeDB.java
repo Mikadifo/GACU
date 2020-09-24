@@ -34,8 +34,8 @@ public class TypeDB extends Type implements SQL_Statement {
         return true;
     }
     
-    public List<Type> getResults() {
-        List<Type> types = new ArrayList<>();
+    public List<TypeDB> getResults() {
+        List<TypeDB> types = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class TypeDB extends Type implements SQL_Statement {
         return true;
     }
     
-    public Type getType() {
+    public TypeDB getType() {
         return getResults().get(0);
     }
     
-    private Type getType(ResultSet resultSet) {        
+    private TypeDB getType(ResultSet resultSet) {        
         try {
-            return new Type (
+            return new TypeDB (
                 resultSet.getInt("type_id"),
                 resultSet.getString("type_name"),
                 resultSet.getString("type_description")

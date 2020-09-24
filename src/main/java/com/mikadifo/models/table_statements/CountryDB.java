@@ -34,8 +34,8 @@ public class CountryDB extends Country implements SQL_Statement{
         return true;
     }
     
-    public List<Country> getResults() {
-        List<Country> countries = new ArrayList<>();
+    public List<CountryDB> getResults() {
+        List<CountryDB> countries = new ArrayList<>();
         ResultSet results;
         
         try {
@@ -69,13 +69,13 @@ public class CountryDB extends Country implements SQL_Statement{
         return true;
     }
     
-    public Country getCountry() {
+    public CountryDB getCountry() {
         return getResults().get(0);
     }
     
-    private Country getCountry(ResultSet resultSet) {        
+    private CountryDB getCountry(ResultSet resultSet) {        
         try {
-            return new Country (
+            return new CountryDB (
                 resultSet.getInt("country_id"),
                 resultSet.getString("country_name")
             );
