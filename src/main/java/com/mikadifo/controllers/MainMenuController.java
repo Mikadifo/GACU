@@ -36,10 +36,22 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
+
     }
 
     @FXML
     private void onGuestAction(ActionEvent event) {
+ FXMLLoader=new FXMLLoader(Main.clas.getResourse("/com/mikadifo/views/Gallery.fxml"));
+Parent root=loader.load();
+
+Scene scene=new Scene(root);
+Stage stage=new Stage();
+stage.initModality(Modality.APPLICATION_MODAL);
+stage.setScene(scane);
+Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+currentStage.close();
+stage.show();
+
     }
 
     @FXML
