@@ -2,6 +2,7 @@ package com.mikadifo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +12,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +27,9 @@ import javafx.stage.Stage;
  * @author MIKADIFO
  */
 public class LogInController implements Initializable {
+
+    Validations validation = new Validations();
+    UserAuthentication userValidation = new UserAuthentication();
 
     @FXML
     private Button btnEnter;
@@ -40,26 +46,42 @@ public class LogInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void OnEnterAuto(ActionEvent event) {
-try {
-            FXMLLoader loader= new FXMLLoader(LogInController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
-            Parent root=loader.load();
-            
-            Scene scene=new Scene(root);
-            Stage stage=new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            Stage currentStage=(Stage)btnEnter.getScene().getWindow();
-            currentStage.close();
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        String login = txtUsername.getText();
+        String password = txtPassword.getText();
+
+        if (userValidation.checkUser(login) == true) {
+            if (userValidation.checkPassword(login, password) == true) {
+
+                try {
+                    FXMLLoader loader = new FXMLLoader(LogInController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
+                    Parent root = loader.load();
+
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    Stage currentStage = (Stage) btnEnter.getScene().getWindow();
+                    currentStage.close();
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("Confirmación");
+            alert.setContentText("¿Estas seguro de confirmar la acción?");
+            Optional<ButtonType> action = alert.showAndWait();
+            System.out.println("Error");
+
         }
+
     }
-    
 
     @FXML
     private void OnCancelAction(ActionEvent event) {
@@ -67,10 +89,12 @@ try {
 
     @FXML
     private void onUsernameKeyReleased(KeyEvent event) {
+        validation.validateUsername(txtUsername.getText());
     }
 
     @FXML
     private void onPasswordKeyReleased(KeyEvent event) {
+        validation.validatePassword(txtPassword.getText());
     }
-    
+
 }
