@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.table_statements.UserDB;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class LogInController implements Initializable {
 
     Validations validation = new Validations();
     UserAuthentication userValidation = new UserAuthentication();
+    private boolean checkedUser;
 
     @FXML
     private Button btnEnter;
@@ -50,11 +52,14 @@ public class LogInController implements Initializable {
 
     @FXML
     private void OnEnterAuto(ActionEvent event) {
+//        validation.validateUsername(txtUsername.getText());
         String login = txtUsername.getText();
         String password = txtPassword.getText();
 
-        if (userValidation.checkUser(login) == true) {
-            if (userValidation.checkPassword(login, password) == true) {
+        userValidation.checkPassword(login, password);
+
+        if (isCheckedUser()) {
+            if (userValidation.isChecked()) {
 
                 try {
                     FXMLLoader loader = new FXMLLoader(LogInController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
@@ -70,13 +75,20 @@ public class LogInController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("El usuario y la contraseña no existen");
+                Optional<ButtonType> action = alert.showAndWait();
+                System.out.println("Error");
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText(null);
-            alert.setTitle("Confirmación");
-            alert.setContentText("¿Estas seguro de confirmar la acción?");
-            Optional<ButtonType> action = alert.showAndWait();
+            alert.setTitle("Error");
+            alert.setContentText("El usuario ingresado no existe");
+            Optional<ButtonType> acept = alert.showAndWait();
             System.out.println("Error");
 
         }
@@ -89,12 +101,31 @@ public class LogInController implements Initializable {
 
     @FXML
     private void onUsernameKeyReleased(KeyEvent event) {
-        validation.validateUsername(txtUsername.getText());
+        char val=event.getCharacter().charAt(0);
+        if (!Character.isLetter(val)) {
+            event.consume();
+        }
     }
 
     @FXML
     private void onPasswordKeyReleased(KeyEvent event) {
-        validation.validatePassword(txtPassword.getText());
+        
     }
 
+    public void checkUser(String login){
+        UserDB user = new UserDB();
+        
+        user.setLogin(login);
+        user.selectById();
+        
+        user = user.getUser();
+        
+        checkedUser = user.getLogin()==(null);
+            
+    }
+    
+    public boolean isCheckedUser() {
+	return checkedUser;
+    }
+    
 }
