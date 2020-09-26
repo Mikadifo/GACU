@@ -36,16 +36,16 @@
                      <children>
                         <HBox prefHeight="30.0" prefWidth="208.0">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="108.0" styleClass="labels" text="NOMBRE USUARIO:" />
+                              <Label prefHeight="30.0" prefWidth="108.0" styleClass="labels" text="CÉDULA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtUsername" minWidth="250.0" onKeyReleased="#onUsernameKeyReleased" prefHeight="25.0" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onUsernameKeyTyped" prefHeight="25.0" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="32.0" prefWidth="100.0">
                            <children>
                               <Label styleClass="labels" text="CONTRASEÑA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <PasswordField fx:id="txtPassword" minWidth="250.0" onKeyReleased="#onPasswordKeyReleased" prefHeight="25.0" prefWidth="250.0" styleClass="text_fields" />
+                              <PasswordField fx:id="txtPassword" minWidth="250.0" prefHeight="25.0" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                      </children>

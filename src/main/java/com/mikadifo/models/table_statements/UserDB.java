@@ -41,14 +41,14 @@ public class UserDB extends User implements SQL_Statement {
         
         try {
             results = dbConnection.executeQuery();
-            
             while(results.next()) {
                 users.add(getUser(results));
             }
             
             results.close();
-            dbConnection.closeStatement();
-        } catch (SQLException ex) {            
+        } catch (SQLException ex) {  
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
             return null;
         }
         
@@ -61,7 +61,7 @@ public class UserDB extends User implements SQL_Statement {
             dbConnection.buildAndPrepareSelect(TABLE, "login_user");
             
             setLoginColumnValue(1);
-        } catch (SQLException ex) {
+        } catch (SQLException ex) {            
             System.err.println("ERROR");
             
             return false;
@@ -71,13 +71,16 @@ public class UserDB extends User implements SQL_Statement {
     }
     
     public UserDB getUser() {
+        if (getResults().isEmpty()) {
+            return null;
+        }
         return getResults().get(0);
     }
     
     private UserDB getUser(ResultSet resultSet) {        
         try {
             return new UserDB (
-                resultSet.getInt("user_questions_id"),
+                resultSet.getInt("user_id"),
                 resultSet.getString("login_user"),
                 resultSet.getString("pass_user"),
                 resultSet.getString("username"),

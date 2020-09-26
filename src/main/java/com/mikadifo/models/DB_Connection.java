@@ -118,9 +118,7 @@ public class DB_Connection {
     }
     
     public ResultSet executeQuery() throws SQLException {
-        ResultSet results = statement.executeQuery();
-        disconnect();
-        
+        ResultSet results = statement.executeQuery();        
         return results;
     }
     
