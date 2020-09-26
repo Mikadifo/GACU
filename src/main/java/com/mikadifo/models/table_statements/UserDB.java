@@ -21,6 +21,12 @@ public class UserDB extends User implements SQL_Statement {
             int cityId, short roleId) {
         super(id, login, password, username, cityId, roleId);
     }
+     public UserDB(String login, String password, String username
+            ) {
+          super( login, password, username);
+       
+    }
+     
     
     @Override
     public boolean selectAll() {        
@@ -170,5 +176,5 @@ public class UserDB extends User implements SQL_Statement {
         
         dbConnection.setStatement(statement);
     }
-    
+      
 }
