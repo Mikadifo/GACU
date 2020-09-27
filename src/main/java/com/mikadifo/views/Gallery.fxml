@@ -13,15 +13,16 @@
    <children>
       <BorderPane id="root" layoutX="127.0" layoutY="123.0" prefHeight="450.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="logedPane" prefHeight="60.0" prefWidth="720.0" visible="false" BorderPane.alignment="CENTER">
                <children>
                   <HBox layoutX="120.0" layoutY="-20.0" prefHeight="60.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ComboBox fx:id="comboSort" prefHeight="96.0" prefWidth="165.0" promptText="Ordenar por" />
-                     </children>
                      <padding>
                         <Insets bottom="15.0" top="15.0" />
-                     </padding></HBox>
+                     </padding>
+                     <children>
+                        <Label text="MENU" />
+                        <Label text="Account" />
+                     </children></HBox>
                </children>
             </AnchorPane>
          </top>
@@ -76,5 +77,15 @@
             <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
+      <AnchorPane fx:id="guestPane" prefHeight="60.0" prefWidth="720.0" visible="false">
+         <children>
+            <HBox alignment="TOP_RIGHT" layoutY="-36.0" prefHeight="64.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Iniciar Sesion" />
+                  <Button mnemonicParsing="false" text="Registrarse" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
