@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.views.DescriptionsController">
    <children>
-      <BorderPane fx:id="rootPane" prefHeight="590.0" prefWidth="859.0">
+      <BorderPane fx:id="rootPane" prefHeight="590.0" prefWidth="859.0" stylesheets="@../../../../resources/styles/description.css">
          <top>
             <AnchorPane prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
@@ -23,7 +23,7 @@
                <children>
                   <StackPane prefHeight="449.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="449.0" fitWidth="659.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="471.0" fitWidth="659.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                </children>
