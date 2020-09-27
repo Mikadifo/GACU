@@ -48,7 +48,7 @@ public class UserDB extends User implements SQL_Statement {
             results.close();
         } catch (SQLException ex) {  
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
+            
             return null;
         }
         
@@ -74,6 +74,7 @@ public class UserDB extends User implements SQL_Statement {
         if (getResults().isEmpty()) {
             return null;
         }
+        
         return getResults().get(0);
     }
     
