@@ -45,8 +45,9 @@ public class GalleryController implements Initializable {
         // TODO
     }
     
-    public void init(Scene scene) {
+    public void init(Scene scene,short rolId) {
         btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
+        
     }
 
     @FXML

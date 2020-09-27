@@ -67,8 +67,8 @@ public class LogInController implements Initializable {
                         Parent root = loader.load();
 
                         Scene scene = new Scene(root);
-                        LogInController gallery = (LogInController) loader.getController();
-                        gallery.init(scene);
+                        GalleryController gallery = (GalleryController) loader.getController();
+                        //gallery.init(scene,);
                         
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);
