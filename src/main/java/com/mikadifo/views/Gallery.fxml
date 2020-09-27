@@ -20,8 +20,8 @@
                         <Insets bottom="15.0" top="15.0" />
                      </padding>
                      <children>
-                        <Label text="MENU" />
-                        <Label text="Account" />
+                        <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#onMenuAction" text="Menu" />
+                        <Button fx:id="btnAccount" mnemonicParsing="false" onAction="#onAccountAction" text="Account" />
                      </children></HBox>
                </children>
             </AnchorPane>
@@ -81,8 +81,8 @@
          <children>
             <HBox alignment="TOP_RIGHT" layoutY="-36.0" prefHeight="64.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" text="Iniciar Sesion" />
-                  <Button mnemonicParsing="false" text="Registrarse" />
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginAction" text="Iniciar Sesion" />
+                  <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#onSignupAction" text="Registrarse" />
                </children>
             </HBox>
          </children>

@@ -36,6 +36,14 @@ public class GalleryController implements Initializable {
     private AnchorPane logedPane;
     @FXML
     private AnchorPane guestPane;
+    @FXML
+    private Button btnMenu;
+    @FXML
+    private Button btnAccount;
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Button btnSignup;
 
     /**
      * Initializes the controller class.
@@ -72,5 +80,21 @@ public class GalleryController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void onMenuAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onAccountAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onLoginAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onSignupAction(ActionEvent event) {
     }
 }
