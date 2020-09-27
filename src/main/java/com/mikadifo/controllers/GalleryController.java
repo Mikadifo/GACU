@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -29,11 +29,13 @@ import javafx.stage.Stage;
 public class GalleryController implements Initializable {
 
     @FXML
-    private ComboBox<?> comboSort;
-    @FXML
     private Button btnExit;
     @FXML
     private Button btnTrivia;
+    @FXML
+    private AnchorPane logedPane;
+    @FXML
+    private AnchorPane guestPane;
 
     /**
      * Initializes the controller class.
