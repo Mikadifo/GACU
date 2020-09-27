@@ -5,6 +5,7 @@
  */
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.Roles;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,6 +38,12 @@ public class GalleryController implements Initializable {
     private AnchorPane logedPane;
     @FXML
     private AnchorPane guestPane;
+    @FXML
+    private BorderPane rootPane;
+    @FXML
+    private Button btnMenu;
+    @FXML
+    private Button btnAccount;
 
     /**
      * Initializes the controller class.
@@ -45,8 +53,30 @@ public class GalleryController implements Initializable {
         // TODO
     }
     
-    public void init(Scene scene,short rolId) {
+    public void init(Scene scene, Roles role) {
         btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
+        loadByRole(role);
+    }
+
+    private void loadByRole(Roles role) {
+        switch(role) {
+            case ADMIN:
+                break;
+            case GUEST:
+                btnTrivia.setDisable(true);
+                logedPane.setVisible(false);
+                rootPane.setTop(guestPane);
+                guestPane.setVisible(true);
+
+                break;
+            case USER:
+                break;
+            case CONTRIBUTOR:
+                break;
+            case CREATOR:
+                break;
+            default:
+        }
         
     }
 
@@ -73,5 +103,14 @@ public class GalleryController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void onMenuAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onAccountAction(ActionEvent event) {
+
     }
 }

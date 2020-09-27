@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.Roles;
 import com.mikadifo.models.table_statements.UserDB;
 import java.io.IOException;
 import java.net.URL;
@@ -68,7 +69,7 @@ public class LogInController implements Initializable {
 
                         Scene scene = new Scene(root);
                         GalleryController gallery = (GalleryController) loader.getController();
-                        //gallery.init(scene,);
+                        gallery.init(scene, Roles.USER);
                         
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);
@@ -125,9 +126,13 @@ public class LogInController implements Initializable {
 
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
-        char val = event.getCharacter().charAt(0);
-        if (!Character.isDigit(val) || txtLogin.getText().length() > 9) {
-            event.consume();
+        String characterTyped = event.getCharacter();
+        
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+            
+            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+                event.consume();
         }
 
     }

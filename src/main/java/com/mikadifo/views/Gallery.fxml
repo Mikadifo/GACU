@@ -11,17 +11,17 @@
 
 <AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.GalleryController">
    <children>
-      <BorderPane id="root" layoutX="127.0" layoutY="123.0" prefHeight="450.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane id="root" fx:id="rootPane" layoutX="127.0" layoutY="123.0" prefHeight="450.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane fx:id="logedPane" prefHeight="60.0" prefWidth="720.0" visible="false" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="logedPane" prefHeight="60.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox layoutX="120.0" layoutY="-20.0" prefHeight="60.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <padding>
                         <Insets bottom="15.0" top="15.0" />
                      </padding>
                      <children>
-                        <Label text="MENU" />
-                        <Label text="Account" />
+                        <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#onMenuAction" text="Menu" />
+                        <Button fx:id="btnAccount" mnemonicParsing="false" onAction="#onAccountAction" text="Account" />
                      </children></HBox>
                </children>
             </AnchorPane>

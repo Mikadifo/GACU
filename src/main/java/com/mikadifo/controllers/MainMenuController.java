@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.Roles;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,13 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -23,6 +21,9 @@ import javafx.stage.Stage;
  */
 public class MainMenuController implements Initializable {
 
+    private WindowLoader loader;
+    private Stage currentStage;
+    
     @FXML
     private Button btnExit;
     @FXML
@@ -44,6 +45,7 @@ public class MainMenuController implements Initializable {
     }
     
     public void init(Scene scene) {
+        currentStage = (Stage) btnGuest.getScene().getWindow();
         btnExit.getScene().getStylesheets().add("/styles/menu.css");
     }
 
@@ -55,41 +57,24 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onGuestAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            GalleryController gallery = (GalleryController) loader.getController();
-            gallery.init(scene);
-            
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            Stage currentStage = (Stage) btnGuest.getScene().getWindow();
-            currentStage.close();
-            stage.show();
+            loader = new WindowLoader();
+            loader.load("Gallery");
+            GalleryController gallery = loader.getController();
+            gallery.init(loader.getScene(), Roles.GUEST);
+            loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/LogIn.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            LogInController login = (LogInController) loader.getController();
-            login.init(scene);
-            
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            Stage currentStage = (Stage) btnGuest.getScene().getWindow();
-            currentStage.close();
-            stage.show();
+          try {
+            loader = new WindowLoader();
+            loader.load("LogIn");
+            LogInController login = loader.getController();
+            login.init(loader.getScene());
+            loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,19 +83,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onSigninAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/SignUp.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            SignUpController signup = (SignUpController) loader.getController();
-            signup.init(scene);
-            
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            Stage currentStage = (Stage) btnGuest.getScene().getWindow();
-            currentStage.close();
-            stage.show();
+            loader = new WindowLoader();
+            loader.load("SignUp");
+            SignUpController signup = loader.getController();
+            signup.init(loader.getScene());
+            loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }

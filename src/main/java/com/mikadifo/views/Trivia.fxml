@@ -48,14 +48,14 @@
                               </HBox>
                               <HBox prefHeight="90.0" prefWidth="524.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="btnOption_1" mnemonicParsing="false" onAction="#onOption_1Action" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="1." />
-                                    <Button fx:id="btnOption_2" mnemonicParsing="false" onAction="#onOption_2Action" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="2." />
+                                    <Button fx:id="btnOption_1" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="1." />
+                                    <Button fx:id="btnOption_2" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="2." />
                                  </children>
                               </HBox>
                               <HBox prefHeight="90.0" prefWidth="524.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="btnOption_3" mnemonicParsing="false" onAction="#onOption_3Action" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="3." />
-                                    <Button fx:id="btnOption_4" mnemonicParsing="false" onAction="#onOption_4Action" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="4." />
+                                    <Button fx:id="btnOption_3" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="3." />
+                                    <Button fx:id="btnOption_4" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="4." />
                                  </children>
                               </HBox>
                            </children>
