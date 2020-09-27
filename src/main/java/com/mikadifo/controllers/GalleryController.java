@@ -58,8 +58,8 @@ public class GalleryController implements Initializable {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            GalleryController menu = (GalleryController) loader.getController();
-            menu.init(scene);
+            TriviaController trivia = (TriviaController) loader.getController();
+            trivia.init(scene);
             
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

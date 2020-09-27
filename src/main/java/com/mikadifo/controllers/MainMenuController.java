@@ -59,8 +59,8 @@ public class MainMenuController implements Initializable {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            GalleryController menu = (GalleryController) loader.getController();
-            menu.init(scene);
+            GalleryController gallery = (GalleryController) loader.getController();
+            gallery.init(scene);
             
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -81,8 +81,8 @@ public class MainMenuController implements Initializable {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            LogInController menu = (LogInController) loader.getController();
-            menu.init(scene);
+            LogInController login = (LogInController) loader.getController();
+            login.init(scene);
             
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -102,8 +102,8 @@ public class MainMenuController implements Initializable {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            SignUpController menu = (SignUpController) loader.getController();
-            menu.init(scene);
+            SignUpController signup = (SignUpController) loader.getController();
+            signup.init(scene);
             
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
