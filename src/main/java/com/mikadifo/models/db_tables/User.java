@@ -24,6 +24,12 @@ public class User {
         this.cityId = cityId;
         this.roleId = roleId;
     }
+     public User( String login, String password, String username) {
+
+        this.login = login;
+        this.password = password;
+        this.username = username;
+    }
 
     public int getId() {
         return id;

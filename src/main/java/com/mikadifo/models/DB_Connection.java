@@ -1,4 +1,4 @@
-package com.mikadifo.models;
+ package com.mikadifo.models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -73,7 +73,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.mikadifo.App</mainClass>
+                            <mainClass>com.mikadifo.controllers.MainController</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

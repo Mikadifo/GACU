@@ -105,6 +105,7 @@ public class UserDB extends User implements SQL_Statement {
             dbConnection.executeAndClose();
         } catch (SQLException ex) {
             System.err.print("ERROR INSERTING USER");
+            ex.printStackTrace();
             
             return false;
         }
