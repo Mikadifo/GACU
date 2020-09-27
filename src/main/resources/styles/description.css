@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Abel';
+    src: url('fonts/Abel-Regular.ttf');
+}
+
+* {
+    -fx-font-family: 'Abel';
+    -fx-alignment: center;
+}
+
+#rootPane {
+    -fx-background-color: #EBEBEB;
+}
+
+#title {
+    -fx-font-size: 35px;
+    -fx-text-fill: #000;
+}
+
+#imageCenterPane{
+    -fx-border: 3px solid #FFC654;
+    -fx-box-sizing: border-box; 
+}
