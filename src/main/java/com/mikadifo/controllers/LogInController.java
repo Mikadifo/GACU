@@ -47,6 +47,10 @@ public class LogInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+    
+    public void init(Scene scene) {
+        btnEnter.getScene().getStylesheets().add("/styles/account.css");
+    }
 
     @FXML
     private void OnEnterAuto(ActionEvent event) {
@@ -63,6 +67,9 @@ public class LogInController implements Initializable {
                         Parent root = loader.load();
 
                         Scene scene = new Scene(root);
+                        LogInController menu = (LogInController) loader.getController();
+                        menu.init(scene);
+                        
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.setScene(scene);

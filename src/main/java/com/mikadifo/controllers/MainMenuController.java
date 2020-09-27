@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.applet.Main;
 
 /**
  * FXML Controller class
@@ -37,11 +36,16 @@ public class MainMenuController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    }
+    
+    public void init(Scene scene) {
+        btnExit.getScene().getStylesheets().add("/styles/menu.css");
+    }
 
     @FXML
     private void onExitAction(ActionEvent event) {
@@ -51,14 +55,17 @@ public class MainMenuController implements Initializable {
     @FXML
     private void onGuestAction(ActionEvent event) {
         try {
-            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
-            Parent root=loader.load();
+            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            GalleryController menu = (GalleryController) loader.getController();
+            menu.init(scene);
             
-            Scene scene=new Scene(root);
-            Stage stage=new Stage();
+            Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+            Stage currentStage = (Stage) btnGuest.getScene().getWindow();
             currentStage.close();
             stage.show();
         } catch (IOException ex) {
@@ -69,15 +76,18 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-try {
-            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/LogIn.fxml"));
-            Parent root=loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/LogIn.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            LogInController menu = (LogInController) loader.getController();
+            menu.init(scene);
             
-            Scene scene=new Scene(root);
-            Stage stage=new Stage();
+            Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+            Stage currentStage = (Stage) btnGuest.getScene().getWindow();
             currentStage.close();
             stage.show();
         } catch (IOException ex) {
@@ -87,20 +97,23 @@ try {
 
     @FXML
     private void onSigninAction(ActionEvent event) {
-try {
-            FXMLLoader loader= new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/SignUp.fxml"));
-            Parent root=loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(MainMenuController.class.getResource("/com/mikadifo/views/SignUp.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            SignUpController menu = (SignUpController) loader.getController();
+            menu.init(scene);
             
-            Scene scene=new Scene(root);
-            Stage stage=new Stage();
+            Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            Stage currentStage=(Stage)btnGuest.getScene().getWindow();
+            Stage currentStage = (Stage) btnGuest.getScene().getWindow();
             currentStage.close();
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

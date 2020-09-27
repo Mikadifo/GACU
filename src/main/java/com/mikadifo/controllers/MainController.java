@@ -23,8 +23,9 @@ public class MainController extends Application {
             loader.setLocation(MainController.class.getResource(MAIN_MENU));
             
             window = loader.load();
-            
             scene = new Scene(window);
+            MainMenuController menu = (MainMenuController) loader.getController();
+            menu.init(scene);
 
             primaryStage.setScene(scene);
             primaryStage.show();

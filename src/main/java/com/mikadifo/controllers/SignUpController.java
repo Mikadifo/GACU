@@ -10,16 +10,11 @@
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.table_statements.UserDB;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -27,9 +22,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 
 /**
  * FXML Controller class
@@ -37,10 +29,6 @@ import javafx.stage.Stage;
  * @author MIKADIFO
  */
 public class SignUpController implements Initializable {
-    
-    
-
-  
  
     private  Validations validar = new Validations();
     private boolean checkedUser;
@@ -68,7 +56,11 @@ public class SignUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        // TODO
-    }    
+    }   
+    
+    public void init(Scene scene) {
+        btnCreate.getScene().getStylesheets().add("/styles/account.css");
+    }
 
     @FXML
     private void onCancelAction(ActionEvent event) {

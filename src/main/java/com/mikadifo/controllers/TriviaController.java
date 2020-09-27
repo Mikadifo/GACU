@@ -49,26 +49,32 @@ public class TriviaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    public void init(Scene scene) {
+        btnContinue.getScene().getStylesheets().add("/styles/trivia.css");
+    }
 
     @FXML
     private void onHomeAction(ActionEvent event) {
-try {
-            FXMLLoader loader= new FXMLLoader(TriviaController.class.getResource("/com/mikadifo/views/MainMenu.fxml"));
-            Parent root=loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(TriviaController.class.getResource("/com/mikadifo/views/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            MainMenuController menu = (MainMenuController) loader.getController();
+            menu.init(scene);
             
-            Scene scene=new Scene(root);
-            Stage stage=new Stage();
+            Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            Stage currentStage=(Stage)bntHome.getScene().getWindow();
+            Stage currentStage = (Stage) bntHome.getScene().getWindow();
             currentStage.close();
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     @FXML
     private void onContinueAction(ActionEvent event) {
@@ -89,5 +95,5 @@ try {
     @FXML
     private void onOption_4Action(ActionEvent event) {
     }
-    
+
 }

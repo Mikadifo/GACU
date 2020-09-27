@@ -42,10 +42,6 @@
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 4, 0, 0, 4);
 }
 
-.img {
-    -fx-blend-mode: blue;
-}
-
 #main_button {
     -fx-background-color: #FFBB33;
     -fx-text-fill: #000;

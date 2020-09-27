@@ -41,7 +41,11 @@ public class GalleryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    public void init(Scene scene) {
+        btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
+    }
 
     @FXML
     private void onExitAction(ActionEvent event) {
@@ -49,21 +53,22 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onTriviaAction(ActionEvent event) {
-try {
-            FXMLLoader loader= new FXMLLoader(GalleryController.class.getResource("/com/mikadifo/views/Trivia.fxml"));
-            Parent root=loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(GalleryController.class.getResource("/com/mikadifo/views/Trivia.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            GalleryController menu = (GalleryController) loader.getController();
+            menu.init(scene);
             
-            Scene scene=new Scene(root);
-            Stage stage=new Stage();
+            Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            Stage currentStage=(Stage)btnTrivia.getScene().getWindow();
+            Stage currentStage = (Stage) btnTrivia.getScene().getWindow();
             currentStage.close();
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    }
-    
-
+}
