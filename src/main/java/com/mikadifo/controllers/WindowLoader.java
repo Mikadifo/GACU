@@ -11,7 +11,9 @@ import javafx.stage.Stage;
  * @author MIKADIFO
  */
 public class WindowLoader {
-
+    
+    public static Stage currentStage;
+    
     private String viewsPath = "/com/mikadifo/views/?.fxml";
 
     private FXMLLoader loader;
@@ -51,6 +53,10 @@ public class WindowLoader {
             stage.showAndWait();
         else
             stage.show();
+    }
+    
+    public static void closeCurrent() {
+        currentStage.close();
     }
 
 }

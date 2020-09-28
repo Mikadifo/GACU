@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class MainMenuController implements Initializable {
 
     private WindowLoader loader;
-    private Stage currentStage;
+//    private Stage currentStage;
     
     @FXML
     private Button btnExit;
@@ -34,7 +34,7 @@ public class MainMenuController implements Initializable {
     private Button btnSignin;
     @FXML
     private ImageView imgLogo;
-
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -42,16 +42,24 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        loader = new WindowLoader();
     }
     
     public void init(Scene scene) {
-        currentStage = (Stage) btnGuest.getScene().getWindow();
         btnExit.getScene().getStylesheets().add("/styles/menu.css");
+        Scene ss = btnExit.getScene();
+        if (ss == null) {
+            System.out.println("1111y");
+        }
+        WindowLoader.currentStage = (Stage) btnExit.getScene().getWindow();
+        if (WindowLoader.currentStage == null) {
+            System.out.println("YES");
+        }
     }
 
     @FXML
     private void onExitAction(ActionEvent event) {
-	    Stage currentStage =  (Stage) btnExit.getScene().getWindow();
+        WindowLoader.closeCurrent();
     }
 
     @FXML

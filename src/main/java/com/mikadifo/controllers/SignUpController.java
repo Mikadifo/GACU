@@ -101,24 +101,7 @@ public class SignUpController implements Initializable {
 
     }
 
-    @FXML
-    private void onUsernameKeyReleased(KeyEvent event) {
 
-    }
-
-    @FXML
-    private void onLoginKeyPressed(KeyEvent event) {
-
-    }
-
-    @FXML
-    private void onPasswordKeyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    private void onCityKeyRekeased(KeyEvent event) {
-    }
   
      public void checkUser(String login){
        
@@ -133,5 +116,21 @@ public class SignUpController implements Initializable {
      
     public boolean isCheckedUser() {
 	return checkedUser;
+    }
+
+    @FXML
+    private void onUsernameKeyTyped(KeyEvent event) {
+    }
+
+    @FXML
+    private void onCedulaTyped(KeyEvent event) {
+    }
+
+    @FXML
+    private void onPasswordKeyTyped(KeyEvent event) {
+    }
+
+    @FXML
+    private void onCityKeTyped(KeyEvent event) {
     }
 }

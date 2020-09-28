@@ -58,7 +58,7 @@
                            <children>
                               <Label styleClass="labels" text="CIUDAD:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <ComboBox fx:id="comboCity" minWidth="250.0" onKeyReleased="#onCityKeyRekeased" prefWidth="250.0" promptText="Seleccione" />
+                              <ComboBox fx:id="comboCity" minWidth="250.0" onKeyReleased="#onCityKeTyped" prefWidth="250.0" promptText="Seleccione" />
                            </children>
                         </HBox>
                      </children>
