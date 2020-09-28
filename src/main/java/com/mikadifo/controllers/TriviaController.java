@@ -58,6 +58,13 @@ public class TriviaController implements Initializable {
 
     @FXML
     private void onContinueAction(ActionEvent event) {
+        if (btnOption_1.isPressed()){
+            
+        } else if (btnOption_2.isPressed()){
+
+        } else if(btnOption_3.isPressed()){
+
+        }
     }
 
 

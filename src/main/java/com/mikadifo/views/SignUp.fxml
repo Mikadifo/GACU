@@ -37,21 +37,21 @@
                            <children>
                               <Label styleClass="labels" text="NOMBRE USUARIO:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtUsername" minWidth="250.0" onKeyReleased="#onUsernameKeyReleased" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtUsername" minWidth="250.0" onKeyTyped="#onUsernameKeyTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
                               <Label styleClass="labels" text="CEDULA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyReleased="#onLoginKeyPressed" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onCedulaTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="247.0">
                            <children>
                               <Label styleClass="labels" text="CONTRASEÑA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <PasswordField fx:id="txtPassword" minWidth="250.0" onKeyReleased="#onPasswordKeyReleased" prefWidth="250.0" styleClass="text_fields" />
+                              <PasswordField fx:id="txtPassword" minWidth="250.0" onKeyTyped="#onPasswordKeyTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="54.0" prefWidth="247.0">

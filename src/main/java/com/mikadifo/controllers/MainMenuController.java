@@ -51,7 +51,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
-
+	    Stage currentStage =  (Stage) btnExit.getScene().getWindow();
     }
 
     @FXML
