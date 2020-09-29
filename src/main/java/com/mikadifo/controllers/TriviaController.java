@@ -17,8 +17,10 @@ import javafx.stage.Stage;
  */
 public class TriviaController implements Initializable {
 
+    UserDB currentUser;
     private WindowLoader loader;
     private Stage currentStage;
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     @FXML
     private Button bntHome;
@@ -43,8 +45,9 @@ public class TriviaController implements Initializable {
         // TODO
     }
     
-    public void init(Scene scene) {
+    public void init(Scene scene, UserDB user) {
         btnContinue.getScene().getStylesheets().add("/styles/trivia.css");
+        currentUser = user;
     }
 
     @FXML
@@ -60,29 +63,51 @@ public class TriviaController implements Initializable {
             btnOption_3.setText("");
             btnOption_4.setText("");
 
-            /////////
-            //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
-                //Obtener un placeid aleatiro de la tabla User_Places;
-            //else alter de que aun no ha visitado un lugar
-            //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
+            
+           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
 
-        } else{ 
+        } else { 
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una opción");
+            alert.showAndWait();
         }
 
         // if comprobar que 1 y solo 1 boton esta focused 
             // limpiar todas las opciones y el textflow del enunciado
+
+
             // cargar otra aleatoria desde la base de datosc
         // caso contrario avisar con un alert
     }
 
+    private void showNewTrivia() {
+        //TABLES: Types, Questions, Answers, Question_Answer
+            /////////
+            //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
+            User_PlaceDB visitedPlaces = new User_PlaceDB();
+            if() { 
+                //Obtener un placeid aleatorio de la tabla User_Places;
+                //Obtener una pregunta aleatoria con el mismo place_id anterior ^
+                String question = "";//set the contetn question here
+                short typeId = 0;//sets the question type id here
+                //Obtener el answer_id que corresponde al question id de la tabla QUESTION_ASNWERS
+                String correctAnswer = "";//set the content answer hereA
+                //select * from Answer join types using(type_id) where Answer.type_id != typeId and Answer.type_id (3 result only)
+                //array con todas las 4 respuestas here
+                //[1][2][3][4]
+                //mezclar [4][1][2][3]
+                //for botones asginar el shuffled array
+            //else alert de que aun no ha visitado un lugar
+            } else {
+                alert.setHeaderText(null);
+                alert.setTitle("Aviso");
+                alert.setContentText("Aún no ha visitado ningun lugar. No puede acceder a la trivia");
+                alert.showAndWait();
+            }
+    }
+
     private void mezlcarOpcionesBotones() {
-        String question = "";//fromdb;
-        String correct = "";//from db
-        
-        //Opciones Incorrectas(3)
         String[] opcionesRespuesta = copiarArray(respuesta);
         int[] posicionesRadnom = generarNumerosRandom(0, (opcionesRespuesta.length - 1));
         btnOption_1.setText(opcionesRespuesta[posicionesRadnom[0]]);

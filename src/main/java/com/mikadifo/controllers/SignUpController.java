@@ -84,10 +84,12 @@ public class SignUpController implements Initializable {
                         alert.setHeaderText(null);
                         alert.setTitle("Confirmación");
                         alert.setContentText("Usuario registrado con exito");
+                        alert.showAndWait();
                     } else {
                         alert.setHeaderText(null);
                         alert.setTitle("Error");
                         alert.setContentText("La cedula ya está registrada");
+                        alert.showAndWait();
                     }
 
                 } else {
@@ -126,6 +128,12 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
+    char val = event.getCharacter().charAt(0);
+        
+    if (!(Character.isLetter(val) || Character.isDigit(val))|| txtLogin.getText().length() > 9) {
+        event.consume();
+    }
+
 	
     }
 
