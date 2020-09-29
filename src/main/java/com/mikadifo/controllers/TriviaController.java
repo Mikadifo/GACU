@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.controllers;
 
 import java.net.URL;
@@ -53,11 +48,11 @@ public class TriviaController implements Initializable {
     }
 
     @FXML
-    private void onHomeAction(ActionEvent event) {
+    private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
     }
 
     @FXML
-    private void onContinueAction(ActionEvent event) {
+    private void onContinueAction(ActionEvent event) { //comprobar que 1 y solo 1 boton esta focused
     }
 
 

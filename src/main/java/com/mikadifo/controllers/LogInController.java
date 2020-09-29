@@ -54,7 +54,7 @@ public class LogInController implements Initializable {
     }
 
     @FXML
-    private void OnEnterAuto(ActionEvent event) {
+    private void OnEnterAuto(ActionEvent event) { //cambiar a onEnterAction
         String login = txtLogin.getText();
         String password = txtPassword.getText();
 
@@ -105,7 +105,7 @@ public class LogInController implements Initializable {
     }
 
     @FXML
-    private void OnCancelAction(ActionEvent event) {
+    private void OnCancelAction(ActionEvent event) { //onCancelAction
         Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
     }

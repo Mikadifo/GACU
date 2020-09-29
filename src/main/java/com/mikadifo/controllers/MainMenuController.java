@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 public class MainMenuController implements Initializable {
 
     private WindowLoader loader;
-    private Stage currentStage;
     
     @FXML
     private Button btnExit;
@@ -45,14 +44,17 @@ public class MainMenuController implements Initializable {
     }
     
     public void init(Scene scene) {
-        currentStage = (Stage) btnGuest.getScene().getWindow();
         btnExit.getScene().getStylesheets().add("/styles/menu.css");
     }
 
     @FXML
     private void onExitAction(ActionEvent event) {
-
+        showAlert();
+        Stage currentStage = (Stage) btnGuest.getScene().getWindow();
+        currentStage.close();
     }
+
+    private Optional
 
     @FXML
     private void onGuestAction(ActionEvent event) {

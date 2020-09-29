@@ -111,6 +111,5 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onAccountAction(ActionEvent event) {
-
     }
 }

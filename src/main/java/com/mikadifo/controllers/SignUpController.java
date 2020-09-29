@@ -1,12 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.table_statements.UserDB;
@@ -33,7 +24,7 @@ public class SignUpController implements Initializable {
     private  Validations validar = new Validations();
     private boolean checkedUser;
     
-     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
   
 
     @FXML
@@ -63,7 +54,9 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    private void onCancelAction(ActionEvent event) {
+    private void onCancelAction(ActionEvent event) { //cierre el stage
+        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML
@@ -74,69 +67,75 @@ public class SignUpController implements Initializable {
         String password = txtPassword.getText();
         if (validar.validateLogIn(cedula)) {
             
-//            if (validar.validateUsername(username)) {
-//                if (validar.validatePassword(password)) {
+            if (validar.validateUsername(username)) {
+                if (validar.validatePassword(password)) {
                     //Combo box validacion 
                     checkUser(cedula);
-                    if (isCheckedUser()) {//comprobar en la base de datos
-                        
+                    if (isCheckedUser()) {                        
                         UserDB user = new UserDB();
                         user.setLogin(cedula);
                         user.setPassword(password);
                         user.setUsername(username);
                         user.setCityId(1);
                         user.setRoleId((short)1);
-                        user.insert();// Insertar en la base de datos
+                        user.insert();
                         
                         alert.setHeaderText(null);
                         alert.setTitle("Confirmación");
                         alert.setContentText("Usuario registrado con exito");
                     } else {
-                         alert.setHeaderText(null);
-                        alert.setTitle("Confirmación");
+                        alert.setHeaderText(null);
+                        alert.setTitle("Error");
                         alert.setContentText("La cedula ya está registrada");
                     }
-//
-//                } else {
-//                    System.out.println("Contraseña incorrecta");
-//                }
-//            } else {
-//                System.out.println("Username incorrecto");
-//            }
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("La contraseña no es correcta");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("El username es incorrecta");
+                alert.showAndWait();
+            }
         } else {
-            System.out.println("No existe ");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("La cedula es incorrecta");
+            alert.showAndWait();
         }
 
     }
 
     @FXML
-    private void onUsernameKeyReleased(KeyEvent event) {
-
+    private void onUsernameKeyReleased(KeyEvent event) { //cambiar a onUsernameKeyTyped
+        //solo caracteres alfenumericos
     }
 
     @FXML
-    private void onLoginKeyPressed(KeyEvent event) {
-
+    private void onLoginKeyPressed(KeyEvent event) { //cambiar a onLoginKeyTyped
+        //same that login
     }
 
     @FXML
-    private void onPasswordKeyReleased(KeyEvent event) {
-
+    private void onPasswordKeyReleased(KeyEvent event) { //cambiar a onPasswordKeyTyped
+        //same that login
     }
 
     @FXML
-    private void onCityKeyRekeased(KeyEvent event) {
+    private void onCityKeyRekeased(KeyEvent event) { //cambiar a onCityKeyTyped
+        //filtrar las ciudades segun se este escribiendo (No es prioridad)
     }
   
-     public void checkUser(String login){
-       
-        
+    public void checkUser(String login){
        UserDB user = new UserDB();
 
         user.setLogin(login);
         user.selectById();
         checkedUser = user.getUser() == (null);
-            
     }
      
     public boolean isCheckedUser() {
