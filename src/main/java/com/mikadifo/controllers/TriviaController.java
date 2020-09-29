@@ -58,7 +58,7 @@ public class TriviaController implements Initializable {
             loader = new WindowLoader();
             loader.load("Gallery");
             GalleryController gallery = loader.getController();
-            gallery.init(loader.getScene(), Roles.GUEST);
+            gallery.init(loader.getScene(), Roles.GUEST); //Role must be the logged user role
 
             loader.showAndWait(true);
         } catch (IOException ex) {
@@ -68,11 +68,14 @@ public class TriviaController implements Initializable {
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-        if (btnOption_1.isPressed()||btnOption_2.isPressed()||btnOption_3.isPressed()) {
-            qweqwe
+        if (btnOption_1.isFocused() || btnOption_2.isFocused() || btnOption_3.isFocused() || btnOption_4.isFocused()) {
+            ffs
         }else {
-
+            alert.setHeaderText(null);
+            alert.setTitle("Confirmación");
+            alert.setContentText("Seleccione la respuesta");
         }
-    }
 
+    }
 }
+        

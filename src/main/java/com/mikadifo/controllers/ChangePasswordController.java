@@ -28,7 +28,7 @@ public class ChangePasswordController implements Initializable {
     Validations validation = new Validations();
     UserAuthentication userValidation = new UserAuthentication();
     private boolean checkedUser;
-
+    
     @FXML
     private Button btnCancel;
     @FXML
