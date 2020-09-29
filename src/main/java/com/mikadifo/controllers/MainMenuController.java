@@ -47,24 +47,24 @@ public class MainMenuController implements Initializable {
     }
     
     public void init(Scene scene) {
-	btnExit.getScene().getStylesheets().add("/styles/menu.css");
+	    btnExit.getScene().getStylesheets().add("/styles/menu.css");
     }
 
     @FXML
     private void onExitAction(ActionEvent event) {
-	boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+	    boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
 
-	if (isOk) System.exit(0);
+	    if (isOk) System.exit(0);
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-	Alert alert = new Alert(alertType);
+	    Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	return alert.showAndWait().get() == ButtonType.OK;
+	    return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML

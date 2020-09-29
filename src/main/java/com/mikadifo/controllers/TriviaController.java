@@ -54,18 +54,25 @@ public class TriviaController implements Initializable {
 
     @FXML
     private void onHomeAction(ActionEvent event) {
+        try {
+            loader = new WindowLoader();
+            loader.load("Gallery");
+            GalleryController gallery = loader.getController();
+            gallery.init(loader.getScene(), Roles.GUEST);
+
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-        if (btnOption_1.isPressed()){
-            
-        } else if (btnOption_2.isPressed()){
-
-        } else if(btnOption_3.isPressed()){
+        if (btnOption_1.isPressed()||btnOption_2.isPressed()||btnOption_3.isPressed()) {
+            qweqwe
+        }else {
 
         }
     }
-
 
 }
