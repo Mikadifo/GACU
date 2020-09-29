@@ -3,6 +3,7 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.Roles;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,9 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -22,7 +25,6 @@ import javafx.stage.Stage;
 public class MainMenuController implements Initializable {
 
     private WindowLoader loader;
-//    private Stage currentStage;
     
     @FXML
     private Button btnExit;
@@ -42,24 +44,27 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loader = new WindowLoader();
     }
     
     public void init(Scene scene) {
-        btnExit.getScene().getStylesheets().add("/styles/menu.css");
-        Scene ss = btnExit.getScene();
-        if (ss == null) {
-            System.out.println("1111y");
-        }
-        WindowLoader.currentStage = (Stage) btnExit.getScene().getWindow();
-        if (WindowLoader.currentStage == null) {
-            System.out.println("YES");
-        }
+	btnExit.getScene().getStylesheets().add("/styles/menu.css");
     }
 
     @FXML
     private void onExitAction(ActionEvent event) {
-        WindowLoader.closeCurrent();
+	boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+
+	if (isOk) System.exit(0);
+    }
+
+    private boolean showAlert(AlertType alertType, String header, String message) {
+	Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML
@@ -69,6 +74,7 @@ public class MainMenuController implements Initializable {
             loader.load("Gallery");
             GalleryController gallery = loader.getController();
             gallery.init(loader.getScene(), Roles.GUEST);
+
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
