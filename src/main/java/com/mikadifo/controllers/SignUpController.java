@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -24,7 +25,7 @@ public class SignUpController implements Initializable {
     private  Validations validar = new Validations();
     private boolean checkedUser;
     
-     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    private Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
   
 
     @FXML
@@ -55,7 +56,8 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-        
+	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML

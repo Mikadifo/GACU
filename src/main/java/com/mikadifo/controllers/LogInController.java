@@ -28,8 +28,8 @@ import javafx.stage.Stage;
  */
 public class LogInController implements Initializable {
 
-    Validations validation = new Validations();
-    UserAuthentication userValidation = new UserAuthentication();
+    private Validations validation = new Validations();
+    private UserAuthentication userValidation = new UserAuthentication();
     private boolean checkedUser;
 
     @FXML
