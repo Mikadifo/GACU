@@ -106,8 +106,6 @@ public class SignUpController implements Initializable {
 
   
      public void checkUser(String login){
-       
-        
        UserDB user = new UserDB();
 
         user.setLogin(login);
@@ -126,7 +124,7 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    private void onCedulaTyped(KeyEvent event) {
+    private void onCedulaTyped(KeyEvent event) { //Rename to onLoginKeyTyped
 	String characterTyped = event.getCharacter();
         
         if (!characterTyped.isEmpty()) {
