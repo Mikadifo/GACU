@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -54,8 +55,8 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    private void onCancelAction(ActionEvent event) { //cierre el stage
-        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+    private void onCancelAction(ActionEvent event) {
+	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
     }
 
@@ -140,5 +141,30 @@ public class SignUpController implements Initializable {
      
     public boolean isCheckedUser() {
 	return checkedUser;
+    }
+
+    @FXML
+    private void onUsernameKeyTyped(KeyEvent event) {
+	
+    }
+
+    @FXML
+    private void onCedulaTyped(KeyEvent event) { //Rename to onLoginKeyTyped
+	String characterTyped = event.getCharacter();
+        
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+            
+            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+                event.consume();
+        }
+    }
+
+    @FXML
+    private void onPasswordKeyTyped(KeyEvent event) {
+    }
+
+    @FXML
+    private void onCityKeTyped(KeyEvent event) {
     }
 }

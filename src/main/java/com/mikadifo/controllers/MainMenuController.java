@@ -3,6 +3,7 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.Roles;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,9 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,7 +36,7 @@ public class MainMenuController implements Initializable {
     private Button btnSignin;
     @FXML
     private ImageView imgLogo;
-
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -49,12 +52,22 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
-        showAlert();
-        Stage currentStage = (Stage) btnGuest.getScene().getWindow();
-        currentStage.close();
+	    boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+
+	    if (isOk) System.exit(0);
     }
 
-    private Optional
+    private boolean showAlert(AlertType alertType, String header, String message) {
+	    Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	    return alert.showAndWait().get() == ButtonType.OK;
+    }
+
+    
 
     @FXML
     private void onGuestAction(ActionEvent event) {
@@ -63,6 +76,7 @@ public class MainMenuController implements Initializable {
             loader.load("Gallery");
             GalleryController gallery = loader.getController();
             gallery.init(loader.getScene(), Roles.GUEST);
+
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);

@@ -52,7 +52,20 @@ public class TriviaController implements Initializable {
     }
 
     @FXML
-    private void onContinueAction(ActionEvent event) { //comprobar que 1 y solo 1 boton esta focused
+    private void onContinueAction(ActionEvent event) {
+        if(btnOption1.isFocused()||btnOption2.isFocused()||btnOption3.isFocused()||btnOption4.isFocused()){
+            txtQuestion.setText("");
+            btnOption_2.
+
+        } else{ 
+            alert.setHeaderText(null);
+            alert.setTitle("Confirmación");
+            alert.setContentText("Seleccione una opción");
+        }
+        // if comprobar que 1 y solo 1 boton esta focused 
+            // limpiar todas las opciones y el textflow del enunciado
+            // cargar otra aleatoria desde la base de datosc
+        // caso contrario avisar con un alert
     }
 
 
