@@ -67,8 +67,6 @@ public class MainMenuController implements Initializable {
 	    return alert.showAndWait().get() == ButtonType.OK;
     }
 
-    
-
     @FXML
     private void onGuestAction(ActionEvent event) {
         try {

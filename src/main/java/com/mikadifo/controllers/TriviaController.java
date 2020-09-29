@@ -60,16 +60,55 @@ public class TriviaController implements Initializable {
             btnOption_3.setText("");
             btnOption_4.setText("");
 
+            /////////
+            //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
+                //Obtener un placeid aleatiro de la tabla User_Places;
+            //else alter de que aun no ha visitado un lugar
+            //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
+
         } else{ 
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una opción");
         }
+
         // if comprobar que 1 y solo 1 boton esta focused 
             // limpiar todas las opciones y el textflow del enunciado
             // cargar otra aleatoria desde la base de datosc
         // caso contrario avisar con un alert
     }
 
+    private void mezlcarOpcionesBotones() {
+        String question = "";//fromdb;
+        String correct = "";//from db
+        
+        //Opciones Incorrectas(3)
+        String[] opcionesRespuesta = copiarArray(respuesta);
+        int[] posicionesRadnom = generarNumerosRandom(0, (opcionesRespuesta.length - 1));
+        btnOption_1.setText(opcionesRespuesta[posicionesRadnom[0]]);
+        btnOption_2.setText(opcionesRespuesta[posicionesRadnom[1]]);
+        btnOption_3.setText(opcionesRespuesta[posicionesRadnom[2]]);
+        btnOption_4.setText(opcionesRespuesta[posicionesRadnom[3]]);
+    }
+
+    private int[] generarNumerosRandom(int min, int max) {
+        String nums = String.valueOf(generarNumeroRandom(min, max));
+        String[] numsArray = new String[4];
+        for (int i = 1; i < numsArray.length; i++) {
+            do {
+                String num = String.valueOf(generarNumeroRandom(min, max));
+                if (!nums.contains(num)) {
+                    nums += ("," + num);
+                    break;
+                }
+            } while (true);
+        }
+        numsArray = nums.split(",");
+        return toIntArray(numsArray);
+    }
+
+    private int generarNumeroRandom(int min, int max) {
+        return (int) (Math.random() * ((max - min) + 1) + min);
+    }
 
 }

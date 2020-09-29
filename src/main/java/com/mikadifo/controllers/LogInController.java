@@ -53,7 +53,33 @@ public class LogInController implements Initializable {
         btnEnter.getScene().getStylesheets().add("/styles/account.css");
     }
 
-    private void OnEnterAuto(ActionEvent event) { //cambiar a onEnterAction
+    public void checkUser(String login) {
+        UserDB user = new UserDB();
+
+        user.setLogin(login);
+        user.selectById();
+
+        checkedUser = user.getUser() != (null);
+
+    }
+
+    public boolean isCheckedUser() {
+        return checkedUser;
+    }
+
+    private void onUsernameKeyTyped(KeyEvent event) { //falta agregar en scene builder el evento esta como null
+        String characterTyped = event.getCharacter();
+        
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+            
+            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+                event.consume();
+        }
+    }
+
+    @FXML
+    private void onEnterAction(ActionEvent event) {
         String login = txtLogin.getText();
         String password = txtPassword.getText();
 
@@ -63,20 +89,18 @@ public class LogInController implements Initializable {
                 userValidation.checkPassword(login, password);
                 if (userValidation.isChecked()) {
                     try {
-                        FXMLLoader loader = new FXMLLoader(LogInController.class.getResource("/com/mikadifo/views/Gallery.fxml"));
-                        Parent root = loader.load();
+                        try {
+                            loader = new WindowLoader();
+                            loader.load("Gallery");
+                            GalleryController gallery = loader.getController();
+                            gallery.init(loader.getScene(), Roles.USER);
+                            loader.showAndWait(false);
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
-                        Scene scene = new Scene(root);
-                        GalleryController gallery = (GalleryController) loader.getController();
-                        gallery.init(scene, Roles.USER);
-                        
-                        Stage stage = new Stage();
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.setScene(scene);
                         Stage currentStage = (Stage) btnEnter.getScene().getWindow();
                         currentStage.close();
-                        stage.show();
-                    } catch (IOException ex) {
                         Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
@@ -100,49 +124,16 @@ public class LogInController implements Initializable {
             alert.setContentText("La cedula ingresada no es valida");
             alert.showAndWait();
         }
-
-    }
-
-    private void OnCancelAction(ActionEvent event) { //onCancelAction
-        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
-        currentStage.close();
-    }
-
-    public void checkUser(String login) {
-        UserDB user = new UserDB();
-
-        user.setLogin(login);
-        user.selectById();
-
-        checkedUser = user.getUser() != (null);
-
-    }
-
-    public boolean isCheckedUser() {
-        return checkedUser;
-    }
-
-    private void onUsernameKeyTyped(KeyEvent event) { //Rename to onLoginKeyTYped
-        String characterTyped = event.getCharacter();
-        
-        if (!characterTyped.isEmpty()) {
-            char val = characterTyped.charAt(0);
-            
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
-                event.consume();
-        }
-    }
-
-    @FXML
-    private void onEnterAction(ActionEvent event) {
     }
 
     @FXML
     private void onCancelAction(ActionEvent event) {
+        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML
-    private void onLoginKeyTYped(KeyEvent event) {
+    private void onLoginKeyTYped(KeyEvent event) { //cambiar a onLoginKeyTyped
     }
 
 }
