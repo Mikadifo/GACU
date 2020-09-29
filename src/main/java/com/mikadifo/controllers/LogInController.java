@@ -53,7 +53,6 @@ public class LogInController implements Initializable {
         btnEnter.getScene().getStylesheets().add("/styles/account.css");
     }
 
-    @FXML
     private void OnEnterAuto(ActionEvent event) { //cambiar a onEnterAction
         String login = txtLogin.getText();
         String password = txtPassword.getText();
@@ -104,7 +103,6 @@ public class LogInController implements Initializable {
 
     }
 
-    @FXML
     private void OnCancelAction(ActionEvent event) { //onCancelAction
         Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
@@ -124,7 +122,6 @@ public class LogInController implements Initializable {
         return checkedUser;
     }
 
-    @FXML
     private void onUsernameKeyTyped(KeyEvent event) { //Rename to onLoginKeyTYped
         String characterTyped = event.getCharacter();
         
@@ -134,6 +131,18 @@ public class LogInController implements Initializable {
             if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
                 event.consume();
         }
+    }
+
+    @FXML
+    private void onEnterAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onCancelAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onLoginKeyTYped(KeyEvent event) {
     }
 
 }

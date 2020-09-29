@@ -111,25 +111,6 @@ public class SignUpController implements Initializable {
 
     }
 
-    @FXML
-    private void onUsernameKeyReleased(KeyEvent event) { //cambiar a onUsernameKeyTyped
-        //solo caracteres alfenumericos
-    }
-
-    @FXML
-    private void onLoginKeyPressed(KeyEvent event) { //cambiar a onLoginKeyTyped
-        //same that login
-    }
-
-    @FXML
-    private void onPasswordKeyReleased(KeyEvent event) { //cambiar a onPasswordKeyTyped
-        //same that login
-    }
-
-    @FXML
-    private void onCityKeyRekeased(KeyEvent event) { //cambiar a onCityKeyTyped
-        //filtrar las ciudades segun se este escribiendo (No es prioridad)
-    }
   
     public void checkUser(String login){
        UserDB user = new UserDB();
