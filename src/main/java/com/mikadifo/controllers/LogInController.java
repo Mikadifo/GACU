@@ -125,7 +125,7 @@ public class LogInController implements Initializable {
     }
 
     @FXML
-    private void onUsernameKeyTyped(KeyEvent event) {
+    private void onUsernameKeyTyped(KeyEvent event) { //Rename to onLoginKeyTYped
         String characterTyped = event.getCharacter();
         
         if (!characterTyped.isEmpty()) {
@@ -134,7 +134,6 @@ public class LogInController implements Initializable {
             if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
                 event.consume();
         }
-
     }
 
 }

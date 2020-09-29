@@ -122,10 +122,19 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
+	
     }
 
     @FXML
     private void onCedulaTyped(KeyEvent event) {
+	String characterTyped = event.getCharacter();
+        
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+            
+            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+                event.consume();
+        }
     }
 
     @FXML
