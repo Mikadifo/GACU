@@ -40,7 +40,7 @@ public class ChangePasswordController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //TODO
     }
     
     public void init(Scene scene) {
@@ -71,6 +71,11 @@ public class ChangePasswordController implements Initializable {
                     user = user.getUser();
                     user.setPassword(newPasword);
                     user.update();
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Informacion");
+                    alert.setContentText("La contraseña se actualizó con exito");
+                    alert.showAndWait();
 
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

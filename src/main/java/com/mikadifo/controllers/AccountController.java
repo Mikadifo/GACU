@@ -60,6 +60,8 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onCancelClick(ActionEvent event) {
+        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML

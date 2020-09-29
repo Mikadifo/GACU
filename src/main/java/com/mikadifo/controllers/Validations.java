@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.controllers;
-
-
 
 /**
  *
@@ -61,7 +54,7 @@ System.out.println("La Cédula ingresada es Incorrecta");
 return cedulaCorrecta;
    }
 public boolean validateUsername(String Username){   
- return Username.matches("[A-Za-z]*_\\w+\\.\\w+\\[A-Za-z_0-9]${4,50}");
+ return Username.matches("^[A-Za-z]\\w{4,48}[A-Za-z\\d]$");
 }
 
     

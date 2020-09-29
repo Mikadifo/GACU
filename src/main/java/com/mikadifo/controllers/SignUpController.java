@@ -56,7 +56,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+	    Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
     }
 
@@ -128,12 +128,14 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
-    char val = event.getCharacter().charAt(0);
-        
-    if (!(Character.isLetter(val) || Character.isDigit(val))|| txtLogin.getText().length() > 9) {
-        event.consume();
-    }
+    String characterTyped = event.getCharacter();
+    if (!characterTyped.isEmpty()) {
+        char val = characterTyped.charAt(0);  
 
+        if (!(Character.isLetter(val) || Character.isDigit(val))|| txtLogin.getText().length() > 245) {
+        event.consume();
+        }
+    }    
 	
     }
 

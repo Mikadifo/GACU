@@ -107,6 +107,7 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onMenuAction(ActionEvent event) {
+        
     }
 
     @FXML

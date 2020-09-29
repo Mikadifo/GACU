@@ -62,8 +62,6 @@ public class TriviaController implements Initializable {
             btnOption_2.setText("");
             btnOption_3.setText("");
             btnOption_4.setText("");
-
-            
            //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
 
         } else { 
@@ -86,8 +84,18 @@ public class TriviaController implements Initializable {
             /////////
             //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
             User_PlaceDB visitedPlaces = new User_PlaceDB();
-            if() { 
+            List<User_Places> userVisitedPlaces;
+            List<QuestionDB> questions;
+
+            visitedPlaces.selectAll();
+            userVisitedPlaces = getVisitedPlacesByUserId(currentUser.getId()); //method in visited places todo is get place_id by user_id
+
+            if (userVisitedPlaces != null) { 
                 //Obtener un placeid aleatorio de la tabla User_Places;
+                int randomPlaceId = getRandomFromArray(userVisitedPlaces);
+                QuestionDB questionDB = new QuestionDB();
+                questionDB.selectAll();
+                questions = questionDB.getResults();
                 //Obtener una pregunta aleatoria con el mismo place_id anterior ^
                 String question = "";//set the contetn question here
                 short typeId = 0;//sets the question type id here
@@ -105,6 +113,14 @@ public class TriviaController implements Initializable {
                 alert.setContentText("Aún no ha visitado ningun lugar. No puede acceder a la trivia");
                 alert.showAndWait();
             }
+    }
+
+    private List<User_PlaceDB> getVisitedPlacesByUserId() {
+        //TODO
+    }
+
+    private int getRandomFromArray(List<?> array) {
+        //TODO
     }
 
     private void mezlcarOpcionesBotones() {
