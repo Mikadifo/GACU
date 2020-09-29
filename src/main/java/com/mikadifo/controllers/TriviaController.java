@@ -55,7 +55,10 @@ public class TriviaController implements Initializable {
     private void onContinueAction(ActionEvent event) {
         if(btnOption1.isFocused()||btnOption2.isFocused()||btnOption3.isFocused()||btnOption4.isFocused()){
             txtQuestion.setText("");
-            btnOption_2.
+            btnOption_1.setText("");
+            btnOption_2.setText("");
+            btnOption_3.setText("");
+            btnOption_4.setText("");
 
         } else{ 
             alert.setHeaderText(null);
