@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class TriviaController implements Initializable {
 
-    UserDB currentUser;
+    private UserDB currentUser;
     private WindowLoader loader;
     private Stage currentStage;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -52,6 +52,30 @@ public class TriviaController implements Initializable {
 
     @FXML
     private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
+	    boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Se generará una pregunta aleatoria la proxima vez que entre, Esta seguro de hacerlo?");
+
+	    if (isOk) {
+            try {
+                loader = new WindowLoader();
+                loader.load("Gallery");
+                GalleryController gallery = loader.getController();
+                gallery.init(loader.getScene(), Roles.USER);
+    
+                loader.showAndWait(true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private boolean showAlert(AlertType alertType, String header, String message) {
+	    Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	    return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML

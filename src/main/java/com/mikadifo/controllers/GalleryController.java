@@ -30,6 +30,9 @@ import javafx.stage.Stage;
  */
 public class GalleryController implements Initializable {
 
+    private UserDB currentUser;
+
+    
     @FXML
     private Button btnExit;
     @FXML
@@ -107,7 +110,7 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onMenuAction(ActionEvent event) {
-        
+
     }
 
     @FXML

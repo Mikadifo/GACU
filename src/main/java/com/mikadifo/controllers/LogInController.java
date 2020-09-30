@@ -31,6 +31,7 @@ public class LogInController implements Initializable {
     private Validations validation = new Validations();
     private UserAuthentication userValidation = new UserAuthentication();
     private boolean checkedUser;
+    private UserDB currentUser;
 
     @FXML
     private Button btnEnter;
@@ -49,8 +50,9 @@ public class LogInController implements Initializable {
         // TODO
     }
     
-    public void init(Scene scene) {
+    public void init(Scene scene, UserDB user) {
         btnEnter.getScene().getStylesheets().add("/styles/account.css");
+        currentUser = user; 
     }
 
     public void checkUser(String login) {
@@ -60,7 +62,6 @@ public class LogInController implements Initializable {
         user.selectById();
 
         checkedUser = user.getUser() != (null);
-
     }
 
     public boolean isCheckedUser() {
@@ -88,12 +89,11 @@ public class LogInController implements Initializable {
             if (isCheckedUser()) {
                 userValidation.checkPassword(login, password);
                 if (userValidation.isChecked()) {
-                    try {
                         try {
                             loader = new WindowLoader();
                             loader.load("Gallery");
                             GalleryController gallery = loader.getController();
-                            gallery.init(loader.getScene(), Roles.USER);
+                            gallery.init(loader.getScene(), Roles.USER, currentUser);
                             loader.showAndWait(false);
                         } catch (IOException ex) {
                             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,28 +102,25 @@ public class LogInController implements Initializable {
                         Stage currentStage = (Stage) btnEnter.getScene().getWindow();
                         currentStage.close();
                         Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("Datos: ");
-                    alert.setTitle("Error");
-                    alert.setContentText("La contraseña no coincide con la cedula");
-                    alert.showAndWait();
+                    showAlert(AlertType.ERROR, "Datos:", "La contraseña no coincide con la cedula");
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Datos: ");
-                alert.setTitle("Error");
-                alert.setContentText("La cedula ingresada no existe en la Base de Datos");
-                alert.showAndWait();
+                showAlert(AlertType.ERROR, "Datos:", "La cedula ingresada no existe en la Base de Datos");
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Datos: ");
-            alert.setTitle("Error");
-            alert.setContentText("La cedula ingresada no es valida");
-            alert.showAndWait();
+            showAlert(AlertType.ERROR, "Datos:", "La cedula ingresada no es valida");
         }
+    }
+
+    private boolean showAlert(AlertType alertType, String header, String message) {
+	    Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	    return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML
@@ -134,6 +131,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void onLoginKeyTYped(KeyEvent event) { //cambiar a onLoginKeyTyped
+        
     }
 
 }

@@ -21,6 +21,10 @@ import javafx.scene.input.KeyEvent;
  */
 public class AccountController implements Initializable {
 
+    private UserDB currentUser;
+
+    
+
     @FXML
     private Button btnCancel;
     @FXML

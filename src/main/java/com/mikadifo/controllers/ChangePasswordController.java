@@ -23,6 +23,7 @@ public class ChangePasswordController implements Initializable {
     Validations validation = new Validations();
     UserAuthentication userValidation = new UserAuthentication();
     private boolean checkedUser;
+    private UserDB currentUser;
     
     @FXML
     private Button btnCancel;
@@ -72,31 +73,16 @@ public class ChangePasswordController implements Initializable {
                     user.setPassword(newPasword);
                     user.update();
 
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Informacion");
-                    alert.setContentText("La contraseña se actualizó con exito");
-                    alert.showAndWait();
+                    showAlert(AlertType.INFORMATION, "Datos:", "La contraseña se actualizó con exito");
 
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("Datos: ");
-                    alert.setTitle("Error");
-                    alert.setContentText("La contraseña no coincide con la cedula");
-                    alert.showAndWait();
+                    showAlert(AlertType.ERROR, "Datos:", "La contraseña no coincide con la cedula");
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Datos: ");
-                alert.setTitle("Error");
-                alert.setContentText("La cedula ingresada no existe en la Base de Datos");
-                alert.showAndWait();
+                showAlert(AlertType.ERROR, "Datos:", "La cedula ingresada no existe en la Base de Datos");
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Datos: ");
-            alert.setTitle("Error");
-            alert.setContentText("La cedula ingresada no es valida");
-            alert.showAndWait();
+            showAlert(AlertType.ERROR, "Datos:", "La cedula ingresada no es valida");
         }
     }
 
@@ -120,6 +106,16 @@ public class ChangePasswordController implements Initializable {
 
     public boolean isCheckedUser() {
         return checkedUser;
+    }
+
+    private boolean showAlert(AlertType alertType, String header, String message) {
+	    Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	    return alert.showAndWait().get() == ButtonType.OK;
     }
 
 }
