@@ -34,10 +34,10 @@
                <children>
                   <HBox layoutY="-20.0" prefHeight="60.0" prefWidth="720.0" spacing="20.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button id="main_button" fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
-                        <Button id="main_button" fx:id="btnGuest" mnemonicParsing="false" onAction="#onGuestAction" text="Invitado" />
-                        <Button id="main_button" fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginAction" text="Iniciar Sesión" />
-                        <Button id="main_button" fx:id="btnSignin" mnemonicParsing="false" onAction="#onSigninAction" text="Registrarse" />
+                        <Button id="main_button" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
+                        <Button id="main_button" mnemonicParsing="false" onAction="#onGuestAction" text="Invitado" />
+                        <Button id="main_button" mnemonicParsing="false" onAction="#onLoginAction" text="Iniciar Sesión" />
+                        <Button id="main_button" mnemonicParsing="false" onAction="#onSigninAction" text="Registrarse" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
