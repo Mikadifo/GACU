@@ -12,10 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -58,6 +56,7 @@ public class MainMenuController implements Initializable {
 
         return alert.showAndWait().get() == ButtonType.OK;
     }
+    
 
     @FXML
     private void onGuestAction(ActionEvent event) {
