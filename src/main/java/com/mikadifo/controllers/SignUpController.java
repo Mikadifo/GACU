@@ -22,7 +22,6 @@ import javafx.stage.Stage;
  */
 public class SignUpController implements Initializable {
     
-    private UserDB currentUser;
     private  Validations validar = new Validations();
     private boolean checkedUser;
     
@@ -51,9 +50,8 @@ public class SignUpController implements Initializable {
 //        // TODO
     }   
     
-    public void init(Scene scene, UserDB user) {
+    public void init(Scene scene) {
         btnCreate.getScene().getStylesheets().add("/styles/account.css");
-        currentUser = user;
     }
 
     @FXML

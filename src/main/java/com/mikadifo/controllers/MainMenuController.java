@@ -73,7 +73,7 @@ public class MainMenuController implements Initializable {
             loader = new WindowLoader();
             loader.load("Gallery");
             GalleryController gallery = loader.getController();
-            gallery.init(loader.getScene(), Roles.GUEST);
+            gallery.init(loader.getScene(), Roles.GUEST, null);
 
             loader.showAndWait(true);
         } catch (IOException ex) {
@@ -87,7 +87,7 @@ public class MainMenuController implements Initializable {
             loader = new WindowLoader();
             loader.load("LogIn");
             LogInController login = loader.getController();
-            login.init(loader.getScene());
+            login.init(loader.getScene(), null);
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);

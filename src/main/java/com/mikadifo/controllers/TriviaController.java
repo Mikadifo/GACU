@@ -1,12 +1,24 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.Roles;
+import com.mikadifo.models.db_tables.User_Place;
+import com.mikadifo.models.table_statements.QuestionDB;
+import com.mikadifo.models.table_statements.UserDB;
+import com.mikadifo.models.table_statements.User_PlaceDB;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
@@ -80,7 +92,7 @@ public class TriviaController implements Initializable {
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-        if(btnOption1.isFocused()||btnOption2.isFocused()||btnOption3.isFocused()||btnOption4.isFocused()){
+        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
             txtQuestion.setText("");
             btnOption_1.setText("");
             btnOption_2.setText("");
@@ -108,7 +120,7 @@ public class TriviaController implements Initializable {
             /////////
             //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
             User_PlaceDB visitedPlaces = new User_PlaceDB();
-            List<User_Places> userVisitedPlaces;
+            List<User_PlaceDB> userVisitedPlaces;
             List<QuestionDB> questions;
 
             visitedPlaces.selectAll();
@@ -139,37 +151,14 @@ public class TriviaController implements Initializable {
             }
     }
 
-    private List<User_PlaceDB> getVisitedPlacesByUserId() {
+    private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {
+        return null;
         //TODO
     }
 
     private int getRandomFromArray(List<?> array) {
+        return 0;
         //TODO
-    }
-
-    private void mezlcarOpcionesBotones() {
-        String[] opcionesRespuesta = copiarArray(respuesta);
-        int[] posicionesRadnom = generarNumerosRandom(0, (opcionesRespuesta.length - 1));
-        btnOption_1.setText(opcionesRespuesta[posicionesRadnom[0]]);
-        btnOption_2.setText(opcionesRespuesta[posicionesRadnom[1]]);
-        btnOption_3.setText(opcionesRespuesta[posicionesRadnom[2]]);
-        btnOption_4.setText(opcionesRespuesta[posicionesRadnom[3]]);
-    }
-
-    private int[] generarNumerosRandom(int min, int max) {
-        String nums = String.valueOf(generarNumeroRandom(min, max));
-        String[] numsArray = new String[4];
-        for (int i = 1; i < numsArray.length; i++) {
-            do {
-                String num = String.valueOf(generarNumeroRandom(min, max));
-                if (!nums.contains(num)) {
-                    nums += ("," + num);
-                    break;
-                }
-            } while (true);
-        }
-        numsArray = nums.split(",");
-        return toIntArray(numsArray);
     }
 
     private int generarNumeroRandom(int min, int max) {

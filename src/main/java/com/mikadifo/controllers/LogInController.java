@@ -14,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -32,6 +34,7 @@ public class LogInController implements Initializable {
     private UserAuthentication userValidation = new UserAuthentication();
     private boolean checkedUser;
     private UserDB currentUser;
+    private WindowLoader loader;
 
     @FXML
     private Button btnEnter;
@@ -101,7 +104,6 @@ public class LogInController implements Initializable {
 
                         Stage currentStage = (Stage) btnEnter.getScene().getWindow();
                         currentStage.close();
-                        Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
                 } else {
                     showAlert(AlertType.ERROR, "Datos:", "La contraseña no coincide con la cedula");
                 }
