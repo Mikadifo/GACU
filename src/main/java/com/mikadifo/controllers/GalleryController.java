@@ -86,6 +86,9 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
+        boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+
+        if (isOk) System.exit(0);
     }
 
     @FXML
@@ -120,6 +123,7 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
+
     }
 
     @FXML
