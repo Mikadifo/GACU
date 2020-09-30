@@ -59,7 +59,7 @@ public boolean validateUsername(String Username){
 
     
 public boolean validatePassword(String Password){
-   return Password.matches("[A-Za-z_0-9].+_\\w+\\.\\w+\\ {10,128}"); 
+   return Password.matches("^[A-Za-z]{10,128}[A-Za-z\\d]"); 
  
 }
  
