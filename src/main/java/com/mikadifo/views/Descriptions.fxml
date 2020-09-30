@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.views.DescriptionsController">
+   <children>
+      <BorderPane fx:id="rootPane" prefHeight="590.0" prefWidth="859.0" stylesheets="@../../../../resources/styles/description.css">
+         <top>
+            <AnchorPane prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="title" layoutX="379.0" layoutY="21.0" prefHeight="59.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane fx:id="imageCenterPane" prefHeight="426.0" prefWidth="859.0" visible="false" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane prefHeight="449.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="471.0" fitWidth="659.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane fx:id="imageBottomPane" prefHeight="60.0" prefWidth="859.0" visible="false" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="162.0" layoutY="-4.0" prefHeight="60.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextFlow prefHeight="200.0" prefWidth="200.0" />
+                        <Label prefHeight="54.0" prefWidth="131.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+      <AnchorPane fx:id="placeBottomPane" prefHeight="60.0" prefWidth="859.0" visible="false">
+         <children>
+            <Button fx:id="btnImages" mnemonicParsing="false" onAction="#onImagesAction" text="Ver Images" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="placeCenterPane" prefHeight="449.0" prefWidth="659.0" visible="false">
+         <children>
+            <TextFlow fx:id="placeInfoText" prefHeight="449.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
