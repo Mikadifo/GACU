@@ -44,8 +44,9 @@ public class ChangePasswordController implements Initializable {
         //TODO
     }
     
-    public void init(Scene scene) {
+    public void init(Scene scene, UserDB user) {
         btnChange.getScene().getStylesheets().add("/styles/account.css");
+        currentUser = user; 
     }
 
     @FXML

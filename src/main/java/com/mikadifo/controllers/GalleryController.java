@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.Roles;
@@ -32,7 +27,7 @@ public class GalleryController implements Initializable {
 
     private UserDB currentUser;
 
-    
+
     @FXML
     private Button btnExit;
     @FXML
@@ -56,9 +51,10 @@ public class GalleryController implements Initializable {
         // TODO
     }
     
-    public void init(Scene scene, Roles role) {
+    public void init(Scene scene, Roles role, UserDB user) {
         btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
         loadByRole(role);
+        currentUser = user;
     }
 
     private void loadByRole(Roles role) {
@@ -95,7 +91,7 @@ public class GalleryController implements Initializable {
 
             Scene scene = new Scene(root);
             TriviaController trivia = (TriviaController) loader.getController();
-            trivia.init(scene);
+            trivia.init(scene, currentUser);
             
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

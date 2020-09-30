@@ -49,8 +49,9 @@ public class AccountController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    public void init(Scene scene) {
+    public void init(Scene scene, UserDB user) {
         btnUpdate.getScene().getStylesheets().add("/styles/account.css");
+        currentUser = user;
     }
 
     @FXML
