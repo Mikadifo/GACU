@@ -3,7 +3,6 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.Roles;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,14 +26,6 @@ public class MainMenuController implements Initializable {
 
     private WindowLoader loader;
     
-    @FXML
-    private Button btnExit;
-    @FXML
-    private Button btnGuest;
-    @FXML
-    private Button btnLogin;
-    @FXML
-    private Button btnSignin;
     @FXML
     private ImageView imgLogo;
     
@@ -47,24 +39,24 @@ public class MainMenuController implements Initializable {
     }
     
     public void init(Scene scene) {
-        btnExit.getScene().getStylesheets().add("/styles/menu.css");
+        scene.getStylesheets().add("/styles/menu.css");
     }
 
     @FXML
     private void onExitAction(ActionEvent event) {
-	    boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+        boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
 
-	    if (isOk) System.exit(0);
+        if (isOk) System.exit(0);
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
+        Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	    return alert.showAndWait().get() == ButtonType.OK;
+        return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML

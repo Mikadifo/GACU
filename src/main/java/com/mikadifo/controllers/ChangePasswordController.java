@@ -22,9 +22,8 @@ import javafx.stage.Stage;
  */
 public class ChangePasswordController implements Initializable {
 
-    Validations validation = new Validations();
-    UserAuthentication userValidation = new UserAuthentication();
-    private boolean checkedUser;
+    private Validations validation;
+    private UserAuthentication userValidation;
     private UserDB currentUser;
     
     @FXML
@@ -40,10 +39,13 @@ public class ChangePasswordController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //TODO
+	validation = new Validations();
+	userValidation = new UserAuthentication();
     }
     
     public void init(Scene scene, UserDB user) {
@@ -64,10 +66,9 @@ public class ChangePasswordController implements Initializable {
         String newPasword = txtNewPassword.getText();
 
         if (validation.validateLogIn(login)) {
-            checkUser(login);
-            if (isCheckedUser()) {
+            if (userValidation.userExists(login)) {
                 userValidation.checkPassword(login, password);
-                if (userValidation.isChecked()) {
+                if (userValidation.isAuthenticated()) {
 
                     UserDB user = new UserDB();
                     user.setLogin(login);
@@ -97,28 +98,14 @@ public class ChangePasswordController implements Initializable {
         }
     }
 
-    public void checkUser(String login) {
-        UserDB user = new UserDB();
-
-        user.setLogin(login);
-        user.selectById();
-
-        checkedUser = user.getUser() != (null);
-
-    }
-
-    public boolean isCheckedUser() {
-        return checkedUser;
-    }
-
     private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
+	Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	    return alert.showAndWait().get() == ButtonType.OK;
+	return alert.showAndWait().get() == ButtonType.OK;
     }
 
 }

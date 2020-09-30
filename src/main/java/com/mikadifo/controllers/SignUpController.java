@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.db_tables.City;
 import com.mikadifo.models.table_statements.UserDB;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,11 +23,9 @@ import javafx.stage.Stage;
  */
 public class SignUpController implements Initializable {
     
-    private  Validations validar = new Validations();
-    private boolean checkedUser;
-    
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-  
+    private Validations validar;
+    private UserAuthentication authentication;
+    private Alert alert;
 
     @FXML
     private Button btnCancel;
@@ -39,91 +38,83 @@ public class SignUpController implements Initializable {
     @FXML
     private PasswordField txtPassword;
     @FXML
-    private ComboBox<?> comboCity;
+    private ComboBox<City> comboCity;
     
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        // TODO
+	validar = new Validations();
+	authentication = new UserAuthentication();
+	alert = new Alert(Alert.AlertType.CONFIRMATION);
     }   
     
     public void init(Scene scene) {
         btnCreate.getScene().getStylesheets().add("/styles/account.css");
+        txtUsername.requestFocus();
     }
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-	    Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
     }
 
     @FXML
     private void onCreateAction(ActionEvent event) {
      //obtener los datos de el dialog y guardarlo en la base 
-        String cedula = txtLogin.getText();
+        String login = txtLogin.getText();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        if (validar.validateLogIn(cedula)) {
-            
-            if (validar.validateUsername(username)) {
-                if (validar.validatePassword(password)) {
-                    //Combo box validacion 
-                    checkUser(cedula);
-                    if (isCheckedUser()) {                        
-                        UserDB user = new UserDB();
-                        user.setLogin(cedula);
-                        user.setPassword(password);
-                        user.setUsername(username);
-                        user.setCityId(1);
-                        user.setRoleId((short)1);
-                        user.insert();
-                        
-                        alert.setHeaderText(null);
-                        alert.setTitle("Confirmación");
-                        alert.setContentText("Usuario registrado con exito");
-                        alert.showAndWait();
-                    } else {
-                        alert.setHeaderText(null);
-                        alert.setTitle("Error");
-                        alert.setContentText("La cedula ya está registrada");
-                        alert.showAndWait();
-                    }
 
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("La contraseña no es correcta");
-                    alert.showAndWait();
-                }
+        if (validar.validateLogIn(login)) {
+            if (validar.validateUsername(username)) {
+//                if (validar.validatePassword(password)) { //fix
+		    if (!comboCity.getSelectionModel().isEmpty()) {
+			if (!authentication.userExists(login)) {                        
+			    UserDB user = new UserDB();
+			    user.setLogin(login);
+			    user.setPassword(password);
+			    user.setUsername(username);
+			    user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId()); 
+			    user.setRoleId((short) 1);
+			    user.insert();
+                        
+			    alert.setHeaderText(null);
+			    alert.setTitle("Confirmación");
+			    alert.setContentText("Usuario registrado con exito");
+			    alert.showAndWait();
+			} else {
+			    alert.setHeaderText(null);
+			    alert.setTitle("Error");
+			    alert.setContentText("La cedula ya está registrada");
+			    alert.showAndWait();
+			}
+		    } else {
+			alert.setTitle("Error");
+			alert.setContentText("Debe seleccionar una ciudad");
+			alert.showAndWait();
+		    }
+//                } else {
+//                    alert.setTitle("Error");
+//                    alert.setContentText("La contraseña no es correcta");
+//                    alert.showAndWait();
+//                }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("El username es incorrecta");
                 alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("La cedula es incorrecta");
             alert.showAndWait();
         }
 
-    }
-
-  
-    public void checkUser(String login){
-       UserDB user = new UserDB();
-
-        user.setLogin(login);
-        user.selectById();
-        checkedUser = user.getUser() == (null);
-    }
-     
-    public boolean isCheckedUser() {
-	return checkedUser;
     }
 
     @FXML

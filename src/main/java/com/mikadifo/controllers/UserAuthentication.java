@@ -4,8 +4,7 @@ import com.mikadifo.models.table_statements.UserDB;
 
 public class UserAuthentication {
     
-    private UserDB authenticatedUser;
-    private boolean checked;
+    private boolean authenticated;
 
     public void checkPassword(String login, String password) {
 	UserDB user = new UserDB();
@@ -14,11 +13,20 @@ public class UserAuthentication {
 	user.selectById();
 
 	user = user.getUser();
-
-	checked = user.getPassword().equals(password); //missing hash pass and roles may
+	authenticated = user.getPassword().equals(password); //missing hash pass
     }
 
-    public boolean isChecked() {
-	return checked;
+    public boolean isAuthenticated() {
+	return authenticated;
     }
+    
+    public boolean userExists(String login) {
+	UserDB user = new UserDB();
+
+	user.setLogin(login);
+        user.selectById();
+
+        return  user.getUser() != (null);
+    }
+    
 }

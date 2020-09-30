@@ -30,8 +30,8 @@ import javafx.stage.Stage;
  */
 public class LogInController implements Initializable {
 
-    private Validations validation = new Validations();
-    private UserAuthentication userValidation = new UserAuthentication();
+    private Validations validation;
+    private UserAuthentication userValidation;
     private boolean checkedUser;
     private UserDB currentUser;
     private WindowLoader loader;
@@ -47,28 +47,18 @@ public class LogInController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        validation = new Validations();
+        userValidation = new UserAuthentication();
     }
     
     public void init(Scene scene, UserDB user) {
         btnEnter.getScene().getStylesheets().add("/styles/account.css");
-        currentUser = user; 
-    }
-
-    public void checkUser(String login) {
-        UserDB user = new UserDB();
-
-        user.setLogin(login);
-        user.selectById();
-
-        checkedUser = user.getUser() != (null);
-    }
-
-    public boolean isCheckedUser() {
-        return checkedUser;
+        currentUser = user;
     }
 
     private void onUsernameKeyTyped(KeyEvent event) { //falta agregar en scene builder el evento esta como null
@@ -88,10 +78,9 @@ public class LogInController implements Initializable {
         String password = txtPassword.getText();
 
         if (validation.validateLogIn(login)) {
-            checkUser(login);
-            if (isCheckedUser()) {
+            if (userValidation.userExists(login)) {
                 userValidation.checkPassword(login, password);
-                if (userValidation.isChecked()) {
+                if (userValidation.isAuthenticated()) {
                         try {
                             loader = new WindowLoader();
                             loader.load("Gallery");
@@ -116,13 +105,13 @@ public class LogInController implements Initializable {
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
+	Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	    return alert.showAndWait().get() == ButtonType.OK;
+	return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML
