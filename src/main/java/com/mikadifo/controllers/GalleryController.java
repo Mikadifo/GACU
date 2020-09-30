@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -86,9 +87,9 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
-        boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+//        boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
 
-        if (isOk) System.exit(0);
+//        if (isOk) System.exit(0);
     }
 
     @FXML

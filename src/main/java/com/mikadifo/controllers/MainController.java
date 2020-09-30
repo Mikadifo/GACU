@@ -1,7 +1,11 @@
-package com.mikadifo.controllers;
+ package com.mikadifo.controllers;
 
-import static javafx.application.Application.launch;
 import java.io.IOException;
+
+import com.mikadifo.models.table_statements.UserDB;
+import static com.mikadifo.controllers.UserValidator.*;
+import java.util.Optional;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -35,7 +39,18 @@ public class MainController extends Application {
     }
     
     public static void main(String[] args) {
-        launch(args);
+	UserDB user = new UserDB();
+	user.setUsername("");
+
+	Optional<String> result = 
+                userNameIsValid()
+	    .apply(user);
+
+        if (result.isPresent())
+            System.out.println(result.get());
+        else
+            System.out.println("Now you are logged in!!!");
+        //launch(args);
     }
     
 }

@@ -1,27 +1,22 @@
 package com.mikadifo.controllers;
 
-import static com.mikadifo.controllers.UserValidator.*;
-import static com.mikadifo.controllers.UserValidator.ValidationResult.*;
+import com.mikadifo.models.table_statements.UserDB;
 
+import java.util.Optional;
 import java.util.function.Function;
 
-public interface UserValidator extends Function<User, ValidationResult> {
+public interface UserValidator extends Function<UserDB, Optional<String>> {
+
+    static UserValidator userNameIsValid() {
+	return user -> (user.getUsername().isEmpty()) ? Optional.of("EL NOMBRE ESTA VACIO") : Optional.empty();
+    }
 
     default UserValidator and(UserValidator other) {
         return user -> {
-            ValidationResult result = this.apply(user);
+            Optional<String> result = this.apply(user);
 
-            return result.equals(SUCCESS) ? other.apply(user) : result;
+            return result.isPresent() ? result : other.apply(user);
         };
-    }
-
-    enum ValidationResult {
-        SUCCESS,
-        LA_CEDULA_INGRESADA_ES_INCORRECTA,
-        LA_CEDULA_INGRESADA_NO_SE_ENCUENTRA_EN_LA_BASE_DE_DATOS,
-        LA_CONTRASENA_NO_ES_VALIDA,
-        LA_CONTRASEÑA_NO_COINCIDE_CON_LA_CEDULA,
-        EL_NOMBRE_DE_USUARIO_ES_INCORRECTO,
     }
 
 }
