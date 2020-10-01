@@ -7,6 +7,37 @@ import java.util.function.Function;
 
 public interface UserValidator extends Function<UserDB, Optional<String>> {
 
+    static UserValidator userNotExists() {
+	return user -> (!isUserInDatabase(user)) ?
+	    Optional.empty() : Optional.of("El usuario ya existe en la base de datos") ;
+    }
+
+    static UserValidator userExists() {
+	return user -> (isUserInDatabase(user)) ? Optional.empty() : Optional.of("El usuario no existe en la base de datos") ;
+    }
+
+    static boolean isUserInDatabase(UserDB user) {
+	user.selectById();
+
+        return  user.getUser() != null;
+    }
+
+    static UserValidator isUserAuthenticated() {
+	return user -> (isPasswordOfUser(user)) ?
+	    Optional.empty() : Optional.of("La contrasena es incorrecta") ;
+    }
+
+    static boolean isPasswordOfUser(UserDB user) {
+	UserDB userInDB = new UserDB();
+
+	userInDB.setLogin(user.getLogin());
+	userInDB.selectById();
+
+	userInDB = user.getUser();
+
+	return  userInDB.getPassword().equals(user.getPassword()); //missing hash pass
+    }
+
     static UserValidator isUsernameValid() {
 	return user -> (user.getUsername().matches("^[A-Za-z]\\w{4,48}[A-Za-z\\d]$")) ?
 	    Optional.empty() : Optional.of("El nombre de usuario debe contener solo (letras,numeros,_)");
@@ -29,6 +60,7 @@ public interface UserValidator extends Function<UserDB, Optional<String>> {
 
     static boolean loginValidation(String login) {
 	final int MAX_DIGITS = 10;
+
         int digits[] = new int[MAX_DIGITS];
         int checkerDigit = 0;
 

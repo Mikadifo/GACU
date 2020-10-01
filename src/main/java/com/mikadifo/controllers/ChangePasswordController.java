@@ -1,7 +1,9 @@
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.table_statements.UserDB;
+import static com.mikadifo.controllers.UserValidator.*;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,8 +24,6 @@ import javafx.stage.Stage;
  */
 public class ChangePasswordController implements Initializable {
 
-    private Validations validation;
-    private UserAuthentication userValidation;
     private UserDB currentUser;
     
     @FXML
@@ -44,8 +44,6 @@ public class ChangePasswordController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	validation = new Validations();
-	userValidation = new UserAuthentication();
     }
     
     public void init(Scene scene, UserDB user) {
@@ -65,36 +63,38 @@ public class ChangePasswordController implements Initializable {
         String password = txtOldPassword.getText();
         String newPasword = txtNewPassword.getText();
 
-        if (validation.validateLogIn(login)) {
-            if (userValidation.userExists(login)) {
-                userValidation.checkPassword(login, password);
-                if (userValidation.isAuthenticated()) {
+	UserDB user = new UserDB();
+	user.setLogin(login);
+	user.setPassword(password);
+        
+	Optional<String> result = isLoginValid()
+		//.and(isPasswordValid())
+		.and(userExists())
+		.and(isUserAuthenticated())
+		.apply(user);
 
-                    UserDB user = new UserDB();
-                    user.setLogin(login);
-                    user.selectById();
-                    user = user.getUser();
-                    user.setPassword(newPasword);
-                    user.update();
+	if (result.isPresent()) {
+	    showAlert(AlertType.INFORMATION, null, result.get());
+	} else {
+	    user.selectById();
 
-                    showAlert(AlertType.INFORMATION, "Datos:", "La contraseña se actualizó con exito");
+	    user = user.getUser();
+	    user.setPassword(newPasword);
+	    user.update();
 
-                } else {
-                    showAlert(AlertType.ERROR, "Datos:", "La contraseña no coincide con la cedula");
-                }
-            } else {
-                showAlert(AlertType.ERROR, "Datos:", "La cedula ingresada no existe en la Base de Datos");
-            }
-        } else {
-            showAlert(AlertType.ERROR, "Datos:", "La cedula ingresada no es valida");
-        }
+	    showAlert(AlertType.INFORMATION, "Datos:", "La contraseña se actualizó con exito");
+	}
     }
 
     @FXML
     private void onLoginKeyTyped(KeyEvent event) {
-        char val = event.getCharacter().charAt(0);
-        if (!Character.isDigit(val) || txtLogin.getText().length() > 9) {
-            event.consume();
+	String characterTyped = event.getCharacter();
+        
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+            
+            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+                event.consume();
         }
     }
 

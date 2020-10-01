@@ -21,8 +21,8 @@
                <children>
                   <HBox layoutX="8.0" layoutY="-20.0" prefHeight="80.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button id="secondary_button" fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
-                        <Button id="main_button" fx:id="btnCreate" mnemonicParsing="false" onAction="#onCreateAction" text="Crear" />
+                        <Button id="secondary_button" cancelButton="true" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
+                        <Button id="main_button" defaultButton="true" mnemonicParsing="false" onAction="#onCreateAction" text="Crear" />
                      </children>
                   </HBox>
                </children>
@@ -35,23 +35,23 @@
                      <children>
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
-                              <Label styleClass="labels" text="NOMBRE USUARIO:" />
+                              <Label styleClass="labels" text="CEDULA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtUsername" minWidth="250.0" onKeyTyped="#onUsernameKeyTyped" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onLoginTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="42.0" prefWidth="247.0">
                            <children>
-                              <Label styleClass="labels" text="CEDULA:" />
+                              <Label styleClass="labels" text="NOMBRE USUARIO:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onCedulaTyped" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtUsername" minWidth="250.0" onKeyTyped="#onUsernameKeyTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="247.0">
                            <children>
                               <Label styleClass="labels" text="CONTRASEÑA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <PasswordField fx:id="txtPassword" minWidth="250.0" onKeyTyped="#onPasswordKeyTyped" prefWidth="250.0" styleClass="text_fields" />
+                              <PasswordField fx:id="txtPassword" minWidth="250.0" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="54.0" prefWidth="247.0">

@@ -1,5 +1,7 @@
 package com.mikadifo.controllers;
+
 import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,15 +14,13 @@ import javafx.stage.Stage;
  */
 public class WindowLoader {
     
-    public static Stage currentStage;
-    
     private String viewsPath = "/com/mikadifo/views/?.fxml";
 
     private FXMLLoader loader;
     private Parent root;
     private Scene scene;
     private Stage stage;
-    
+
     public void load(String viewName) throws IOException {
         loadViewFile(viewName);
         setScene();
@@ -54,9 +54,4 @@ public class WindowLoader {
         else
             stage.show();
     }
-    
-    public static void closeCurrent() {
-        currentStage.close();
-    }
-
 }

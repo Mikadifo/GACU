@@ -22,8 +22,8 @@
                <children>
                   <HBox layoutX="8.0" layoutY="-36.0" prefHeight="60.0" prefWidth="734.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button id="main_button" fx:id="btnEnter" mnemonicParsing="false" onAction="#onEnterAction" text="Ingresar" />
-                        <Button id="secondary_button" fx:id="btnCancel" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
+                        <Button id="secondary_button" cancelButton="true" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
+                        <Button id="main_button" defaultButton="true" mnemonicParsing="false" onAction="#onEnterAction" text="Ingresar" />
                      </children>
                   </HBox>
                </children>
@@ -38,7 +38,7 @@
                            <children>
                               <Label prefHeight="30.0" prefWidth="108.0" styleClass="labels" text="CÉDULA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onLoginKeyTYped" prefHeight="25.0" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onLoginKeyTyped" prefHeight="25.0" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="32.0" prefWidth="100.0">
