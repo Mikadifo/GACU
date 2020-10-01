@@ -58,7 +58,7 @@ public class Validations {
     }
 
     public boolean validatePassword(String Password) {
-        return Password.matches("^[A-Za-z]{10,128}[A-Za-z\\d]$");
+        return Password.matches(".*\\d&[A-Z].*{8,128}$");
 
     }
 
