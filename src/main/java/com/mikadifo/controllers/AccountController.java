@@ -1,10 +1,13 @@
 package com.mikadifo.controllers;
 
-import com.mikadifo.models.db_tables.City;
-import com.mikadifo.models.db_tables.User;
+import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.UserDB;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,8 +26,9 @@ import javafx.stage.Stage;
 public class AccountController implements Initializable {
 
     private UserDB currentUser;
-
-    
+    private CityDB userCity;
+    private ObservableList<CityDB> cities;
+    private List<CityDB> citiesFromDB;
 
     @FXML
     private Button btnCancel;
@@ -34,11 +38,10 @@ public class AccountController implements Initializable {
     private Button btnUpdate;
     @FXML
     private TextField txtUsername;
-    private TextField txtPassword;
     @FXML
     private TextField txtLogin;
     @FXML
-    private ComboBox<City> comboCity;
+    private ComboBox<CityDB> comboCity;
 
     /**
      * Initializes the controller class.
@@ -48,11 +51,26 @@ public class AccountController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+	userCity = new CityDB();
+	userCity.selectAll();
+	citiesFromDB = userCity.getResults();
+	cities = FXCollections.observableArrayList(citiesFromDB);
     }
     
     public void init(Scene scene, UserDB user) {
-        btnUpdate.getScene().getStylesheets().add("/styles/account.css");
+	scene.getStylesheets().add("/styles/account.css");
         currentUser = user;
+	userCity.setId(currentUser.getCityId());
+	userCity.selectById();
+	userCity = userCity.getCity();
+	setUserInView();
+    }
+
+    private void setUserInView() {
+	txtLogin.setText(currentUser.getLogin());
+	txtUsername.setText(currentUser.getUsername());
+	comboCity.setItems(cities);
+	comboCity.getSelectionModel().select(userCity);
     }
 
     @FXML
@@ -77,19 +95,18 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onUptadeClick(ActionEvent event) {
-        getUserFromView().update();
+        UserDB userV = getUserFromView();
+	System.out.println("userV = " + userV.getUsername());
     }
 
     private UserDB getUserFromView() {
-        User user = new User();
+        UserDB user = new UserDB();
         
+        //user.setLogin(txtLogin.getText());
         user.setUsername(txtUsername.getText());
-        user.setPassword(txtPassword.getText());
-        user.setLogin(txtLogin.getText());
-        user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId());
+        //user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId()); //need cities in the database
 
-        return (UserDB) user;
-
+        return user;
     }
 
     @FXML
