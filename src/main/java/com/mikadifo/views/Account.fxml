@@ -63,7 +63,7 @@
                            <children>
                               <Label styleClass="labels" text="CIUDAD:" />
                               <Region prefHeight="36.0" prefWidth="102.0" />
-                              <ComboBox fx:id="comboCity" disable="true" editable="true" onKeyReleased="#onCityKeyReleased" onKeyTyped="#onCityKeyTyped" prefWidth="250.0" />
+                              <ComboBox disable="true" editable="true" onKeyTyped="#onCityKeyTyped" prefWidth="250.0" />
                            </children>
                         </HBox>
                      </children>

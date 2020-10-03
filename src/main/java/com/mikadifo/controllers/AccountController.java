@@ -40,7 +40,6 @@ public class AccountController implements Initializable {
     private TextField txtPassword;
     @FXML
     private TextField txtLogin;
-    @FXML
     private ComboBox<City> comboCity;
 
     /**
@@ -83,9 +82,6 @@ public class AccountController implements Initializable {
 
     }
 
-    @FXML
-    private void onCityKeyReleased(KeyEvent event) {
-    }
 
     @FXML
     private void onLoginKeyTyped(KeyEvent event) {
