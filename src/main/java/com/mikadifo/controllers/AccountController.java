@@ -33,11 +33,8 @@ public class AccountController implements Initializable {
 
     private WindowLoader loader;
 
-    private Button btnCancel;
-    private Button btnUpdate;
     @FXML
     private TextField txtUsername;
-    private TextField txtPassword;
     @FXML
     private TextField txtLogin;
     @FXML
@@ -58,24 +55,10 @@ public class AccountController implements Initializable {
         currentUser = user;
     }
 
-    private void onCancelClick(ActionEvent event) {
-        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
-        currentStage.close();
-    }
-
-    private void onDeleteAccountClick(ActionEvent event) {
-        getUserFromView().delete();
-    }
-
-    private void onUptadeClick(ActionEvent event) {
-        getUserFromView().update();
-    }
-
     private UserDB getUserFromView() {
         User user = new User();
         
         user.setUsername(txtUsername.getText());
-        user.setPassword(txtPassword.getText());
         user.setLogin(txtLogin.getText());
         user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId());
 
@@ -101,15 +84,18 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
+	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML
     private void onDeleteAction(ActionEvent event) {
-        
+	getUserFromView().delete();
     }
 
     @FXML
     private void onUpdateAction(ActionEvent event) {
+        getUserFromView().update();
     }
 
     @FXML
