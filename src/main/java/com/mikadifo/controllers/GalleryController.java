@@ -9,16 +9,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -27,8 +22,8 @@ import javafx.stage.Stage;
  */
 public class GalleryController implements Initializable {
 
+    private WindowLoader loader;
     private UserDB currentUser;
-
 
     @FXML
     private Button btnExit;
@@ -54,31 +49,34 @@ public class GalleryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+	loader = new WindowLoader();
     }
     
     public void init(Scene scene, Roles role, UserDB user) {
         btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
         loadByRole(role);
-        currentUser = user;
+	currentUser = user;
+	//currentUser = new UserDB();
+	//currentUser.setCityId(7);
+	//currentUser.setLogin("0104640982");
+	//currentUser.setUsername("hello_123");
+	//currentUser.setPassword("kkck1");
+	//currentUser.setRoleId((short) 1);
     }
 
     private void loadByRole(Roles role) {
+	//if user is null so is guest
         switch(role) {
             case ADMIN:
                 break;
             case GUEST:
                 btnTrivia.setDisable(true);
-                logedPane.setVisible(false);
-                rootPane.setTop(guestPane);
-                guestPane.setVisible(true);
+                guestPane.setVisible(false);
+                rootPane.setTop(logedPane);
+                logedPane.setVisible(true);
 
                 break;
             case USER:
-                break;
-            case CONTRIBUTOR:
-                break;
-            case CREATOR:
                 break;
             default:
         }
@@ -95,19 +93,10 @@ public class GalleryController implements Initializable {
     @FXML
     private void onTriviaAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(GalleryController.class.getResource("/com/mikadifo/views/Trivia.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            TriviaController trivia = (TriviaController) loader.getController();
-            trivia.init(scene, currentUser);
-            
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            Stage currentStage = (Stage) btnTrivia.getScene().getWindow();
-            currentStage.close();
-            stage.show();
+	    loader.load("Trivia");
+            TriviaController trivia = loader.getController();
+            trivia.init(loader.getScene(), currentUser);
+	    loader.showAndWait(false);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,6 +109,14 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onAccountAction(ActionEvent event) {
+	try {
+            loader.load("Account");
+            AccountController account = loader.getController();
+            account.init(loader.getScene(), currentUser);
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

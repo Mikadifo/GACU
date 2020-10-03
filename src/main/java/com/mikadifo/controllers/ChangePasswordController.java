@@ -6,12 +6,12 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -26,10 +26,6 @@ public class ChangePasswordController implements Initializable {
 
     private UserDB currentUser;
     
-    @FXML
-    private Button btnCancel;
-    @FXML
-    private Button btnChange;
     @FXML
     private TextField txtLogin;
     @FXML
@@ -47,14 +43,15 @@ public class ChangePasswordController implements Initializable {
     }
     
     public void init(Scene scene, UserDB user) {
-        btnChange.getScene().getStylesheets().add("/styles/account.css");
+	scene.getStylesheets().add("/styles/account.css");
         currentUser = user; 
     }
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
-        currentStage.close();
+	Node currentStage = (Node) event.getSource();
+        Stage stage = (Stage) currentStage.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -84,18 +81,6 @@ public class ChangePasswordController implements Initializable {
 
 	    showAlert(AlertType.INFORMATION, "Datos:", "La contraseña se actualizó con exito");
 	}
-    }
-
-    @FXML
-    private void onLoginKeyTyped(KeyEvent event) {
-	String characterTyped = event.getCharacter();
-        
-        if (!characterTyped.isEmpty()) {
-            char val = characterTyped.charAt(0);
-            
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
-                event.consume();
-        }
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {

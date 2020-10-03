@@ -150,8 +150,8 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-        Node currentStag = (Node) event.getSource();
-        Stage stage = (Stage) currentStag.getScene().getWindow();
+        Node currentStage = (Node) event.getSource();
+        Stage stage = (Stage) currentStage.getScene().getWindow();
         stage.close();
     }
 
