@@ -20,6 +20,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -138,8 +139,9 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
-        currentStage.close();
+        Node currentStag = (Node) event.getSource();
+        Stage stage = (Stage) currentStag.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
