@@ -1,12 +1,16 @@
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.Roles;
 import com.mikadifo.models.db_tables.City;
 import com.mikadifo.models.db_tables.User;
 import com.mikadifo.models.table_statements.UserDB;
 import static java.lang.Character.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,20 +32,12 @@ public class AccountController implements Initializable {
 
     private UserDB currentUser;
 
-    
+    private WindowLoader loader;
 
     @FXML
-    private Button btnCancel;
-    @FXML
-    private Button btnDeleteAccount;
-    @FXML
-    private Button btnUpdate;
-    @FXML
     private TextField txtUsername;
-    private TextField txtPassword;
     @FXML
     private TextField txtLogin;
-    @FXML
     private ComboBox<City> comboCity;
 
     /**
@@ -60,23 +56,20 @@ public class AccountController implements Initializable {
         
     }
 
-    @FXML
-    private void onUsernameKeyReleased(KeyEvent event) {
-        String characterTyped = event.getCharacter();
-        if (!characterTyped.isEmpty()) {
-            char val = characterTyped.charAt(0);
-            
-            if (!(isLetterOrDigit(val)|| val == '_' )|| txtUsername.getText().length() > 49) {
-                event.consume();
-            }
-        }
+    private UserDB getUserFromView() {
+        User user = new User();
         
+        user.setUsername(txtUsername.getText());
+        user.setLogin(txtLogin.getText());
+        user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId());
+
+        return (UserDB) user;
     }
 
 
     @FXML
-    private void onLoginKeyReleased(KeyEvent event) {
-        String characterTyped = event.getCharacter();
+    private void onLoginKeyTyped(KeyEvent event) {
+	String characterTyped = event.getCharacter();
 
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
@@ -88,41 +81,53 @@ public class AccountController implements Initializable {
     }
 
     @FXML
-    private void onCancelClick(ActionEvent event) {
-        Stage currentStage = (Stage) btnCancel.getScene().getWindow();
+    private void onUsernameKeyTyped(KeyEvent event) {
+	String characterTyped = event.getCharacter();
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+            
+            if (!(isLetterOrDigit(val)|| val == '_' )|| txtUsername.getText().length() > 49) {
+                event.consume();
+            }
+        }
+    }
+
+    @FXML
+    private void onCityKeyTyped(KeyEvent event) {
+    }
+
+    @FXML
+    private void onCancelAction(ActionEvent event) {
+	Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
     }
 
     @FXML
-    private void onDeleteAccountClick(ActionEvent event) {
-        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Esta seguro que desea eliminar la cuenta?");
+    private void onDeleteAction(ActionEvent event) {
+	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
         if (isOk) getUserFromView().delete();
-        
     }
 
     @FXML
-    private void onUptadeClick(ActionEvent event) {
-        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Esta seguro que desea actualizar su cuenta?");
+    private void onUpdateAction(ActionEvent event) {
+	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea actualizar su cuenta?");
         
         if (isOk) getUserFromView().update();
-        
-    }
-
-    private UserDB getUserFromView() {
-        User user = new User();
-        
-        user.setUsername(txtUsername.getText());
-        user.setPassword(txtPassword.getText());
-        user.setLogin(txtLogin.getText());
-        user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId());
-
-        return (UserDB) user;
-
     }
 
     @FXML
-    private void onCityKeyReleased(KeyEvent event) {
+    private void onChangePasswordAction(ActionEvent event) {
+        try {
+            loader = new WindowLoader();
+            loader.load("ChangePassword");
+            ChangePasswordController changePasswordController = loader.getController();
+            changePasswordController.init(loader.getScene(), null);
+
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
