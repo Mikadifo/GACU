@@ -49,33 +49,21 @@
                            <children>
                               <Label styleClass="labels" text="CÉDULA:" />
                               <Region prefHeight="41.0" prefWidth="99.0" />
-<<<<<<< HEAD
                               <TextField fx:id="txtLogin" disable="true" onKeyTyped="#onLoginKeyTyped" prefWidth="250.0" styleClass="text_fields" />
-=======
-                              <TextField fx:id="txtLogin" editable="false" onKeyReleased="#onLoginKeyReleased" prefWidth="250.0" styleClass="text_fields" />
->>>>>>> devAux
                            </children>
                         </HBox>
                         <HBox prefHeight="31.0" prefWidth="100.0">
                            <children>
                               <Label styleClass="labels" text="NOMBRE DE USUARIO:" />
                               <Region prefHeight="31.0" prefWidth="17.0" />
-<<<<<<< HEAD
                               <TextField fx:id="txtUsername" disable="true" onKeyTyped="#onUsernameKeyTyped" prefWidth="250.0" styleClass="text_fields" />
-=======
-                              <TextField fx:id="txtUsername" onKeyReleased="#onUsernameKeyReleased" prefWidth="250.0" styleClass="text_fields" />
->>>>>>> devAux
                            </children>
                         </HBox>
                         <HBox prefHeight="36.0" prefWidth="100.0">
                            <children>
                               <Label styleClass="labels" text="CIUDAD:" />
                               <Region prefHeight="36.0" prefWidth="102.0" />
-<<<<<<< HEAD
                               <ComboBox disable="true" editable="true" onKeyTyped="#onCityKeyTyped" prefWidth="250.0" />
-=======
-                              <ComboBox fx:id="comboCity" editable="true" onKeyReleased="#onCityKeyReleased" prefWidth="250.0" />
->>>>>>> devAux
                            </children>
                         </HBox>
                      </children>
