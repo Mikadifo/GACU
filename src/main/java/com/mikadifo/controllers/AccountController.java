@@ -1,8 +1,5 @@
 package com.mikadifo.controllers;
 
-import com.mikadifo.models.Roles;
-import com.mikadifo.models.db_tables.City;
-import com.mikadifo.models.db_tables.User;
 import com.mikadifo.models.table_statements.UserDB;
 import static java.lang.Character.*;
 import java.io.IOException;
@@ -12,6 +9,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mikadifo.models.table_statements.CityDB;
+import com.mikadifo.models.table_statements.CountryDB;
+
 import static com.mikadifo.controllers.UserValidator.*;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -23,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -41,7 +39,9 @@ public class AccountController implements Initializable {
     private UserDB currentUser;
     private WindowLoader loader;
     private CityDB userCity;
+    private CountryDB userCountry;
     private List<CityDB> citiesFromDB;
+    private List<CountryDB> countriesFromDB;
     private ObservableList<CityDB> cities;
     private FilteredList<CityDB> filteredCities;
 
@@ -61,8 +61,11 @@ public class AccountController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 	userCity = new CityDB();
+	userCountry = new CountryDB();
 	userCity.selectAll();
+	userCountry.selectAll();
 	citiesFromDB = userCity.getResults();
+	countriesFromDB = userCountry.getResults();
 	cities = FXCollections.observableArrayList(citiesFromDB);
 	setConverterComboBox();
 	comboCity.setItems(cities);
@@ -85,17 +88,32 @@ public class AccountController implements Initializable {
 		public String toString(CityDB city) {
 		    if (city == null) return "Seleccione";
 
-		    return city.toString();		
+		    return replaceCountryIdWithName(city);		
 		}
 
 		@Override
 		public CityDB fromString(String string) {
 		    return citiesFromDB
 			.stream()
-			.filter(city -> city.toString().equals(string))
-			.findFirst().orElse(null);
+			.filter(city -> replaceCountryIdWithName(city).equals(string))
+			.findFirst()
+			.orElse(null);
 		}
 	});
+    }
+
+    private String replaceCountryIdWithName(CityDB city) {
+	return city.toString()
+		.replaceAll("\\(\\d*\\)", getCountryNameById(city.getCountryId()));
+    }
+
+    private String getCountryNameById(int id) {
+	return countriesFromDB.stream()
+		.filter(country -> country.getId() == id)
+		.findFirst()
+		.map(CountryDB::getName)
+		.map(countryName -> "(" + countryName + ")")
+		.orElse("N/C");
     }
 
     private void setUserInView() {
@@ -218,7 +236,7 @@ public class AccountController implements Initializable {
     @FXML
     private void onCityKeyReleased(KeyEvent event) {
         String filter = comboCity.getEditor().getText().toUpperCase();
-	filteredCities.setPredicate(item -> item.getName().contains(filter));
+	filteredCities.setPredicate(item -> item.getName().contains(filter));//review
 	comboCity.setItems(filteredCities);
     }
 

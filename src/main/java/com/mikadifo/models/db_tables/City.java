@@ -46,16 +46,7 @@ public class City {
 
     @Override
     public String toString() {
-	return this.name + " (" + getCountryNameById(this.getCountryId()) + ")";
-    }
-
-    private String getCountryNameById(int id) {
-	CountryDB country = new CountryDB();
-	country.setId(id);
-
-	country.selectById();
-
-	return country.getCountry().getName();
+	return this.name + " (" + this.getCountryId() + ")";
     }
 
 }
