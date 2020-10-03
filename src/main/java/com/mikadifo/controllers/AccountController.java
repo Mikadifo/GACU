@@ -11,6 +11,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.mikadifo.models.table_statements.CityDB;
+import static com.mikadifo.controllers.UserValidator.*;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -31,14 +38,18 @@ import javafx.stage.Stage;
 public class AccountController implements Initializable {
 
     private UserDB currentUser;
-
     private WindowLoader loader;
+    private CityDB userCity;
+    private List<CityDB> citiesFromDB;
+    private ObservableList<CityDB> cities;
+    private FilteredList<CityDB> filteredCities;
 
     @FXML
     private TextField txtUsername;
     @FXML
     private TextField txtLogin;
-    private ComboBox<City> comboCity;
+    @FXML
+    private ComboBox<CityDB> comboCity;
 
     /**
      * Initializes the controller class.
@@ -48,24 +59,49 @@ public class AccountController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }
+	userCity = new CityDB();
+	userCity.selectAll();
+	citiesFromDB = userCity.getResults();
+	cities = FXCollections.observableArrayList(citiesFromDB);
+	setConverterComboBox();
+	comboCity.setItems(cities);
+        filteredCities = new FilteredList<>(cities);
+   }
     
     public void init(Scene scene, UserDB user) {
-        btnUpdate.getScene().getStylesheets().add("/styles/account.css");
+	scene.getStylesheets().add("/styles/account.css");
         currentUser = user;
-        
+	userCity.setId(currentUser.getCityId());
+	userCity.selectById();
+	userCity = userCity.getCity();
+	setUserInView();
     }
 
-    private UserDB getUserFromView() {
-        User user = new User();
-        
-        user.setUsername(txtUsername.getText());
-        user.setLogin(txtLogin.getText());
-        user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId());
+    private void setConverterComboBox() {
+	comboCity.setConverter(new StringConverter<CityDB>(){
 
-        return (UserDB) user;
+		@Override
+		public String toString(CityDB city) {
+		    if (city == null) return "Seleccione";
+
+		    return city.toString();		
+		}
+
+		@Override
+		public CityDB fromString(String string) {
+		    return citiesFromDB
+			.stream()
+			.filter(city -> city.toString().equals(string))
+			.findFirst().orElse(null);
+		}
+	});
     }
 
+    private void setUserInView() {
+	txtLogin.setText(currentUser.getLogin());
+	txtUsername.setText(currentUser.getUsername());
+	comboCity.getSelectionModel().select(userCity);
+    }
 
     @FXML
     private void onLoginKeyTyped(KeyEvent event) {
@@ -94,6 +130,10 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onCityKeyTyped(KeyEvent event) {
+	String filter = comboCity.getEditor().getText().toUpperCase();
+
+	filteredCities.setPredicate(item -> item.getName().contains(filter));
+	comboCity.setItems(filteredCities);
     }
 
     @FXML
@@ -111,9 +151,31 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onUpdateAction(ActionEvent event) {
-	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea actualizar su cuenta?");
-        
-        if (isOk) getUserFromView().update();
+	UserDB userInView = getUserFromView();
+
+	Optional<String> result = isUsernameValid()
+		.and(isCitySelected())
+		.apply(userInView);
+
+	if (result.isPresent()) {
+	    showAlert(Alert.AlertType.CONFIRMATION, null, result.get());
+	} else {
+	    boolean isNewData = false;
+
+	    if (isUsernameDifferent(userInView)) {
+		isNewData = true;
+		currentUser.setUsername(userInView.getUsername());
+	    }
+	    if (isCityDifferent(userInView)) {
+		isNewData = true;
+		currentUser.setCityId(userInView.getCityId());
+	    }
+
+	    if (isNewData) {
+		boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea actualizar su cuenta?");
+		if (isOk) currentUser.update();
+	    }
+	}
     }
 
     @FXML
@@ -139,4 +201,23 @@ public class AccountController implements Initializable {
 
 	return alert.showAndWait().get() == ButtonType.OK;
     }
+
+    private UserDB getUserFromView() {
+        UserDB user = new UserDB();
+        
+	user.setLogin(txtLogin.getText());
+        user.setUsername(txtUsername.getText());
+	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
+
+        return user;
+    }
+
+    private boolean isUsernameDifferent(UserDB newUser) {
+	return ! currentUser.getUsername().equals(newUser.getUsername());
+    }
+
+    private boolean isCityDifferent(UserDB newUser) {
+	return currentUser.getCityId() != newUser.getCityId();
+    }
+
 }
