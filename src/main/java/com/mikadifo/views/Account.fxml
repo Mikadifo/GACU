@@ -28,9 +28,10 @@
                <children>
                   <HBox layoutX="192.0" layoutY="-1.0" prefHeight="59.0" prefWidth="720.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button id="secondary_button" fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#onCancelClick" text="Cancelar" />
-                        <Button id="delete_button" fx:id="btnDeleteAccount" mnemonicParsing="false" onAction="#onDeleteAccountClick" text="Eliminar Cuenta" />
-                        <Button id="main_button" fx:id="btnUpdate" defaultButton="true" mnemonicParsing="false" onAction="#onUptadeClick" text="Actualizar" />
+                        <Button id="secondary_button" cancelButton="true" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
+                        <Button id="delete_button" mnemonicParsing="false" onAction="#onDeleteAction" text="Eliminar Cuenta" />
+                        <Button id="main_button" defaultButton="true" mnemonicParsing="false" onAction="#onChangePasswordAction" text="Cambiar Contraseña" />
+                        <Button id="main_button" defaultButton="true" mnemonicParsing="false" onAction="#onUpdateAction" text="Actualizar" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -48,21 +49,21 @@
                            <children>
                               <Label styleClass="labels" text="CÉDULA:" />
                               <Region prefHeight="41.0" prefWidth="99.0" />
-                              <TextField fx:id="txtLogin" disable="true" onKeyReleased="#onLoginKeyReleased" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtLogin" disable="true" onKeyTyped="#onLoginKeyTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="31.0" prefWidth="100.0">
                            <children>
                               <Label styleClass="labels" text="NOMBRE DE USUARIO:" />
                               <Region prefHeight="31.0" prefWidth="17.0" />
-                              <TextField fx:id="txtUsername" disable="true" onKeyReleased="#onUsernameKeyReleased" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtUsername" disable="true" onKeyTyped="#onUsernameKeyTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="36.0" prefWidth="100.0">
                            <children>
                               <Label styleClass="labels" text="CIUDAD:" />
                               <Region prefHeight="36.0" prefWidth="102.0" />
-                              <ComboBox fx:id="comboCity" disable="true" editable="true" onKeyReleased="#onCityKeyReleased" prefWidth="250.0" />
+                              <ComboBox fx:id="comboCity" disable="true" editable="true" onKeyReleased="#onCityKeyReleased" onKeyTyped="#onCityKeyTyped" prefWidth="250.0" />
                            </children>
                         </HBox>
                      </children>
