@@ -129,13 +129,6 @@ public class AccountController implements Initializable {
         }
     }
 
-    @FXML
-    private void onCityKeyTyped(KeyEvent event) {
-	String filter = comboCity.getEditor().getText().toUpperCase();
-
-	filteredCities.setPredicate(item -> item.getName().contains(filter));
-	comboCity.setItems(filteredCities);
-    }
 
     @FXML
     private void onCancelAction(ActionEvent event) {
@@ -220,6 +213,13 @@ public class AccountController implements Initializable {
 
     private boolean isCityDifferent(UserDB newUser) {
 	return currentUser.getCityId() != newUser.getCityId();
+    }
+
+    @FXML
+    private void onCityKeyReleased(KeyEvent event) {
+        String filter = comboCity.getEditor().getText().toUpperCase();
+	filteredCities.setPredicate(item -> item.getName().contains(filter));
+	comboCity.setItems(filteredCities);
     }
 
 }
