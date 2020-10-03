@@ -2,12 +2,15 @@ package com.mikadifo.controllers;
 
 import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.UserDB;
+import static com.mikadifo.controllers.UserValidator.*;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -27,8 +31,9 @@ public class AccountController implements Initializable {
 
     private UserDB currentUser;
     private CityDB userCity;
-    private ObservableList<CityDB> cities;
     private List<CityDB> citiesFromDB;
+    private ObservableList<CityDB> cities;
+    private FilteredList<CityDB> filteredCities;
 
     @FXML
     private Button btnCancel;
@@ -55,7 +60,10 @@ public class AccountController implements Initializable {
 	userCity.selectAll();
 	citiesFromDB = userCity.getResults();
 	cities = FXCollections.observableArrayList(citiesFromDB);
-    }
+	setConverterComboBox();
+	comboCity.setItems(cities);
+        filteredCities = new FilteredList<>(cities);
+   }
     
     public void init(Scene scene, UserDB user) {
 	scene.getStylesheets().add("/styles/account.css");
@@ -66,10 +74,29 @@ public class AccountController implements Initializable {
 	setUserInView();
     }
 
+    private void setConverterComboBox() {
+	comboCity.setConverter(new StringConverter<CityDB>(){
+
+		@Override
+		public String toString(CityDB city) {
+		    if (city == null) return "Seleccione";
+
+		    return city.toString();		
+		}
+
+		@Override
+		public CityDB fromString(String string) {
+		    return citiesFromDB
+			.stream()
+			.filter(city -> city.toString().equals(string))
+			.findFirst().orElse(null);
+		}
+	});
+    }
+
     private void setUserInView() {
 	txtLogin.setText(currentUser.getLogin());
 	txtUsername.setText(currentUser.getUsername());
-	comboCity.setItems(cities);
 	comboCity.getSelectionModel().select(userCity);
     }
 
@@ -95,21 +122,56 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onUptadeClick(ActionEvent event) {
-        UserDB userV = getUserFromView();
-	System.out.println("userV = " + userV.getUsername());
+        UserDB userInView = getUserFromView();
+
+	Optional<String> result = isUsernameValid()
+		.and(isCitySelected())
+		.apply(userInView);
+
+	if (result.isPresent()) {
+	    System.out.println("RRR = " + result.get());
+	    //Data of user in view is incorrect, so need to showAlert with result
+	} else {
+	    boolean isNewData = false;
+
+	    if (isUsernameDifferent(userInView)) {
+		isNewData = true;
+		currentUser.setUsername(userInView.getUsername());
+	    }
+	    if (isCityDifferent(userInView)) {
+		isNewData = true;
+		currentUser.setCityId(userInView.getCityId());
+	    }
+
+	    if (isNewData) currentUser.update();
+	}
+
+	
     }
 
     private UserDB getUserFromView() {
         UserDB user = new UserDB();
         
-        //user.setLogin(txtLogin.getText());
+	user.setLogin(txtLogin.getText());
         user.setUsername(txtUsername.getText());
-        //user.setCityId(comboCity.getSelectionModel().getSelectedItem().getId()); //need cities in the database
+	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
 
         return user;
     }
 
+    private boolean isUsernameDifferent(UserDB newUser) {
+	return ! currentUser.getUsername().equals(newUser.getUsername());
+    }
+
+    private boolean isCityDifferent(UserDB newUser) {
+	return currentUser.getCityId() != newUser.getCityId();
+    }
+
     @FXML
     private void onCityKeyReleased(KeyEvent event) {
+	String filter = comboCity.getEditor().getText().toUpperCase();
+
+	filteredCities.setPredicate(item -> item.getName().contains(filter));
+	comboCity.setItems(filteredCities);
     }
 }

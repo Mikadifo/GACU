@@ -1,5 +1,7 @@
 package com.mikadifo.models.db_tables;
 
+import com.mikadifo.models.table_statements.CountryDB;
+
 public class City {
 
     public final String TABLE = "\"Cities\"";
@@ -44,7 +46,16 @@ public class City {
 
     @Override
     public String toString() {
-	return this.name;
+	return this.name + " (" + getCountryNameById(this.getCountryId()) + ")";
+    }
+
+    private String getCountryNameById(int id) {
+	CountryDB country = new CountryDB();
+	country.setId(id);
+
+	country.selectById();
+
+	return country.getCountry().getName();
     }
 
 }
