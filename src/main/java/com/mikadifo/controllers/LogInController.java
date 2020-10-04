@@ -3,12 +3,14 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.Roles;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+
 import java.util.Optional;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,7 +51,12 @@ public class LogInController implements Initializable {
     
     public void init(Scene scene, UserDB user) {
         scene.getStylesheets().add("/styles/account.css");
-        currentUser = user;
+	if (user != null) setUserInView(user);
+    }
+
+    private void setUserInView(UserDB user) {
+	txtLogin.setText(user.getLogin());
+	txtPassword.setText(user.getPassword());
     }
 
     @FXML
