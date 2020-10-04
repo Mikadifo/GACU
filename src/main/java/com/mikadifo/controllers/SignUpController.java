@@ -3,9 +3,13 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.db_tables.City;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+import com.mikadifo.models.Roles;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +39,8 @@ public class SignUpController implements Initializable {
     private PasswordField txtPassword;
     @FXML
     private ComboBox<City> comboCity;
+    
+    private WindowLoader loader;
 
     /**
      * Initializes the controller class.
@@ -86,6 +92,16 @@ public class SignUpController implements Initializable {
             showAlert(AlertType.INFORMATION, null, result.get());
         } else {
             user.insert();
+        }
+        try {
+            loader = new WindowLoader();
+            loader.load("LogIn");
+            GalleryController gallery = loader.getController();
+            gallery.init(loader.getScene(), Roles.GUEST, null);
+
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

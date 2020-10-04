@@ -62,7 +62,7 @@ public class LogInController implements Initializable {
 	user.setPassword(password);
 
 	Optional<String> result = isLoginValid()
-		//.and(isPasswordValid())
+		.and(isPasswordValid())
 		.and(userExists())
 		.and(isUserAuthenticated())
 		.apply(user);
