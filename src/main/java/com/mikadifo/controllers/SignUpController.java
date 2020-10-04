@@ -3,6 +3,7 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.db_tables.City;
 import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.CountryDB;
+import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
 import java.net.URL;
@@ -142,9 +143,21 @@ public class SignUpController implements Initializable {
         user.setUsername(txtUsername.getText());
 	user.setPassword(txtPassword.getText());
 	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
-	user.setRoleId((short) 1); //change
+	user.setRoleId(getUserRoleId());
 
         return user;
+    }
+
+    private short getUserRoleId() {
+	RoleDB defaultRole = new RoleDB();
+	defaultRole.selectAll();
+
+	return defaultRole.getResults().stream()
+		.filter(role -> role.getName().toUpperCase().equals("USER"))
+		.map(RoleDB::getId)
+		.findFirst()
+		.get()
+		.shortValue();
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
