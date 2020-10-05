@@ -83,7 +83,7 @@ public class SignUpController implements Initializable {
 
         Optional<String> result = isLoginValid() //first must be login fix in sceneBuilder
                 .and(isUsernameValid())
-                //.and(isPasswordValid())
+                .and(isPasswordValid())
                 .and(isCitySelected())
                 .and(userNotExists())
                 .apply(user);
