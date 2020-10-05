@@ -37,7 +37,7 @@
                            <children>
                               <Label styleClass="labels" text="CEDULA:" />
                               <Region prefHeight="200.0" prefWidth="50.0" />
-                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onLoginTyped" prefWidth="250.0" styleClass="text_fields" />
+                              <TextField fx:id="txtLogin" minWidth="250.0" onKeyTyped="#onLoginKeyTyped" prefWidth="250.0" styleClass="text_fields" />
                            </children>
                         </HBox>
                         <HBox prefHeight="42.0" prefWidth="247.0">

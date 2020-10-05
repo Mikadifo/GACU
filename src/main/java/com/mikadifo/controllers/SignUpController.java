@@ -120,8 +120,8 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    private void onLoginTyped(KeyEvent event) {
-        String characterTyped = event.getCharacter();
+    private void onLoginKeyTyped(KeyEvent event) {
+	String characterTyped = event.getCharacter();
 
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
