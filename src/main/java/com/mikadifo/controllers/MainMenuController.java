@@ -26,6 +26,7 @@ public class MainMenuController implements Initializable {
 
     private WindowLoader loader;
     public static boolean isLogedIn;
+    public static Scene scene;
     
     @FXML
     private ImageView imgLogo;
@@ -39,8 +40,15 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    public void init(Scene scene) {
-        scene.getStylesheets().add("/styles/menu.css");
+    public void init() {
+	scene.getStylesheets().add("/styles/menu.css");
+    }
+
+    public static void closeIfLogedIn() {
+	if (isLogedIn) {
+	    Stage thisStage = (Stage) scene.getWindow();
+	    thisStage.close();
+	}
     }
 
     @FXML
@@ -84,13 +92,7 @@ public class MainMenuController implements Initializable {
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-	    if (isLogedIn) {
-		Node sourceNode = (Node) event.getSource();
-		Stage thisStage = (Stage) sourceNode.getScene().getWindow();
-		thisStage.close();
-	    }
-	}
+        }
     }
 
     @FXML

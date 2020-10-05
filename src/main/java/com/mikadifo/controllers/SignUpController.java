@@ -130,8 +130,8 @@ public class SignUpController implements Initializable {
 	Optional<String> result = isLoginValid() //need to be fixed the login Key typed to accpet '_'
                 .and(isUsernameValid())
                 .and(isPasswordValid())
-                //.and(isCitySelected())
-                .and(userNotExists())
+		.and(isCitySelected())
+                .and(userNotExists()) //need a validation for username already existing
                 .apply(userInView);
 
         if (result.isPresent())
@@ -141,8 +141,8 @@ public class SignUpController implements Initializable {
 	    try {
 		loader = new WindowLoader();
 		loader.load("LogIn");
-		LogInController log = loader.getController();
-		log.init(loader.getScene(), userInView);
+		LogInController login = loader.getController();
+		login.init(loader.getScene(), userInView);
 		loader.showAndWait(false);
 	    } catch (IOException ex) {
 		Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
