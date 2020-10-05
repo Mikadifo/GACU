@@ -117,4 +117,8 @@ public class LogInController implements Initializable {
         }
     }
 
+    void init(Scene scene, Roles roles, Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

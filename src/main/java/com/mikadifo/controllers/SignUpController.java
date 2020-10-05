@@ -84,25 +84,25 @@ public class SignUpController implements Initializable {
         Optional<String> result = isLoginValid() //first must be login fix in sceneBuilder
                 .and(isUsernameValid())
                 .and(isPasswordValid())
-                .and(isCitySelected())
+                //.and(isCitySelected())
                 .and(userNotExists())
                 .apply(user);
 
         if (result.isPresent()) {
             showAlert(AlertType.INFORMATION, null, result.get());
         } else {
-            user.insert();
-        }
-        try {
+            //user.insert();
+           try {
             loader = new WindowLoader();
             loader.load("LogIn");
-            GalleryController gallery = loader.getController();
-            gallery.init(loader.getScene(), Roles.GUEST, null);
-
+            LogInController log = loader.getController();
+            log.init(loader.getScene(), null);
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
