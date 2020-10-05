@@ -52,6 +52,7 @@ public class LogInController implements Initializable {
     public void init(Scene scene, UserDB user) {
         scene.getStylesheets().add("/styles/account.css");
 	if (user != null) setUserInView(user);
+	txtLogin.requestFocus();
     }
 
     private void setUserInView(UserDB user) {
@@ -87,10 +88,11 @@ public class LogInController implements Initializable {
                 Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            Node currentStag = (Node) event.getSource();
-            Stage stage = (Stage) currentStag.getScene().getWindow();
+            Node nodeSource = (Node) event.getSource();
+            Stage currentStage = (Stage) nodeSource.getScene().getWindow();
         
-            stage.close(); //test if when login close correctly
+            currentStage.close();
+	    MainMenuController.isLogedIn = true;
 	}
     }
 

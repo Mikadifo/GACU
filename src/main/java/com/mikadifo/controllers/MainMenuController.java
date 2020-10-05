@@ -9,11 +9,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -23,6 +25,7 @@ import javafx.scene.image.ImageView;
 public class MainMenuController implements Initializable {
 
     private WindowLoader loader;
+    public static boolean isLogedIn;
     
     @FXML
     private ImageView imgLogo;
@@ -65,7 +68,6 @@ public class MainMenuController implements Initializable {
             loader.load("Gallery");
             GalleryController gallery = loader.getController();
             gallery.init(loader.getScene(), Roles.GUEST, null);
-
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +84,13 @@ public class MainMenuController implements Initializable {
             loader.showAndWait(true);
         } catch (IOException ex) {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } finally {
+	    if (isLogedIn) {
+		Node sourceNode = (Node) event.getSource();
+		Stage thisStage = (Stage) sourceNode.getScene().getWindow();
+		thisStage.close();
+	    }
+	}
     }
 
     @FXML
