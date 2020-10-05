@@ -6,6 +6,7 @@ import static com.mikadifo.controllers.UserValidator.*;
 
 import java.util.Optional;
 import java.io.IOException;
+import static java.lang.Character.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -117,12 +118,13 @@ public class LogInController implements Initializable {
     @FXML
     private void onLoginKeyTyped(KeyEvent event) {
         String characterTyped = event.getCharacter();
-        
+
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
-            
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+
+            if (!isDigit(val) || txtLogin.getText().length() > 9) {
                 event.consume();
+            }
         }
     }
 

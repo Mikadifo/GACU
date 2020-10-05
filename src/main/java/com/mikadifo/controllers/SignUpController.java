@@ -6,6 +6,7 @@ import com.mikadifo.models.table_statements.CountryDB;
 import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+import static java.lang.Character.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -115,7 +116,7 @@ public class SignUpController implements Initializable {
     private void onCancelAction(ActionEvent event) {
         Node currentStag = (Node) event.getSource();
         Stage stage = (Stage) currentStag.getScene().getWindow();
-        
+
         stage.close();
     }
 
@@ -173,26 +174,25 @@ public class SignUpController implements Initializable {
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
         String characterTyped = event.getCharacter();
+
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
 
-            if (!(Character.isLetter(val) || Character.isDigit(val)) || txtLogin.getText().length() > 245) {
+            if (!(isLetterOrDigit(val) || val == '_') || txtUsername.getText().length() > 49) {
                 event.consume();
+
             }
         }
-
     }
 
-
-
     @FXML
-    private void onLoginTyped(KeyEvent event) {
-        String characterTyped = event.getCharacter();
+    private void onLoginKeyTyped(KeyEvent event) {
+	String characterTyped = event.getCharacter();
 
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
 
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9) {
+            if (!isDigit(val) || txtLogin.getText().length() > 9) {
                 event.consume();
             }
         }
