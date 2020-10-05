@@ -3,6 +3,7 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.db_tables.City;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+import static java.lang.Character.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -55,7 +56,7 @@ public class SignUpController implements Initializable {
     private void onCancelAction(ActionEvent event) {
         Node currentStag = (Node) event.getSource();
         Stage stage = (Stage) currentStag.getScene().getWindow();
-        
+
         stage.close();
     }
 
@@ -102,16 +103,16 @@ public class SignUpController implements Initializable {
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
         String characterTyped = event.getCharacter();
+
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
 
-            if (!(Character.isLetter(val) || Character.isDigit(val)) || txtLogin.getText().length() > 245) {
+            if (!(isLetterOrDigit(val) || val == '_') || txtUsername.getText().length() > 49) {
                 event.consume();
+
             }
         }
-
     }
-
 
     @FXML
     private void onCityKeTyped(KeyEvent event) {
@@ -125,7 +126,7 @@ public class SignUpController implements Initializable {
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
 
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9) {
+            if (!isDigit(val) || txtLogin.getText().length() > 9) {
                 event.consume();
             }
         }
