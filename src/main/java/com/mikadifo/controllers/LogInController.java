@@ -70,7 +70,7 @@ public class LogInController implements Initializable {
 	user.setPassword(password);
 
 	Optional<String> result = isLoginValid()
-		//.and(isPasswordValid())
+		.and(isPasswordValid())
 		.and(userExists())
 		.and(isUserAuthenticated())
 		.apply(user);
@@ -125,6 +125,10 @@ public class LogInController implements Initializable {
                 event.consume();
             }
         }
+    }
+
+    void init(Scene scene, Roles roles, Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

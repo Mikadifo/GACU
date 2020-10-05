@@ -44,7 +44,7 @@ public interface UserValidator extends Function<UserDB, Optional<String>> {
     }
 
     static UserValidator isPasswordValid() {
-	return user -> (user.getPassword().matches(".*\\d&[A-Z].*{8,128}$")) ?
+	return user -> (user.getPassword().matches("^(?=.*\\d)(?=.*[A-Z])(?=.*).{8,128}$")) ?
 	    Optional.empty() : Optional.of("La contrasena debe tener minimo (un numero y una letra mayuscula)") ;
     }
 

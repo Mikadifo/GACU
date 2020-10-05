@@ -1,12 +1,12 @@
 package com.mikadifo.controllers;
 
-import com.mikadifo.models.db_tables.City;
 import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.CountryDB;
 import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
 import static java.lang.Character.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +15,8 @@ import javafx.util.StringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +40,7 @@ public class SignUpController implements Initializable {
 
     private CityDB userCity;
     private CountryDB userCountry;
+    private WindowLoader loader;
     private List<CityDB> citiesFromDB;
     private List<CountryDB> countriesFromDB;
     private ObservableList<CityDB> cities;
@@ -126,15 +129,29 @@ public class SignUpController implements Initializable {
 
 	Optional<String> result = isLoginValid() //need to be fixed the login Key typed to accpet '_'
                 .and(isUsernameValid())
-                //.and(isPasswordValid())
-                .and(isCitySelected())
+                .and(isPasswordValid())
+                //.and(isCitySelected())
                 .and(userNotExists())
                 .apply(userInView);
 
         if (result.isPresent())
             showAlert(AlertType.INFORMATION, null, result.get());
-        else
+	else {
 	    userInView.insert();
+	    try {
+		loader = new WindowLoader();
+		loader.load("LogIn");
+		LogInController log = loader.getController();
+		log.init(loader.getScene(), userInView);
+		loader.showAndWait(false);
+	    } catch (IOException ex) {
+		Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+
+	    Node sourceNode = (Node) event.getSource();
+	    Stage currentStage = (Stage) sourceNode.getScene().getWindow();
+	    currentStage.close();
+        }
     }
 
     private UserDB getUserFromView() {
