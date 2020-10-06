@@ -51,6 +51,8 @@ public class GalleryController implements Initializable {
     private ScrollPane rootScroll;
     @FXML
     private FlowPane imagesFlowPane;
+    @FXML
+    private Button backButton;
 
     /**
      * Initializes the controller class.
@@ -154,6 +156,10 @@ public class GalleryController implements Initializable {
         alert.setContentText(message);
 
 	return alert.showAndWait().get() == ButtonType.OK;
+    }
+
+    @FXML
+    private void onBackAction(ActionEvent event) {
     }
 
 }
