@@ -100,10 +100,7 @@ public class TriviaController implements Initializable {
            //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
 
         } else { 
-            alert.setHeaderText(null);
-            alert.setTitle("Confirmación");
-            alert.setContentText("Seleccione una opción");
-            alert.showAndWait();
+            showAlert(Alert.AlertType.WARNING, null, "Debe seleccionar una opcion");
         }
 
         // if comprobar que 1 y solo 1 boton esta focused 
@@ -143,10 +140,7 @@ public class TriviaController implements Initializable {
                 //for botones asginar el shuffled array
             //else alert de que aun no ha visitado un lugar
             } else {
-                alert.setHeaderText(null);
-                alert.setTitle("Aviso");
-                alert.setContentText("Aún no ha visitado ningun lugar. No puede acceder a la trivia");
-                alert.showAndWait();
+                showAlert(Alert.AlertType.WARNING, null, "No ha visitado nungun lugar, no puede acceder a la trivia");
             }
     }
 
