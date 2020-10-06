@@ -121,6 +121,15 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
+        try {
+            loader.load("LogIn");
+            LogInController login = loader.getController();
+            login.init(loader.getScene(), currentUser);
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
 
     }
 
