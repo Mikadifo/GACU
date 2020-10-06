@@ -108,10 +108,6 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onMenuAction(ActionEvent event) {
-        Node currentStag = (Node) event.getSource();
-        Stage stage = (Stage) currentStag.getScene().getWindow();
-        
-        stage.close();
 
     }
     
