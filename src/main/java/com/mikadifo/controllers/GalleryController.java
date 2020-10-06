@@ -10,10 +10,12 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -106,16 +108,13 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onMenuAction(ActionEvent event) {
-       try {
-            loader = new WindowLoader();
-            loader.load("MainMenu");
-            MainMenuController menu = loader.getController();
-            menu.init(loader.getScene(), currentUser);
-            loader.showAndWait(true);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Node currentStag = (Node) event.getSource();
+        Stage stage = (Stage) currentStag.getScene().getWindow();
+        
+        stage.close();
+
     }
+    
 
     @FXML
     private void onAccountAction(ActionEvent event) {
