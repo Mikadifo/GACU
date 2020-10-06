@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
@@ -63,8 +62,8 @@ public class TriviaController implements Initializable {
     }
 
     @FXML
-    private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
-	    boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
+    private void onHomeAction(ActionEvent event) { 
+	    boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
 
 	    if (isOk) {
             try {
@@ -80,14 +79,14 @@ public class TriviaController implements Initializable {
         }
     }
 
-    private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
+    private boolean showAlert(Alert.AlertType alertType, String header, String message) {
+	Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	    return alert.showAndWait().get() == ButtonType.OK;
+	return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML
