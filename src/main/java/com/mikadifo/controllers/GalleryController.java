@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -46,6 +47,8 @@ public class GalleryController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,12 +59,6 @@ public class GalleryController implements Initializable {
         btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
         loadByRole(role);
 	currentUser = user;
-	//currentUser = new UserDB();
-	//currentUser.setCityId(7);
-	//currentUser.setLogin("0104640982");
-	//currentUser.setUsername("hello_123");
-	//currentUser.setPassword("kkck1");
-	//currentUser.setRoleId((short) 1);
     }
 
     private void loadByRole(Roles role) {
@@ -85,9 +82,9 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
-//        boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+	//boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
 
-//        if (isOk) System.exit(0);
+	//if (isOk) System.exit(0);
     }
 
     @FXML
@@ -112,6 +109,7 @@ public class GalleryController implements Initializable {
 	try {
             loader.load("Account");
             AccountController account = loader.getController();
+	    System.out.println(currentUser.getLogin());
             account.init(loader.getScene(), currentUser);
             loader.showAndWait(true);
         } catch (IOException ex) {
