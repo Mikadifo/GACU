@@ -46,12 +46,14 @@ public class GalleryController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 	loader = new WindowLoader();
     }
-    
+   
     public void init(Scene scene, Roles role, UserDB user) {
         btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
         loadByRole(role);
@@ -104,7 +106,15 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onMenuAction(ActionEvent event) {
-
+       try {
+            loader = new WindowLoader();
+            loader.load("MainMenu");
+            MainMenuController menu = loader.getController();
+            menu.init(loader.getScene(), currentUser);
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
