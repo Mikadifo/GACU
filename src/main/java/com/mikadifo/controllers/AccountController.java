@@ -151,7 +151,19 @@ public class AccountController implements Initializable {
     private void onDeleteAction(ActionEvent event) {
 	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
-        if (isOk) getUserFromView().delete();
+        if (isOk) {
+            getUserFromView().delete();
+             try {
+            loader = new WindowLoader();
+            loader.load("LogIn");
+            LogInController login = loader.getController();
+            login.init(loader.getScene(), null);
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
     }
 
     @FXML
