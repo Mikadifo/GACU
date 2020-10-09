@@ -1,6 +1,9 @@
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.Roles;
+import static com.mikadifo.models.Roles.ADMIN;
+import static com.mikadifo.models.Roles.GUEST;
+import static com.mikadifo.models.Roles.USER;
 import com.mikadifo.models.table_statements.UserDB;
 import java.io.IOException;
 import java.net.URL;
@@ -70,19 +73,15 @@ public class GalleryController implements Initializable {
 
     private void loadByRole(Roles role) {
 	//if user is null so is guest
-        switch(role) {
-            case ADMIN:
-                break;
-            case GUEST:
-                btnTrivia.setDisable(true);
+        if(role.equals(ADMIN)){
+           
+        }else if(role.equals(GUEST)){
+             btnTrivia.setDisable(true);
                 guestPane.setVisible(false);
                 rootPane.setTop(logedPane);
                 logedPane.setVisible(true);
-
-                break;
-            case USER:
-                break;
-            default:
+        } else if(role.equals(USER)){
+            
         }
         
     }
