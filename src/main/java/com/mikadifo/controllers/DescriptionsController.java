@@ -5,11 +5,14 @@
  */
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.table_statements.ImageDB;
+import com.mikadifo.models.table_statements.PlaceDB;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -46,10 +49,17 @@ public class DescriptionsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }   
+    public void init(Scene scene, PlaceDB place) {
+       scene.getStylesheets().add("/styles/account.css");      
+    }
+    public void init(Scene scene, ImageDB image) {
+        scene.getStylesheets().add("/styles/account.css");   
+    }
+        
     @FXML
     private void onImagesAction(ActionEvent event) {
+        
     }
     
 }
