@@ -123,11 +123,6 @@ public class AccountController implements Initializable {
     }
 
     @FXML
-    private void onLoginKeyTyped(KeyEvent event) {
-	
-    }
-
-    @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
 	String characterTyped = event.getCharacter();
         if (!characterTyped.isEmpty()) {
@@ -138,7 +133,6 @@ public class AccountController implements Initializable {
             }
         }
     }
-
 
     @FXML
     private void onCancelAction(ActionEvent event) {

@@ -3,12 +3,15 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.Roles;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+
 import java.util.Optional;
 import java.io.IOException;
+import static java.lang.Character.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,7 +51,13 @@ public class LogInController implements Initializable {
     
     public void init(Scene scene, UserDB user) {
         scene.getStylesheets().add("/styles/account.css");
-        currentUser = user;
+	if (user != null) setUserInView(user);
+	txtLogin.requestFocus();
+    }
+
+    private void setUserInView(UserDB user) {
+	txtLogin.setText(user.getLogin());
+	txtPassword.setText(user.getPassword());
     }
 
     @FXML
@@ -61,7 +70,7 @@ public class LogInController implements Initializable {
 	user.setPassword(password);
 
 	Optional<String> result = isLoginValid()
-		//.and(isPasswordValid())
+		.and(isPasswordValid())
 		.and(userExists())
 		.and(isUserAuthenticated())
 		.apply(user);
@@ -73,16 +82,19 @@ public class LogInController implements Initializable {
                 loader = new WindowLoader();
                 loader.load("Gallery");
                 GalleryController gallery = loader.getController();
-                gallery.init(loader.getScene(), Roles.USER, currentUser);
+		user.selectById();
+                gallery.init(loader.getScene(), Roles.USER, user.getUser());
                 loader.showAndWait(false);
             } catch (IOException ex) {
                 Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            Node currentStag = (Node) event.getSource();
-            Stage stage = (Stage) currentStag.getScene().getWindow();
+            Node nodeSource = (Node) event.getSource();
+            Stage currentStage = (Stage) nodeSource.getScene().getWindow();
         
-            stage.close(); //test if when login close correctly
+	    MainMenuController.isLogedIn = true;
+	    MainMenuController.closeIfLogedIn();
+            currentStage.close();
 	}
     }
 
@@ -98,8 +110,8 @@ public class LogInController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-        Node currentStag = (Node) event.getSource();
-        Stage stage = (Stage) currentStag.getScene().getWindow();
+        Node currentStage = (Node) event.getSource();
+        Stage stage = (Stage) currentStage.getScene().getWindow();
         
         stage.close();
     }
@@ -107,13 +119,18 @@ public class LogInController implements Initializable {
     @FXML
     private void onLoginKeyTyped(KeyEvent event) {
         String characterTyped = event.getCharacter();
-        
+
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
-            
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9)
+
+            if (!isDigit(val) || txtLogin.getText().length() > 9) {
                 event.consume();
+            }
         }
+    }
+
+    void init(Scene scene, Roles roles, Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -1,11 +1,22 @@
 package com.mikadifo.controllers;
 
-import com.mikadifo.models.db_tables.City;
+import com.mikadifo.models.table_statements.CityDB;
+import com.mikadifo.models.table_statements.CountryDB;
+import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+import static java.lang.Character.*;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.util.StringConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +38,14 @@ import javafx.stage.Stage;
  */
 public class SignUpController implements Initializable {
 
+    private CityDB userCity;
+    private CountryDB userCountry;
+    private WindowLoader loader;
+    private List<CityDB> citiesFromDB;
+    private List<CountryDB> countriesFromDB;
+    private ObservableList<CityDB> cities;
+    private FilteredList<CityDB> filteredCities;
+
     @FXML
     private TextField txtUsername;
     @FXML
@@ -34,7 +53,7 @@ public class SignUpController implements Initializable {
     @FXML
     private PasswordField txtPassword;
     @FXML
-    private ComboBox<City> comboCity;
+    private ComboBox<CityDB> comboCity;
 
     /**
      * Initializes the controller class.
@@ -44,6 +63,16 @@ public class SignUpController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+	userCity = new CityDB();
+	userCountry = new CountryDB();
+	userCity.selectAll();
+	userCountry.selectAll();
+	citiesFromDB = userCity.getResults();
+	countriesFromDB = userCountry.getResults();
+	cities = FXCollections.observableArrayList(citiesFromDB);
+	setConverterComboBox();
+	comboCity.setItems(cities);
+        filteredCities = new FilteredList<>(cities);
     }
 
     public void init(Scene scene) {
@@ -51,42 +80,102 @@ public class SignUpController implements Initializable {
         txtUsername.requestFocus();
     }
 
+    private void setConverterComboBox() {
+	comboCity.setConverter(new StringConverter<CityDB>(){
+
+		@Override
+		public String toString(CityDB city) {
+		    if (city == null) return "Seleccione";
+
+		    return replaceCountryIdWithName(city);		
+		}
+
+		@Override
+		public CityDB fromString(String string) {
+		    return citiesFromDB
+			.stream()
+			.filter(city -> replaceCountryIdWithName(city).equals(string))
+			.findFirst()
+			.orElse(null);
+		}
+	});
+    }
+
+    private String replaceCountryIdWithName(CityDB city) {
+	return city.toString()
+		.replaceAll("\\(\\d*\\)", getCountryNameById(city.getCountryId()));
+    }
+
+    private String getCountryNameById(int id) {
+	return countriesFromDB.stream()
+		.filter(country -> country.getId() == id)
+		.findFirst()
+		.map(CountryDB::getName)
+		.map(countryName -> "(" + countryName + ")")
+		.orElse("N/C");
+    }
+
     @FXML
     private void onCancelAction(ActionEvent event) {
         Node currentStag = (Node) event.getSource();
         Stage stage = (Stage) currentStag.getScene().getWindow();
-        
+
         stage.close();
     }
 
     @FXML
     private void onCreateAction(ActionEvent event) {
-        String login = txtLogin.getText();
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
+	UserDB userInView = getUserFromView();
 
-        System.out.println(comboCity.getSelectionModel().getSelectedIndex());
-        //int cityId = comboCity.getSelectionModel().getSelectedItem().getId(); //nullPointer //TODO put the first item Cuenca
-
-        UserDB user = new UserDB();
-        user.setLogin(login);
-        user.setUsername(username);
-        user.setPassword(password);
-        //user.setCityId(cityId);
-        user.setRoleId((short) 1); //change
-
-        Optional<String> result = isLoginValid() //first must be login fix in sceneBuilder
+	Optional<String> result = isLoginValid() //need to be fixed the login Key typed to accpet '_'
                 .and(isUsernameValid())
-                //.and(isPasswordValid())
-                .and(isCitySelected())
-                .and(userNotExists())
-                .apply(user);
+                .and(isPasswordValid())
+		.and(isCitySelected())
+                .and(userNotExists()) //need a validation for username already existing
+                .apply(userInView);
 
-        if (result.isPresent()) {
+        if (result.isPresent())
             showAlert(AlertType.INFORMATION, null, result.get());
-        } else {
-            user.insert();
+	else {
+	    userInView.insert();
+	    try {
+		loader = new WindowLoader();
+		loader.load("LogIn");
+		LogInController login = loader.getController();
+		login.init(loader.getScene(), userInView);
+		loader.showAndWait(false);
+	    } catch (IOException ex) {
+		Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+
+	    Node sourceNode = (Node) event.getSource();
+	    Stage currentStage = (Stage) sourceNode.getScene().getWindow();
+	    currentStage.close();
         }
+    }
+
+    private UserDB getUserFromView() {
+        UserDB user = new UserDB();
+        
+	user.setLogin(txtLogin.getText());
+        user.setUsername(txtUsername.getText());
+	user.setPassword(txtPassword.getText());
+	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
+	user.setRoleId(getUserRoleId());
+
+        return user;
+    }
+
+    private short getUserRoleId() {
+	RoleDB defaultRole = new RoleDB();
+	defaultRole.selectAll();
+
+	return defaultRole.getResults().stream()
+		.filter(role -> role.getName().toUpperCase().equals("USER"))
+		.map(RoleDB::getId)
+		.findFirst()
+		.get()
+		.shortValue();
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
@@ -102,32 +191,34 @@ public class SignUpController implements Initializable {
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
         String characterTyped = event.getCharacter();
-        if (!characterTyped.isEmpty()) {
-            char val = characterTyped.charAt(0);
-
-            if (!(Character.isLetter(val) || Character.isDigit(val)) || txtLogin.getText().length() > 245) {
-                event.consume();
-            }
-        }
-
-    }
-
-
-    @FXML
-    private void onCityKeTyped(KeyEvent event) {
-        //filter citites
-    }
-
-    @FXML
-    private void onLoginTyped(KeyEvent event) {
-        String characterTyped = event.getCharacter();
 
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
 
-            if (!Character.isDigit(val) || txtLogin.getText().length() > 9) {
+            if (!(isLetterOrDigit(val) || val == '_') || txtUsername.getText().length() > 49) {
+                event.consume();
+
+            }
+        }
+    }
+
+    @FXML
+    private void onLoginKeyTyped(KeyEvent event) {
+	String characterTyped = event.getCharacter();
+
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+
+            if (!isDigit(val) || txtLogin.getText().length() > 9) {
                 event.consume();
             }
         }
+    }
+
+    @FXML
+    private void onCityKeyReleased(KeyEvent event) {
+	String filter = comboCity.getEditor().getText().toUpperCase();
+	filteredCities.setPredicate(item -> item.getName().contains(filter));//review
+	comboCity.setItems(filteredCities);
     }
 }
