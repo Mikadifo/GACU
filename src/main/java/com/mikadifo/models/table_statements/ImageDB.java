@@ -114,6 +114,7 @@ public class ImageDB extends Images implements SQL_Statement{
             setValues();
             setImageIdColumnValue(5);
             
+	    System.out.println(dbConnection.getStatement());
             dbConnection.executeAndClose();
             return true;
         } catch (SQLException ex) {

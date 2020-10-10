@@ -1,6 +1,16 @@
  package com.mikadifo.controllers;
 
+import java.io.File;
+import java.io.FileInputStream; 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Base64;
+
+import com.mikadifo.models.function_calls.AllImagesByPlace;
+import com.mikadifo.models.function_calls.FunctionDB;
+import com.mikadifo.models.function_calls.RandomImgForPlaceByCategory;
+import com.mikadifo.models.function_calls.RandomImgForCategory;
+import com.mikadifo.models.table_statements.ImageDB;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +47,25 @@ public class MainController extends Application {
     
     public static void main(String[] args) {
 	launch(args);
+	//new RandomImgForPlaceByCategory(1).selectAll().forEach(System.out::println);
+	//new AllImagesByPlace(2).selectAll().forEach(System.out::println);;
+    }
+
+    private static byte[] gettttt() {
+	File file = new File("/Users/MIKADIFO/Documents/ISTA/Ciclo3/ProyectoFinal/GACU_IMGS/Museos/Pumapungo/Pumapungo4jpg.jpg");
+
+	try (FileInputStream imageInFile = new FileInputStream(file)) {
+	    byte imageData[] = new byte[(int) file.length()];
+	    imageInFile.read(imageData);
+
+	    return Base64.getEncoder().encode(imageData);
+	} catch (FileNotFoundException e) {
+	    System.out.println("Image not found" + e);
+	} catch (IOException ioe) {
+	    System.out.println("Exception while reading the Image " + ioe);
+	}
+
+	return null;
     }
     
 }

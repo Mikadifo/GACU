@@ -48,6 +48,10 @@ public class WindowLoader {
         return this.scene;
     }
 
+    public Stage getStage() {
+	return this.stage;
+    }
+
     public void showAndWait(boolean wait) {
         if (wait) 
             stage.showAndWait();

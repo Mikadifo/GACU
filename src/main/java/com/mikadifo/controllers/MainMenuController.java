@@ -1,15 +1,16 @@
 package com.mikadifo.controllers;
 
-import com.mikadifo.models.Roles;
+import static com.mikadifo.controllers.WindowFactories.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,6 +39,7 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+	//imgLogo.setImage(getImage());
     }
     
     public void init() {
@@ -68,23 +70,14 @@ public class MainMenuController implements Initializable {
         return alert.showAndWait().get() == ButtonType.OK;
     }
     
-
     @FXML
     private void onGuestAction(ActionEvent event) {
-        try {
-            loader = new WindowLoader();
-            loader.load("Gallery");
-            GalleryController gallery = loader.getController();
-            gallery.init(loader.getScene(), Roles.GUEST, null);
-            loader.showAndWait(true);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	GALLERY.createWindow().init();
     }
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-          try {
+        try {
             loader = new WindowLoader();
             loader.load("LogIn");
             LogInController login = loader.getController();

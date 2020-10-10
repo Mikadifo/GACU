@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.views.DescriptionsController">
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.DescriptionsController">
    <children>
       <BorderPane fx:id="rootPane" prefHeight="590.0" prefWidth="859.0" stylesheets="@../../../../resources/styles/description.css">
          <top>
@@ -21,9 +21,9 @@
          <center>
             <AnchorPane fx:id="imageCenterPane" prefHeight="426.0" prefWidth="859.0" visible="false" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane prefHeight="449.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane prefHeight="471.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="471.0" fitWidth="659.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgView" fitHeight="471.0" fitWidth="659.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
                </children>

@@ -71,7 +71,7 @@ public class TriviaController implements Initializable {
                 loader = new WindowLoader();
                 loader.load("Gallery");
                 GalleryController gallery = loader.getController();
-                gallery.init(loader.getScene(), Roles.USER, currentUser);
+                //gallery.init(loader.getScene(), Roles.USER, currentUser);
     
                 loader.showAndWait(true);
             } catch (IOException ex) {
