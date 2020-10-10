@@ -127,7 +127,7 @@ public class GalleryController implements Initializable {
     private void onLoginAction(ActionEvent event) {
 
     }
-
+    
     @FXML
     private void onSignupAction(ActionEvent event) {
     }
