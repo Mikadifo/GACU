@@ -34,8 +34,8 @@
                <children>
                   <VBox layoutX="162.0" layoutY="-4.0" prefHeight="60.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextFlow prefHeight="200.0" prefWidth="200.0" />
-                        <Label prefHeight="54.0" prefWidth="131.0" />
+                        <TextFlow fx:id="imageDescriptionText" prefHeight="200.0" prefWidth="200.0" />
+                        <Label fx:id="imageAuthorLabel" prefHeight="54.0" prefWidth="131.0" />
                      </children>
                   </VBox>
                </children>

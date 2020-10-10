@@ -59,6 +59,10 @@ public class DescriptionsController implements Initializable {
     private ImageDB selectedImg;
     @FXML
     private ImageView imgView;
+    @FXML
+    private TextFlow imageDescriptionText;
+    @FXML
+    private Label imageAuthorLabel;
 
     /**
      * Initializes the controller class.
@@ -93,8 +97,11 @@ public class DescriptionsController implements Initializable {
 
     private void setImageInView() {
 	title.setText(selectedPlace.getName());
+	Text imageInfo = new Text(selectedImg.getDescription());
 	imgView.setImage(this.getImage());
 	imageCenterPane.getChildren().add(imgView);
+	imageDescriptionText.getChildren().add(imageInfo);
+	imageAuthorLabel.setText(selectedImg.getAuthor());
     }
 
     private Image getImage() {
