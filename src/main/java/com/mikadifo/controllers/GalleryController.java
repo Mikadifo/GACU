@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.Roles;
 import com.mikadifo.models.function_calls.AllImagesByPlace;
 import com.mikadifo.models.function_calls.RandomImgForCategory;
@@ -87,23 +88,19 @@ public class GalleryController implements Initializable, Window {
     public void initialize(URL url, ResourceBundle rb) {
 	loader = new WindowLoader();
 	imgBoxes = FXCollections.observableArrayList();
+	showCategories();
     }
     
-/*    public void init(Scene scene, Roles role, UserDB user) {*/
-        //btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
-        //loadByRole(role);
-	//currentUser = user;
-	//showCategories();
-    /*}*/
+    public void init(Roles role, UserDB user) {
+        loadByRole(role);
+	currentUser = user;
+	init();
+    }
 
     @Override
     public void init() {
-	btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
-        loadByRole(Roles.GUEST);
-	currentUser = null;
-	showCategories();
-
-	WindowFactories.GALLERY.getStage().showAndWait();
+	currentScene.getStylesheets().add("/styles/gallery.css");
+	currentStage.show();
     }
 
     private void showCategories() {
@@ -195,16 +192,8 @@ public class GalleryController implements Initializable, Window {
 		    place.setName(item.getPlaceName());
 		});
 
-        try {
-            loader = new WindowLoader();
-            loader.load("Descriptions");
-	    DescriptionsController des = loader.getController();
-	    des.init(place);
-	    loader.showAndWait(true);
-        } catch (IOException ex) {
-	    System.out.println(ex.getMessage());
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	DescriptionsController placeDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
+	placeDescriptions.init(place);
 
 	if (DescriptionsController.imagesButtonIsPressed)
 	    showImages(place.getId());
@@ -243,22 +232,13 @@ public class GalleryController implements Initializable, Window {
 		    imgs.setAuthor(item.getImage_author());
 		});
 
-        try {
-            loader = new WindowLoader();
-            loader.load("Descriptions");
-	    DescriptionsController des = loader.getController();
-	    des.init(imgs);
-	    loader.showAndWait(true);
-        } catch (IOException ex) {
-	    System.out.println(ex.getMessage());
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	DescriptionsController imgDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
+	imgDescriptions.init(imgs);
     };
 
     private Consumer<AllImagesByPlace> imgConsumer = (record) -> {
 	VBox imageBox = new VBox();
 	ImageView imgView = new ImageView(getImage(record.getImage()));
-	//imgView.setPreserveRatio(true);
 	imgView.setFitWidth(200); //record.getWidth();
 	imgView.setFitHeight(200);
 	imgView.setSmooth(true);
@@ -274,7 +254,6 @@ public class GalleryController implements Initializable, Window {
     private Consumer<RandomImgForPlaceByCategory> placeConsumer = (record) -> {
 	VBox imageBox = new VBox();
 	ImageView imgView = new ImageView(getImage(record.getImage()));
-	//imgView.setPreserveRatio(true);
 	imgView.setFitWidth(300); //record.getWidth();
 	imgView.setFitHeight(300);
 	imgView.setSmooth(true);
@@ -316,14 +295,8 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onTriviaAction(ActionEvent event) {
-        try {
-	    loader.load("Trivia");
-            TriviaController trivia = loader.getController();
-            trivia.init(loader.getScene(), currentUser);
-	    loader.showAndWait(false);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TriviaController trivia = (TriviaController) TRIVIA.createWindow();
+        trivia.init(currentUser);
     }
 
     @FXML
@@ -333,39 +306,20 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onAccountAction(ActionEvent event) {
-	try {
-            loader.load("Account");
-            AccountController account = loader.getController();
-	    System.out.println(currentUser.getLogin());
-            account.init(loader.getScene(), currentUser);
-            loader.showAndWait(true);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        AccountController account = (AccountController) ACCOUNT.createWindow();
+        account.init(currentUser);
     }
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-
+	LOGIN.createWindow().init();
     }
 
     @FXML
     private void onSignupAction(ActionEvent event) {
-        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "Se le dirigirá a crear una cuenta, ¿está seguro?");
-
-        if (isOk){
-        
-            try {
-                loader.load("SignUp");
-                SignUpController account = loader.getController();
-                account.init(loader.getScene());
-                loader.showAndWait(true);
-            } catch (IOException ex) {
-                Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
+        SIGNUP.createWindow().init();
     }
+
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
 	Alert alert = new Alert(alertType);
 

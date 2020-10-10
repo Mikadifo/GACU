@@ -5,12 +5,11 @@ import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
 
 import java.util.Optional;
-import java.io.IOException;
+import static com.mikadifo.controllers.WindowFactories.*;
+import static com.mikadifo.controllers.MainMenuController.*;
 import static java.lang.Character.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,10 +29,7 @@ import javafx.stage.Stage;
  *
  * @author MIKADIFO
  */
-public class LogInController implements Initializable {
-
-    private UserDB currentUser;
-    private WindowLoader loader;
+public class LogInController implements Initializable, Window {
 
     @FXML
     private PasswordField txtPassword;
@@ -49,10 +45,16 @@ public class LogInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    public void init(Scene scene, UserDB user) {
-        scene.getStylesheets().add("/styles/account.css");
+    public void init(UserDB user) {
 	if (user != null) setUserInView(user);
+	init();
+    }
+
+    @Override
+    public void init() {
+        currentScene.getStylesheets().add("/styles/account.css");
 	txtLogin.requestFocus();
+	currentStage.showAndWait();
     }
 
     private void setUserInView(UserDB user) {
@@ -78,23 +80,14 @@ public class LogInController implements Initializable {
 	if (result.isPresent()) {
 	    showAlert(AlertType.INFORMATION, null, result.get());
 	} else {
-            try {
-                loader = new WindowLoader();
-                loader.load("Gallery");
-                GalleryController gallery = loader.getController();
-		user.selectById();
-                //gallery.init(loader.getScene(), Roles.USER, user.getUser());
-                loader.showAndWait(false);
-            } catch (IOException ex) {
-                Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+	    currentStage.close();
 
-            Node nodeSource = (Node) event.getSource();
-            Stage currentStage = (Stage) nodeSource.getScene().getWindow();
-        
-	    MainMenuController.isLogedIn = true;
-	    MainMenuController.closeIfLogedIn();
-            currentStage.close();
+	    user.selectById();
+            GalleryController gallery = (GalleryController) GALLERY.createWindow();
+	    gallery.init(Roles.USER, user.getUser());
+
+	    isLogedIn = true;
+	    closeIfLogedIn();
 	}
     }
 
@@ -110,10 +103,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-        Node currentStage = (Node) event.getSource();
-        Stage stage = (Stage) currentStage.getScene().getWindow();
-        
-        stage.close();
+	currentStage.close();
     }
 
     @FXML
@@ -127,10 +117,6 @@ public class LogInController implements Initializable {
                 event.consume();
             }
         }
-    }
-
-    void init(Scene scene, Roles roles, Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

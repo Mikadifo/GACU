@@ -2,6 +2,7 @@ package com.mikadifo.controllers;
 
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
+import static com.mikadifo.controllers.WindowFactories.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -9,12 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -22,10 +21,8 @@ import javafx.stage.Stage;
  *
  * @author Usuario
  */
-public class ChangePasswordController implements Initializable {
+public class ChangePasswordController implements Initializable, Window {
 
-    private UserDB currentUser;
-    
     @FXML
     private TextField txtLogin;
     @FXML
@@ -42,9 +39,10 @@ public class ChangePasswordController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
     
-    public void init(Scene scene, UserDB user) {
-	scene.getStylesheets().add("/styles/account.css");
-        currentUser = user; 
+    @Override
+    public void init() {
+	currentScene.getStylesheets().add("/styles/account.css");
+	currentStage.showAndWait();
     }
 
     @FXML

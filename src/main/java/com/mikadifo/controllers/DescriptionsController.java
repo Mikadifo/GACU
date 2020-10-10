@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author Usuario
  */
-public class DescriptionsController implements Initializable {
+public class DescriptionsController implements Initializable, Window {
 
     public static boolean imagesButtonIsPressed;
 
@@ -87,6 +87,11 @@ public class DescriptionsController implements Initializable {
 	imageBottomPane.setVisible(true);
 	imageCenterPane.setVisible(true);
 	setImageInView();
+    }
+
+    @Override
+    public void init() {
+    	// TODO Auto-generated method stub
     }
 
     private void setPlaceInView() {
