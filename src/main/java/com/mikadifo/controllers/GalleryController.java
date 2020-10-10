@@ -25,8 +25,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -39,7 +37,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -53,6 +50,8 @@ public class GalleryController implements Initializable, Window {
     private ObservableList<VBox> imgBoxes;
     private List<RandomImgForPlaceByCategory> placesToShow;
     private List<AllImagesByPlace> imgsToShow;
+    private boolean isOnPlaces;
+    private int selectedCategoryId;
 
     @FXML
     private Button btnExit;
@@ -103,7 +102,6 @@ public class GalleryController implements Initializable, Window {
         loadByRole(Roles.GUEST);
 	currentUser = null;
 	showCategories();
-	backButton.setVisible(false);
 
 	WindowFactories.GALLERY.getStage().showAndWait();
     }
@@ -118,6 +116,9 @@ public class GalleryController implements Initializable, Window {
 	imagesFlowPane.setHgap(20);
 	imagesFlowPane.setVgap(20);
 	imagesFlowPane.getChildren().addAll(imgBoxes);
+
+	backButton.setVisible(false);
+	isOnPlaces = false;
     }
 
     private void addImgViewers() {
@@ -128,8 +129,8 @@ public class GalleryController implements Initializable, Window {
 
     private EventHandler<MouseEvent> categoryEventHandler = (event) -> {
 	VBox box = (VBox) event.getSource();
-	//Label catL = (Label) box.getChildren().get(1);
-	showPlaces(Integer.parseInt(box.getId()));
+	selectedCategoryId = Integer.parseInt(box.getId());
+	showPlaces(selectedCategoryId);
 	backButton.setVisible(true);
     };
 
@@ -167,6 +168,8 @@ public class GalleryController implements Initializable, Window {
 	imagesFlowPane.setHgap(20);
 	imagesFlowPane.setVgap(20);
 	imagesFlowPane.getChildren().addAll(imgBoxes);
+
+	isOnPlaces = true;
     }
 
     private void clearImgs() {
@@ -203,9 +206,8 @@ public class GalleryController implements Initializable, Window {
             Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-	if (DescriptionsController.imagesButtonIsPressed) {
+	if (DescriptionsController.imagesButtonIsPressed)
 	    showImages(place.getId());
-	}
     };
 
     private void showImages(int placePressed) {
@@ -218,6 +220,8 @@ public class GalleryController implements Initializable, Window {
 	imagesFlowPane.setHgap(20);
 	imagesFlowPane.setVgap(20);
 	imagesFlowPane.getChildren().addAll(imgBoxes);
+
+	isOnPlaces = false;
     }
 
     private void addImgViewersImages(int placePressed) {
@@ -374,6 +378,10 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onBackAction(ActionEvent event) {
+	if (isOnPlaces)
+	    showCategories();
+	else
+	    showPlaces(selectedCategoryId);
     }
 
 }
