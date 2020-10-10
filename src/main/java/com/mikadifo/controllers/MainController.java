@@ -47,25 +47,23 @@ public class MainController extends Application {
     
     public static void main(String[] args) {
 	launch(args);
-	//new RandomImgForPlaceByCategory(1).selectAll().forEach(System.out::println);
-	//new AllImagesByPlace(2).selectAll().forEach(System.out::println);;
     }
 
-    private static byte[] gettttt() {
-	File file = new File("/Users/MIKADIFO/Documents/ISTA/Ciclo3/ProyectoFinal/GACU_IMGS/Museos/Pumapungo/Pumapungo4jpg.jpg");
+    /*private static byte[] gettttt() {*/
+	//File file = new File("/Users/MIKADIFO/Documents/ISTA/Ciclo3/ProyectoFinal/GACU_IMGS/Museos/Pumapungo/Pumapungo4jpg.jpg");
 
-	try (FileInputStream imageInFile = new FileInputStream(file)) {
-	    byte imageData[] = new byte[(int) file.length()];
-	    imageInFile.read(imageData);
+	//try (FileInputStream imageInFile = new FileInputStream(file)) {
+	    //byte imageData[] = new byte[(int) file.length()];
+	    //imageInFile.read(imageData);
 
-	    return Base64.getEncoder().encode(imageData);
-	} catch (FileNotFoundException e) {
-	    System.out.println("Image not found" + e);
-	} catch (IOException ioe) {
-	    System.out.println("Exception while reading the Image " + ioe);
-	}
+	    //return Base64.getEncoder().encode(imageData);
+	//} catch (FileNotFoundException e) {
+	    //System.out.println("Image not found" + e);
+	//} catch (IOException ioe) {
+	    //System.out.println("Exception while reading the Image " + ioe);
+	//}
 
-	return null;
-    }
+	//return null;
+    /*}*/
     
 }
