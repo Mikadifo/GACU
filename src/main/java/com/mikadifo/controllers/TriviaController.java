@@ -101,7 +101,7 @@ public class TriviaController implements Initializable {
  }
     @FXML
     private void onContinueAction(ActionEvent event) {
-<<<<<<< HEAD
+
         if(btnOption_1.isFocused()){
             
             borrarCampos();
@@ -118,7 +118,7 @@ public class TriviaController implements Initializable {
             borrarCampos();
             //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
         } else {
-=======
+
         if (trivia.selectAll().isEmpty()) {
             boolean isOk = showAlert(Alert.AlertType.INFORMATION, null, "Ustede no ha visitado ningun lugar");
         }else{
@@ -134,7 +134,7 @@ public class TriviaController implements Initializable {
            //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
 
         } else { 
->>>>>>> e64176cdf92b3df9a17a2425ed5b3d60b2b1e0fe
+
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una opción");
