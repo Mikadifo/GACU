@@ -5,7 +5,12 @@
  */
 package com.mikadifo.controllers;
 
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+import com.mikadifo.models.table_statements.ImageDB;
+import com.mikadifo.models.table_statements.PlaceDB;
+>>>>>>> devfert
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,7 +18,11 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+<<<<<<< HEAD
 import javafx.scene.control.Alert.AlertType;
+=======
+import javafx.scene.Scene;
+>>>>>>> devfert
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -50,6 +59,7 @@ public class DescriptionsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+<<<<<<< HEAD
         
             boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
        if (isOk) System.exit(0);
@@ -66,6 +76,19 @@ public class DescriptionsController implements Initializable {
 
     private boolean showAlert(AlertType alertType, Object object, String estas_seguro) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+=======
+    }   
+    public void init(Scene scene, PlaceDB place) {
+       scene.getStylesheets().add("/styles/account.css");      
+    }
+    public void init(Scene scene, ImageDB image) {
+        scene.getStylesheets().add("/styles/account.css");   
+    }
+        
+    @FXML
+    private void onImagesAction(ActionEvent event) {
+        
+>>>>>>> devfert
     }
     
 }

@@ -123,19 +123,6 @@ public class AccountController implements Initializable {
     }
 
     @FXML
-    private void onLoginKeyTyped(KeyEvent event) {
-	String characterTyped = event.getCharacter();
-
-        if (!characterTyped.isEmpty()) {
-            char val = characterTyped.charAt(0);
-
-            if (!isDigit(val) || txtLogin.getText().length() > 9) {
-                event.consume();
-            }
-        }
-    }
-
-    @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
 	String characterTyped = event.getCharacter();
         if (!characterTyped.isEmpty()) {
@@ -146,7 +133,6 @@ public class AccountController implements Initializable {
             }
         }
     }
-
 
     @FXML
     private void onCancelAction(ActionEvent event) {
@@ -159,7 +145,19 @@ public class AccountController implements Initializable {
     private void onDeleteAction(ActionEvent event) {
 	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
-        if (isOk) getUserFromView().delete();
+        if (isOk) {
+            getUserFromView().delete();
+             try {
+            loader = new WindowLoader();
+            loader.load("LogIn");
+            LogInController login = loader.getController();
+            login.init(loader.getScene(), null);
+            loader.showAndWait(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
     }
 
     @FXML

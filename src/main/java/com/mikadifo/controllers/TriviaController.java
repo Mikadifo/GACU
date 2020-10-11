@@ -89,28 +89,36 @@ public class TriviaController implements Initializable {
 
 	    return alert.showAndWait().get() == ButtonType.OK;
     }
-
+ private void borrarCampos(){
+    txtQuestion.setText("");
+    btnOption_1.setText("");
+    btnOption_2.setText("");
+    btnOption_3.setText("");
+    btnOption_4.setText(""); 
+ }
     @FXML
     private void onContinueAction(ActionEvent event) {
-        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
-            txtQuestion.setText("");
-            btnOption_1.setText("");
-            btnOption_2.setText("");
-            btnOption_3.setText("");
-            btnOption_4.setText("");
-           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
+        if(btnOption_1.isFocused()){
+            
+            borrarCampos();
+            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
 
-        } else { 
+        } else if (btnOption_2.isFocused()) {
+            borrarCampos();
+            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
+        } else if (btnOption_3.isFocused()) {
+            borrarCampos();
+            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
+            
+        } else if (btnOption_4.isFocused()) {
+            borrarCampos();
+            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
+        } else {
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una opción");
             alert.showAndWait();
         }
-
-        // if comprobar que 1 y solo 1 boton esta focused 
-            // limpiar todas las opciones y el textflow del enunciado
-
-
             // cargar otra aleatoria desde la base de datosc
         // caso contrario avisar con un alert
     }
