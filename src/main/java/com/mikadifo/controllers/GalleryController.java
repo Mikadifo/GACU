@@ -144,9 +144,7 @@ public class GalleryController implements Initializable {
     
     @FXML
     private void onSignupAction(ActionEvent event) {
-<<<<<<< HEAD
-        
-=======
+
         boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "Se le dirigirá a crear una cuenta, ¿está seguro?");
 
         if (isOk){
@@ -174,7 +172,7 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onBackAction(ActionEvent event) {
->>>>>>> e64176cdf92b3df9a17a2425ed5b3d60b2b1e0fe
+
     }
 
 }

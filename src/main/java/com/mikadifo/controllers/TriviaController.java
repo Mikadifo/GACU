@@ -143,6 +143,8 @@ public class TriviaController implements Initializable {
             // cargar otra aleatoria desde la base de datosc
         // caso contrario avisar con un alert
         }
+    
+        }
     }
 
     private void showNewTrivia() {

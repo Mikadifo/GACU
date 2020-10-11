@@ -72,15 +72,14 @@ public class DescriptionsController implements Initializable {
     }
 
     private boolean showAlert(AlertType alertType, Object object, String estas_seguro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public void init(Scene scene, PlaceDB place) {
        scene.getStylesheets().add("/styles/account.css");      
     }
     public void init(Scene scene, ImageDB image) {
         scene.getStylesheets().add("/styles/account.css");   
     }
-        }
-
+        
     
 }
