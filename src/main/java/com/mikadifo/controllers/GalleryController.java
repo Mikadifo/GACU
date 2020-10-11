@@ -15,11 +15,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.layout.FlowPane;
 
 /**
  * FXML Controller class
@@ -49,6 +52,12 @@ public class GalleryController implements Initializable {
     private Button btnLogin;
     @FXML
     private Button btnSignup;
+    @FXML
+    private ScrollPane rootScroll;
+    @FXML
+    private FlowPane imagesFlowPane;
+    @FXML
+    private Button backButton;
 
     /**
      * Initializes the controller class.
@@ -83,9 +92,9 @@ public class GalleryController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
-	//boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Estas seguro?");
+	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea salir?");
 
-	//if (isOk) System.exit(0);
+        if (isOk) System.exit(0);
     }
 
     @FXML
@@ -135,7 +144,37 @@ public class GalleryController implements Initializable {
     
     @FXML
     private void onSignupAction(ActionEvent event) {
+<<<<<<< HEAD
         
+=======
+        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "Se le dirigirá a crear una cuenta, ¿está seguro?");
+
+        if (isOk){
+        
+            try {
+                loader.load("SignUp");
+                SignUpController account = loader.getController();
+                account.init(loader.getScene());
+                loader.showAndWait(true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+    private boolean showAlert(Alert.AlertType alertType, String header, String message) {
+	Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	return alert.showAndWait().get() == ButtonType.OK;
+    }
+
+    @FXML
+    private void onBackAction(ActionEvent event) {
+>>>>>>> e64176cdf92b3df9a17a2425ed5b3d60b2b1e0fe
     }
 
 }
