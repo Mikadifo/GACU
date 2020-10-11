@@ -50,7 +50,7 @@ public class TriviaController implements Initializable, Window {
 	alert = new Alert(Alert.AlertType.INFORMATION);
     }
     
-    public void init(Scene scene, UserDB user) {
+    public void init(UserDB user) {
         currentUser = user;
 	init();
     }

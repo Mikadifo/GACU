@@ -77,13 +77,13 @@ public class AccountController implements Initializable, Window {
 	userCity.setId(currentUser.getCityId());
 	userCity.selectById();
 	userCity = userCity.getCity();
-	setUserInView(); //si no vale poner al otro init
 	init();
     }
 
     @Override
     public void init() {
 	currentScene.getStylesheets().add("/styles/account.css");
+        setUserInView(); //si no vale poner al otro init
     }
 
     private void setConverterComboBox() {
