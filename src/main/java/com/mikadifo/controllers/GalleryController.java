@@ -89,12 +89,12 @@ public class GalleryController implements Initializable, Window {
 	imgBoxes = FXCollections.observableArrayList();
     }
     
-/*    public void init(Scene scene, Roles role, UserDB user) {*/
-        //btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
-        //loadByRole(role);
-	//currentUser = user;
-	//showCategories();
-    /*}*/
+    public void init(Roles role, UserDB user) {
+        btnTrivia.getScene().getStylesheets().add("/styles/gallery.css");
+        loadByRole(role);
+	currentUser = user;
+	showCategories();
+    }
 
     @Override
     public void init() {

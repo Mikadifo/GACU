@@ -83,7 +83,7 @@ public class LogInController implements Initializable {
                 loader.load("Gallery");
                 GalleryController gallery = loader.getController();
 		user.selectById();
-                //gallery.init(loader.getScene(), Roles.USER, user.getUser());
+                gallery.init(Roles.USER, user.getUser());
                 loader.showAndWait(false);
             } catch (IOException ex) {
                 Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
