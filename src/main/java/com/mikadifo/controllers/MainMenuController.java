@@ -12,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +29,8 @@ public class MainMenuController implements Initializable, Window {
     
     @FXML
     private ImageView imgLogo;
+    @FXML
+    private StackPane imageWrapper;
     
     /**
      * Initializes the controller class.
@@ -35,7 +39,9 @@ public class MainMenuController implements Initializable, Window {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	//imgLogo.setImage(getImage());
+	imgLogo.setFitWidth(imageWrapper.getWidth());
+	imgLogo.setFitHeight(imageWrapper.getHeight());
+	imgLogo.setImage(new Image(("/imgs/logo.png")));
     }
 
     @Override

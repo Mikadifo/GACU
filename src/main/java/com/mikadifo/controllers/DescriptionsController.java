@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.controllers;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.Base64;
 import java.util.ResourceBundle;
 
+import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.table_statements.ImageDB;
 import com.mikadifo.models.table_statements.PlaceDB;
 
@@ -78,6 +72,7 @@ public class DescriptionsController implements Initializable, Window {
 	placeBottomPane.setVisible(true);
 	placeInfoText.setVisible(true);
 	setPlaceInView();
+	init();
     }
 
     public void init(ImageDB img) {
@@ -87,11 +82,13 @@ public class DescriptionsController implements Initializable, Window {
 	imageBottomPane.setVisible(true);
 	imageCenterPane.setVisible(true);
 	setImageInView();
+	init();
     }
 
     @Override
     public void init() {
-    	// TODO Auto-generated method stub
+	//styles
+	currentStage.showAndWait();
     }
 
     private void setPlaceInView() {

@@ -37,7 +37,6 @@ import javafx.util.StringConverter;
 public class AccountController implements Initializable, Window {
 
     private UserDB currentUser;
-    private WindowLoader loader;
     private CityDB userCity;
     private CountryDB userCountry;
     private List<CityDB> citiesFromDB;
@@ -77,13 +76,14 @@ public class AccountController implements Initializable, Window {
 	userCity.setId(currentUser.getCityId());
 	userCity.selectById();
 	userCity = userCity.getCity();
+        setUserInView(); //si no vale poner al otro init
 	init();
     }
 
     @Override
     public void init() {
 	currentScene.getStylesheets().add("/styles/account.css");
-        setUserInView(); //si no vale poner al otro init
+	currentStage.showAndWait();
     }
 
     private void setConverterComboBox() {
