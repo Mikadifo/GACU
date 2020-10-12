@@ -221,4 +221,8 @@ public class SignUpController implements Initializable {
 	filteredCities.setPredicate(item -> item.getName().contains(filter));//review
 	comboCity.setItems(filteredCities);
     }
+
+    void init(Scene scene, Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
