@@ -107,16 +107,16 @@ public class GalleryController implements Initializable, Window {
 
 	imagesFlowPane.setHgap(20);
 	imagesFlowPane.setVgap(20);
-	imagesFlowPane.getChildren().addAll(imgBoxes);
+//	imagesFlowPane.getChildren().addAll(imgBoxes);
 
 	backButton.setVisible(false);
 	isOnPlaces = false;
     }
 
     private void addImgViewers() {
-	new RandomImgForCategory()
-		.selectAll()
-		.forEach(categoryConsumer);
+//	new RandomImgForCategory()
+//		.selectAll()
+//		.forEach(categoryConsumer);
     }
 
     private EventHandler<MouseEvent> categoryEventHandler = (event) -> {

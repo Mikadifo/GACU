@@ -71,7 +71,7 @@ public class RandomTrivia implements FunctionDB{
                     results.getString("question_content"),
                     results.getInt("answer_id"),
                     results.getString("correct_answer_content"),
-                    Arrays.asList(zips)
+                    new ArrayList(Arrays.asList(zips))
             );
     }
 

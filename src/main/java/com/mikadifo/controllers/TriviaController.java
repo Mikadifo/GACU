@@ -8,6 +8,7 @@ import com.mikadifo.models.table_statements.User_PlaceDB;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -22,6 +23,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -59,6 +61,7 @@ public class TriviaController implements Initializable, Window {
     public void initialize(URL url, ResourceBundle rb) {
 	alert = new Alert(Alert.AlertType.INFORMATION);
 	addOptionsToList();
+        callOption();
     }
 
     private void addOptionsToList() {
@@ -81,9 +84,16 @@ public class TriviaController implements Initializable, Window {
 	currentScene.getStylesheets().add("/styles/trivia.css");
 	currentStage.showAndWait();
     }
+    private void callOption(){
+        options.forEach(op->{
+            op.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+                op.setStyle("-fx-background-color: #A30300");
+            });
+        });
+    }
 
     private void loadTriviasIfUserHasVisitedPlaces() {
-	randomTrivia = new RandomTrivia(currentUser.getId());
+	randomTrivia = new RandomTrivia(currentUser.getId()).select();
 	if (randomTrivia == null) {
 	    //alert
 	} else {
@@ -110,40 +120,41 @@ public class TriviaController implements Initializable, Window {
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
-	    txtQuestion.clear();
-            btnOption_1.setText(null);
-            btnOption_2.setText(null);
-            btnOption_3.setText(null);
-            btnOption_4.setText(null);
-           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
-
-        } else { 
-            alert.setHeaderText(null);
-            alert.setTitle("Confirmación");
-            alert.setContentText("Seleccione una opción");
-            alert.showAndWait();
-        }
+//        options.get(0).getStyle().;
+//        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
+//	    txtQuestion.clear();
+//            btnOption_1.setText(null);
+//            btnOption_2.setText(null);
+//            btnOption_3.setText(null);
+//            btnOption_4.setText(null);
+//           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
+//
+//        } else { 
+//            alert.setHeaderText(null);
+//            alert.setTitle("Confirmación");
+//            alert.setContentText("Seleccione una opción");
+//            alert.showAndWait();
+//        }
     }
 
     private void showNewTrivia(RandomTrivia trivia) {
-	//setQuestion
+	//setQuestion 
 	List<String> allAnswers;
-
+        
+        
 	allAnswers = trivia.getIncorrectAnswersContents();
 	allAnswers.add(trivia.getCorrectAnswerContent());
-
-	System.out.println(allAnswers);
+	
+        System.out.println(allAnswers.size());
 	Collections.shuffle(allAnswers);
-	System.out.println(allAnswers);
-	    
-	allAnswers.forEach(this::setOptionsbyAnswers);
+        Iterator<Button> optionIterator = options.iterator();
+	allAnswers.forEach(answer->{
+            setOptionsbyAnswers(optionIterator.next(), answer);
+        });
     }
 
-    private void setOptionsbyAnswers(String answerContent) {
-	options.forEach(option -> {
-	    option.setText(answerContent);
-	});
+    private void setOptionsbyAnswers(Button button, String answerContent) {
+        button.setText(answerContent);
     }
 
     private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {

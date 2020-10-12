@@ -48,11 +48,6 @@
     -fx-background-color: #FFC041;
 }
 
-.options:focused {
-    -fx-background-color: #A30300;
-    -fx-text-fill: #fff;
-}
-
 #main_button {
     -fx-background-color: #FFBB33;
     -fx-text-fill: #000;
