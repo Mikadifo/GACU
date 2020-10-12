@@ -94,6 +94,7 @@ public class TriviaController implements Initializable, Window {
 
     private void loadTriviasIfUserHasVisitedPlaces() {
 	randomTrivia = new RandomTrivia(currentUser.getId()).select();
+        txtQuestion.setText(randomTrivia.getQuestionContent());
 	if (randomTrivia == null) {
 	    //alert
 	} else {
