@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -99,52 +100,34 @@ public class TriviaController implements Initializable {
     btnOption_3.setText("");
     btnOption_4.setText(""); 
  }
+   private void botones() {
+           
+        Group g = new Group();
+        g.getChildren().add(btnOption_1);
+        g.getChildren().add(btnOption_2);
+        g.getChildren().add(btnOption_3);
+        g.getChildren().add(btnOption_4);
+    }
+   private void onbtnOption_1Action(ActionEvent event) {
+   botones();
+       btnOption_1.applyCss();
+          }
+   
+ 
     @FXML
     private void onContinueAction(ActionEvent event) {
-
-        if(btnOption_1.isFocused()){
-            
-            borrarCampos();
-            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
-
-        } else if (btnOption_2.isFocused()) {
-            borrarCampos();
-            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
-        } else if (btnOption_3.isFocused()) {
-            borrarCampos();
-            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
-            
-        } else if (btnOption_4.isFocused()) {
-            borrarCampos();
-            //Crear un metodo que obtenga una pregunta aleatoria basada en el place id que ha visitado el usuario
-        } else {
-
-        if (trivia.selectAll().isEmpty()) {
-            boolean isOk = showAlert(Alert.AlertType.INFORMATION, null, "Ustede no ha visitado ningun lugar");
+          botones();
+        
+        if (btnOption_1.isPressed()||btnOption_2.isPressed()||btnOption_3.isPressed()||btnOption_4.isPressed()){
+            // cargar otra pregunta aleatoria desde la base de datos   basada en el place id    
         }else{
-        txtQuestion.setText(trivia.getQuestionContent());
-//        btnOption_1.setText(trivia.getIncorrectAnswersContents().;
-        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
-            txtQuestion.setText("");
-            btnOption_1.setText("");
-            btnOption_2.setText("");
-            btnOption_3.setText("");
-            btnOption_4.setText("");
-            
-           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
-
-        } else { 
-
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una opción");
             alert.showAndWait();
         }
-            // cargar otra aleatoria desde la base de datosc
-        // caso contrario avisar con un alert
-        }
-    
-        }
+
+       
     }
 
     private void showNewTrivia() {
