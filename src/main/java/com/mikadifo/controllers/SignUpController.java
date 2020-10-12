@@ -4,6 +4,7 @@ import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.CountryDB;
 import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
+import static com.mikadifo.controllers.WindowFactories.*;
 import static com.mikadifo.controllers.UserValidator.*;
 import static java.lang.Character.*;
 import java.io.IOException;
@@ -21,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  *
  * @author MIKADIFO
  */
-public class SignUpController implements Initializable {
+public class SignUpController implements Initializable, Window {
 
     private CityDB userCity;
     private CountryDB userCountry;
@@ -75,9 +75,11 @@ public class SignUpController implements Initializable {
         filteredCities = new FilteredList<>(cities);
     }
 
-    public void init(Scene scene) {
-        scene.getStylesheets().add("/styles/account.css");
-        txtUsername.requestFocus();
+    @Override
+    public void init() {
+        currentScene.getStylesheets().add("/styles/account.css");
+        txtLogin.requestFocus();
+	currentStage.showAndWait();
     }
 
     private void setConverterComboBox() {
@@ -138,15 +140,8 @@ public class SignUpController implements Initializable {
             showAlert(AlertType.INFORMATION, null, result.get());
 	else {
 	    userInView.insert();
-	    try {
-		loader = new WindowLoader();
-		loader.load("LogIn");
-		LogInController login = loader.getController();
-		login.init(loader.getScene(), userInView);
-		loader.showAndWait(false);
-	    } catch (IOException ex) {
-		Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-	    }
+		LogInController login = (LogInController) LOGIN.createWindow();
+		login.init(userInView);
 
 	    Node sourceNode = (Node) event.getSource();
 	    Stage currentStage = (Stage) sourceNode.getScene().getWindow();

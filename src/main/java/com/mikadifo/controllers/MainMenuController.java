@@ -2,11 +2,8 @@ package com.mikadifo.controllers;
 
 import static com.mikadifo.controllers.WindowFactories.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -23,14 +22,15 @@ import javafx.stage.Stage;
  *
  * @author MIKADIFO
  */
-public class MainMenuController implements Initializable {
+public class MainMenuController implements Initializable, Window {
 
-    private WindowLoader loader;
     public static boolean isLogedIn;
     public static Scene scene;
     
     @FXML
     private ImageView imgLogo;
+    @FXML
+    private StackPane imageWrapper;
     
     /**
      * Initializes the controller class.
@@ -39,17 +39,20 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	//imgLogo.setImage(getImage());
+	imgLogo.setFitWidth(imageWrapper.getWidth());
+	imgLogo.setFitHeight(imageWrapper.getHeight());
+	imgLogo.setImage(new Image(("/imgs/logo.png")));
     }
-    
+
+    @Override
     public void init() {
-	scene.getStylesheets().add("/styles/menu.css");
+	currentScene.getStylesheets().add("/styles/menu.css");
     }
 
     public static void closeIfLogedIn() {
 	if (isLogedIn) {
-	    Stage thisStage = (Stage) scene.getWindow();
-	    thisStage.close();
+	    Stage stage = (Stage) scene.getWindow();
+	    stage.close();
 	}
     }
 
@@ -77,28 +80,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-        try {
-            loader = new WindowLoader();
-            loader.load("LogIn");
-            LogInController login = loader.getController();
-            login.init(loader.getScene(), null);
-            loader.showAndWait(true);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	LOGIN.createWindow().init();
     }
 
     @FXML
     private void onSigninAction(ActionEvent event) {
-        try {
-            loader = new WindowLoader();
-            loader.load("SignUp");
-            SignUpController signup = loader.getController();
-            signup.init(loader.getScene());
-            loader.showAndWait(true);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	SIGNUP.createWindow().init();
     }
 
 }

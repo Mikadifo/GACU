@@ -1,6 +1,7 @@
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.table_statements.UserDB;
+import static com.mikadifo.controllers.WindowFactories.*;
 import static java.lang.Character.*;
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +21,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -34,10 +34,9 @@ import javafx.util.StringConverter;
  *
  * @author MIKADIFO
  */
-public class AccountController implements Initializable {
+public class AccountController implements Initializable, Window {
 
     private UserDB currentUser;
-    private WindowLoader loader;
     private CityDB userCity;
     private CountryDB userCountry;
     private List<CityDB> citiesFromDB;
@@ -72,13 +71,19 @@ public class AccountController implements Initializable {
         filteredCities = new FilteredList<>(cities);
    }
     
-    public void init(Scene scene, UserDB user) {
-	scene.getStylesheets().add("/styles/account.css");
+    public void init(UserDB user) {
         currentUser = user;
 	userCity.setId(currentUser.getCityId());
 	userCity.selectById();
 	userCity = userCity.getCity();
-	setUserInView();
+        setUserInView(); //si no vale poner al otro init
+	init();
+    }
+
+    @Override
+    public void init() {
+	currentScene.getStylesheets().add("/styles/account.css");
+	currentStage.showAndWait();
     }
 
     private void setConverterComboBox() {
@@ -136,9 +141,10 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-        Node currentStage = (Node) event.getSource();
-        Stage stage = (Stage) currentStage.getScene().getWindow();
-        stage.close();
+	currentStage.close();//ver si esto sirve en lugar de lo de abajo
+	Node currentStage = (Node) event.getSource();
+	Stage stage = (Stage) currentStage.getScene().getWindow();
+	stage.close();
     }
 
     @FXML
@@ -179,16 +185,7 @@ public class AccountController implements Initializable {
 
     @FXML
     private void onChangePasswordAction(ActionEvent event) {
-        try {
-            loader = new WindowLoader();
-            loader.load("ChangePassword");
-            ChangePasswordController changePasswordController = loader.getController();
-            changePasswordController.init(loader.getScene(), null);
-
-            loader.showAndWait(true);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	CHANGE_PASSWORD.createWindow().init();
     }
     
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
