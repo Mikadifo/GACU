@@ -82,7 +82,6 @@ public class GalleryController implements Initializable, Window {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	loader = new WindowLoader();
 	imgBoxes = FXCollections.observableArrayList();
 	showCategories();
     }
