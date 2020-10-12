@@ -129,10 +129,37 @@ public class TriviaController implements Initializable {
             alert.showAndWait();
         }
         
+        if(trivia.equals(trivia.getCorrectAnswerContent())){
+            txtQuestion.setText(trivia.getQuestionContent());
+            if(btnOption_1.isPressed()){
+                btnOption_1.applyCss();
+            }else if(btnOption_2.isPressed()){
+              btnOption_2.applyCss();  
+            }else if( btnOption_3.isPressed()){
+                 btnOption_3.applyCss();
+            }else if( btnOption_4.isPressed()){
+                 btnOption_4.applyCss();
+            }
+            boolean isOk = showAlert(Alert.AlertType.INFORMATION, null, "¬ø Usted Respondio Correctamente");
+            borrarCampos();
+           
+        }else if(trivia.equals(trivia.getIncorrectAnswersContents())){
+            txtQuestion.setText(trivia.getQuestionContent());}
+            
+            if(btnOption_1.isPressed()){
+                btnOption_1.applyCss();
+            }else if(btnOption_2.isPressed()){
+              btnOption_2.applyCss();  
+            }else if( btnOption_3.isPressed()){
+                 btnOption_3.applyCss();
+            }else if( btnOption_4.isPressed()){
+                 btnOption_4.applyCss();
+            }
+            boolean isOk = showAlert(Alert.AlertType.INFORMATION, null, "¬ø Usted Respondio Incorrectamente");
+            borrarCampos();
+        }
 
-
-        txtQuestion.setText(trivia.getQuestionContent());}
-//        btnOption_1.setText(trivia.getIncorrectAnswersContents().;
+        
       
 
     
