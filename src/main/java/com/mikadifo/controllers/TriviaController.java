@@ -116,7 +116,7 @@ public class TriviaController implements Initializable {
  
     @FXML
     private void onContinueAction(ActionEvent event) {
-          botones();
+        botones();
         
         if (btnOption_1.isPressed()||btnOption_2.isPressed()||btnOption_3.isPressed()||btnOption_4.isPressed()){
             // cargar otra pregunta aleatoria desde la base de datos   basada en el place id    
@@ -126,8 +126,8 @@ public class TriviaController implements Initializable {
             alert.setContentText("Seleccione una opción");
             alert.showAndWait();
         }
+        borrarCampos();
 
-       
     }
 
     private void showNewTrivia() {
