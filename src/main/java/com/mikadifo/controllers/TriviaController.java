@@ -3,14 +3,20 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.table_statements.QuestionDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
+import com.mikadifo.models.function_calls.RandomTrivia;
 import com.mikadifo.models.table_statements.User_PlaceDB;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.ButtonGroup;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -26,6 +32,8 @@ public class TriviaController implements Initializable, Window {
 
     private UserDB currentUser;
     private Alert alert;
+    private RandomTrivia randomTrivia;
+    private List<Button> options;
 
     @FXML
     private Button bntHome;
@@ -44,10 +52,22 @@ public class TriviaController implements Initializable, Window {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 	alert = new Alert(Alert.AlertType.INFORMATION);
+	addOptionsToList();
+    }
+
+    private void addOptionsToList() {
+	options = new ArrayList<>();
+
+	options.add(btnOption_1);
+	options.add(btnOption_2);
+	options.add(btnOption_3);
+	options.add(btnOption_4);
     }
     
     public void init(UserDB user) {
@@ -57,8 +77,18 @@ public class TriviaController implements Initializable, Window {
 
     @Override
     public void init() {
+	loadTriviasIfUserHasVisitedPlaces();
 	currentScene.getStylesheets().add("/styles/trivia.css");
 	currentStage.showAndWait();
+    }
+
+    private void loadTriviasIfUserHasVisitedPlaces() {
+	randomTrivia = new RandomTrivia(currentUser.getId());
+	if (randomTrivia == null) {
+	    //alert
+	} else {
+	    showNewTrivia(randomTrivia);
+	}
     }
 
     @FXML
@@ -94,49 +124,26 @@ public class TriviaController implements Initializable, Window {
             alert.setContentText("Seleccione una opción");
             alert.showAndWait();
         }
-
-        // if comprobar que 1 y solo 1 boton esta focused 
-            // limpiar todas las opciones y el textflow del enunciado
-
-
-            // cargar otra aleatoria desde la base de datosc
-        // caso contrario avisar con un alert
     }
 
-    private void showNewTrivia() {
-        //TABLES: Types, Questions, Answers, Question_Answer
-            /////////
-            //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
-            User_PlaceDB visitedPlaces = new User_PlaceDB();
-            List<User_PlaceDB> userVisitedPlaces;
-            List<QuestionDB> questions;
+    private void showNewTrivia(RandomTrivia trivia) {
+	//setQuestion
+	List<String> allAnswers;
 
-            visitedPlaces.selectAll();
-            userVisitedPlaces = getVisitedPlacesByUserId(currentUser.getId()); //method in visited places todo is get place_id by user_id
+	allAnswers = trivia.getIncorrectAnswersContents();
+	allAnswers.add(trivia.getCorrectAnswerContent());
 
-            if (userVisitedPlaces != null) { 
-                //Obtener un placeid aleatorio de la tabla User_Places;
-                int randomPlaceId = getRandomFromArray(userVisitedPlaces);
-                QuestionDB questionDB = new QuestionDB();
-                questionDB.selectAll();
-                questions = questionDB.getResults();
-                //Obtener una pregunta aleatoria con el mismo place_id anterior ^
-                String question = "";//set the contetn question here
-                short typeId = 0;//sets the question type id here
-                //Obtener el answer_id que corresponde al question id de la tabla QUESTION_ASNWERS
-                String correctAnswer = "";//set the content answer hereA
-                //select * from Answer join types using(type_id) where Answer.type_id != typeId and Answer.type_id (3 result only)
-                //array con todas las 4 respuestas here
-                //[1][2][3][4]
-                //mezclar [4][1][2][3]
-                //for botones asginar el shuffled array
-            //else alert de que aun no ha visitado un lugar
-            } else {
-                alert.setHeaderText(null);
-                alert.setTitle("Aviso");
-                alert.setContentText("Aún no ha visitado ningun lugar. No puede acceder a la trivia");
-                alert.showAndWait();
-            }
+	System.out.println(allAnswers);
+	Collections.shuffle(allAnswers);
+	System.out.println(allAnswers);
+	    
+	allAnswers.forEach(this::setOptionsbyAnswers);
+    }
+
+    private void setOptionsbyAnswers(String answerContent) {
+	options.forEach(option -> {
+	    option.setText(answerContent);
+	});
     }
 
     private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {
