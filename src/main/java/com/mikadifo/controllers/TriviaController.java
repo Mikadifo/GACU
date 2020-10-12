@@ -35,7 +35,7 @@ public class TriviaController implements Initializable {
     private WindowLoader loader;
     private Stage currentStage;
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    private final RandomTrivia trivia = new RandomTrivia(currentUser.getId());
+    private final RandomTrivia trivia = new RandomTrivia(1);
 
     @FXML
     private Button bntHome;
