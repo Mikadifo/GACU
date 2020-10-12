@@ -44,7 +44,13 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
-        </dependency>
+	</dependency>
+
+	<dependency>
+	    <groupId>com.jfoenix</groupId>
+	    <artifactId>jfoenix</artifactId>
+	    <version>8.0.7</version>
+	</dependency>
     </dependencies>
     
     <build>
