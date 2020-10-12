@@ -4,6 +4,7 @@ import com.mikadifo.models.Roles;
 import static com.mikadifo.models.Roles.ADMIN;
 import static com.mikadifo.models.Roles.GUEST;
 import static com.mikadifo.models.Roles.USER;
+import com.mikadifo.models.db_tables.Role;
 import com.mikadifo.models.table_statements.UserDB;
 import java.io.IOException;
 import java.net.URL;
@@ -75,17 +76,23 @@ public class GalleryController implements Initializable {
 	currentUser = user;
     }
 
-    private void loadByRole(Roles role) {
+    private void loadByRole(Role role) {
 	//if user is null so is guest
-        if(role.equals(ADMIN)){
-           
-        }else if(role.equals(GUEST)){
-             btnTrivia.setDisable(true);
-                guestPane.setVisible(false);
-                rootPane.setTop(logedPane);
-                logedPane.setVisible(true);
-        } else if(role.equals(USER)){
-            
+        if(role.equals(role.getId())){
+            btnTrivia.setDisable(true);
+            guestPane.setVisible(true);
+            rootPane.setTop(logedPane);
+            logedPane.setVisible(true);
+            btnAccount.setVisible(true);
+            btnMenu.setVisible(true);
+        
+        }else if(role.equals(null)){
+            btnTrivia.setDisable(true);
+            guestPane.setVisible(false);
+            rootPane.setTop(logedPane);
+            logedPane.setVisible(true);
+            btnAccount.setDisable(true);
+            btnMenu.setVisible(true);
         }
         
     }
@@ -173,6 +180,10 @@ public class GalleryController implements Initializable {
     @FXML
     private void onBackAction(ActionEvent event) {
 
+    }
+
+    private void loadByRole(Roles role) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

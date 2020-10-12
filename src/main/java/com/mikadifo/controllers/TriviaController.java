@@ -119,16 +119,24 @@ public class TriviaController implements Initializable {
         botones();
         
         if (btnOption_1.isPressed()||btnOption_2.isPressed()||btnOption_3.isPressed()||btnOption_4.isPressed()){
-            // cargar otra pregunta aleatoria desde la base de datos   basada en el place id    
+            // cargar otra pregunta aleatoria desde la base de datos   basada en el place id 
+            borrarCampos();
         }else{
+
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una opción");
             alert.showAndWait();
         }
-        borrarCampos();
+        
 
-    }
+
+        txtQuestion.setText(trivia.getQuestionContent());}
+//        btnOption_1.setText(trivia.getIncorrectAnswersContents().;
+      
+
+    
+
 
     private void showNewTrivia() {
         
