@@ -95,7 +95,7 @@ public class TriviaController implements Initializable, Window {
 	randomTrivia = new RandomTrivia(currentUser.getId()).select();
         txtQuestion.setText(randomTrivia.getQuestionContent());
 	if (randomTrivia == null) {
-	    //alert
+	    showAlert(AlertType.INFORMATION, null, "Usted no ha visitado ningun lugar");
 	} else {
 	    showNewTrivia(randomTrivia);
 	}
@@ -182,8 +182,12 @@ public class TriviaController implements Initializable, Window {
    
 
     private void showNewTrivia(RandomTrivia trivia) {
+
 	
     //setQuestion 
+
+	txtQuestion.setText(randomTrivia.getQuestionContent());
+
 	List<String> allAnswers;
         
         
