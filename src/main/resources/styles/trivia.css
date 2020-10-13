@@ -40,12 +40,15 @@
 .options {
     -fx-background-color: #FFC654;
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 4, 4, 0, 4);
-    -fx-alignment: left;
     -fx-font-size: 17px;
 }
 
 .options:hover {
     -fx-background-color: #FFC041;
+}
+
+.options:selected{
+    -fx-background-color: #000;
 }
 
 #main_button {

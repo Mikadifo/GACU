@@ -46,16 +46,20 @@
                                     <TextArea id="question" fx:id="txtQuestion" editable="false" minHeight="70.0" prefHeight="70.0" prefWidth="486.0" />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="90.0" prefWidth="524.0" spacing="20.0">
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="btnOption_1" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="1." />
-                                    <Button fx:id="btnOption_2" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="2." />
+                                    <ToggleButton fx:id="toggle1" maxWidth="233.0" minWidth="233.0" mnemonicParsing="false" prefWidth="233.0" styleClass="options" text="ToggleButton" HBox.hgrow="ALWAYS">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="options" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="toggle2" maxWidth="233.0" minWidth="233.0" mnemonicParsing="false" prefWidth="233.0" styleClass="options" text="ToggleButton" toggleGroup="$options" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="90.0" prefWidth="524.0" spacing="20.0">
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="btnOption_3" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="3." />
-                                    <Button fx:id="btnOption_4" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="options" text="4." />
+                                    <ToggleButton fx:id="toggle3" maxWidth="233.0" minWidth="233.0" mnemonicParsing="false" prefWidth="233.0" styleClass="options" text="ToggleButton" toggleGroup="$options" HBox.hgrow="ALWAYS" />
+                                    <ToggleButton fx:id="toggle4" maxWidth="233.0" minWidth="233.0" mnemonicParsing="false" prefWidth="233.0" styleClass="options" text="ToggleButton" toggleGroup="$options" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>

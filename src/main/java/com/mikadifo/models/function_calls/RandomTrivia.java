@@ -39,7 +39,8 @@ public class RandomTrivia implements FunctionDB{
     } 
 
     public RandomTrivia select() {
-	return (selectAll().isEmpty()) ? null : selectAll().get(0);
+	return selectAll()== null ? null : selectAll().get(0);
+        
     }
 
     @Override
@@ -52,7 +53,6 @@ public class RandomTrivia implements FunctionDB{
             results = dbConnection.executeQuery();
             while (results.next()) {                
                 resultList.add(getObjectFromResulSet());
-                System.out.println("hola");
             }   
             results.close();
             dbConnection.closeStatement();

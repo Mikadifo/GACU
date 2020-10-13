@@ -5,7 +5,10 @@ import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.function_calls.RandomTrivia;
 import com.mikadifo.models.table_statements.User_PlaceDB;
+import com.mikadifo.models.table_statements.User_QuestionDB;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -20,7 +23,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -33,8 +42,12 @@ public class TriviaController implements Initializable, Window {
     private UserDB currentUser;
     private Alert alert;
     private RandomTrivia randomTrivia;
-    private List<Button> options;
-    private boolean estado = true;
+    private LocalTime started;
+    private LocalTime finished;
+    private ToggleButton selectedOption;
+    private boolean isCorrect;
+    @FXML
+    private ToggleGroup options;
 
     @FXML
     private Button bntHome;
@@ -43,13 +56,13 @@ public class TriviaController implements Initializable, Window {
     @FXML
     private TextArea txtQuestion;
     @FXML
-    private Button btnOption_1;
+    private ToggleButton toggle1;
     @FXML
-    private Button btnOption_2;
+    private ToggleButton toggle2;
     @FXML
-    private Button btnOption_3;
+    private ToggleButton toggle3;
     @FXML
-    private Button btnOption_4;
+    private ToggleButton toggle4;
 
     /**
      * Initializes the controller class.
@@ -60,18 +73,8 @@ public class TriviaController implements Initializable, Window {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         alert = new Alert(Alert.AlertType.INFORMATION);
-        addOptionsToList();
-        callOption();
     }
 
-    private void addOptionsToList() {
-        options = new ArrayList<>();
-
-        options.add(btnOption_1);
-        options.add(btnOption_2);
-        options.add(btnOption_3);
-        options.add(btnOption_4);
-    }
 
     public void init(UserDB user) {
         currentUser = user;
@@ -81,35 +84,20 @@ public class TriviaController implements Initializable, Window {
     @Override
     public void init() {
         loadTriviasIfUserHasVisitedPlaces();
-        currentScene.getStylesheets().add("/styles/trivia.css");
-        currentStage.showAndWait();
     }
 
-    private void callOption() {
-        options.forEach(op -> {
-            op.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                op.setStyle("-fx-background-color: #A30300");
-            });
-        });
-    }
 
     private void loadTriviasIfUserHasVisitedPlaces() {
         randomTrivia = new RandomTrivia(currentUser.getId()).select();
-        HoraActual();
-        txtQuestion.setText(randomTrivia.getQuestionContent());
-        if (randomTrivia == null) {
+        if (randomTrivia == null){
             showAlert(AlertType.INFORMATION, null, "Usted no ha visitado ningun lugar");
-        } else {
+        }else{
             showNewTrivia(randomTrivia);
-        }
+            currentScene.getStylesheets().add("/styles/trivia.css");
+            currentStage.showAndWait();
+        }  
     }
 
-    public java.sql.Time HoraActual() {
-        java.util.Date utilDate = new java.util.Date();
-        long lnMilisegundos = utilDate.getTime();
-        java.sql.Time HoraActual = new java.sql.Time(lnMilisegundos);
-        return HoraActual;
-    }
 
     @FXML
     private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
@@ -123,39 +111,31 @@ public class TriviaController implements Initializable, Window {
     private boolean showAlert(AlertType alertType, String header, String message) {
 
         Alert alert = new Alert(alertType);
-
+        alert.setGraphic(new ImageView(new Image("/imgs/logo.png")));
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
-
-        return alert.showAndWait().get() == ButtonType.OK;
+        
+        return alert.showAndWait().orElse(ButtonType.CANCEL)== ButtonType.OK;
     }
 
-    private void ButtonGroup() {
-        Group g = new Group();
-        g.getChildren().add(btnOption_1);
-        g.getChildren().add(btnOption_2);
-        g.getChildren().add(btnOption_3);
-        g.getChildren().add(btnOption_4);
-    }
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-        HoraActual();
 
-        if (estado) {
+        if (options.getSelectedToggle() != null) {
+            selectedOption = (ToggleButton) options.getSelectedToggle();
+            isCorrect=selectedOption.getText().equals(randomTrivia.getCorrectAnswerContent());
+            if(isCorrect)                
+                showAlert(AlertType.INFORMATION, null, "Correcto");
+           else
+                showAlert(AlertType.INFORMATION, null, "Incorrecto");
+            
+            finished=LocalTime.now();
+            fillData();
+            selectedOption.setSelected(false);            
+            randomTrivia = new RandomTrivia(currentUser.getId()).select();
             showNewTrivia(randomTrivia);
-            if( randomTrivia.equals(randomTrivia.getCorrectAnswerContent())){
-               ButtonGroup();
-               callOption();
-               boolean isOk = showAlert(AlertType.INFORMATION, null, "Correcto");
-               
-               
-           }else if(randomTrivia.equals(randomTrivia.getIncorrectAnswersContents())){
-                ButtonGroup();
-                callOption();
-                boolean isOk = showAlert(AlertType.INFORMATION, null, "Incorrecto");
-           }
         } else {
             alert.setHeaderText(null);
             alert.setTitle("Confirmación");
@@ -166,58 +146,39 @@ public class TriviaController implements Initializable, Window {
     }
 
     private void showNewTrivia(RandomTrivia trivia) {
-
+        
         txtQuestion.setText(randomTrivia.getQuestionContent());
-
+  
         List<String> allAnswers;
 
         allAnswers = trivia.getIncorrectAnswersContents();
         allAnswers.add(trivia.getCorrectAnswerContent());
 
-        System.out.println(allAnswers.size());
         Collections.shuffle(allAnswers);
-        Iterator<Button> optionIterator = options.iterator();
+        Iterator<Toggle> optionIterator = options.getToggles().iterator();
 	allAnswers.forEach(answer->{
             setOptionsbyAnswers(optionIterator.next(), answer);
         });
+        started=LocalTime.now();
     }
 
-    private void setOptionsbyAnswers(Button button, String answerContent) {
-        button.setText(answerContent);
+    private void setOptionsbyAnswers(Toggle option, String answerContent) {
+        ToggleButton op = (ToggleButton) option;
+        op.setText(answerContent);
     }
-
-    private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {
-        return null;
-        //TODO
+    
+    private void fillData(){
+        User_QuestionDB quizzResult = new User_QuestionDB();
+    
+        quizzResult.setUserId(currentUser.getId());
+        quizzResult.setQuestionId(randomTrivia.getQuestionId());
+        quizzResult.setAnswerId(randomTrivia.getAnswerId());
+        quizzResult.setStartedAt(started);
+        quizzResult.setFinishedAt(finished);
+        quizzResult.setUserAnswer(selectedOption.getText());
+        quizzResult.setCorrect(isCorrect);
+        
+        quizzResult.insert();
     }
-
-    private int getRandomFromArray(List<?> array) {
-        return 0;
-        //TODO
-    }
-
-    private int generarNumeroRandom(int min, int max) {
-        return (int) (Math.random() * ((max - min) + 1) + min);
-    }
-
-    @FXML
-    private void OnMouseBtn_1Clicked(MouseEvent event) {
-        estado = true;
-
-    }
-
-    @FXML
-    private void OnMouseBtn_2Clicked(MouseEvent event) {
-        estado = true;
-    }
-
-    @FXML
-    private void OnMouseBtn_3Clicked(MouseEvent event) {
-        estado = true;
-    }
-
-    @FXML
-    private void OnMouseBtn_4Clicked(MouseEvent event) {
-        estado = true;
-    }
+    
 }
