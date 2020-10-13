@@ -11,9 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.ButtonGroup;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -118,7 +116,14 @@ public class TriviaController implements Initializable, Window {
 
 	return alert.showAndWait().get() == ButtonType.OK;
     }
-           
+    
+    private void ButtonGroup(){
+        Group g=new Group();
+           g.getChildren().add(btnOption_1);
+           g.getChildren().add(btnOption_2);
+           g.getChildren().add(btnOption_3);
+           g.getChildren().add(btnOption_4);
+    }
     @FXML
     private void onContinueAction(ActionEvent event) {
 //        options.get(0).getStyle().;
@@ -136,6 +141,19 @@ public class TriviaController implements Initializable, Window {
 //            alert.setContentText("Seleccione una opción");
 //            alert.showAndWait();
 //        }
+           
+           
+           if( randomTrivia.equals(randomTrivia.getCorrectAnswerContent())){
+               ButtonGroup();
+               callOption();
+               boolean isOk = showAlert(AlertType.INFORMATION, null, "Correcto");
+               
+               
+           }else if(randomTrivia.equals(randomTrivia.getIncorrectAnswersContents())){
+                ButtonGroup();
+                callOption();
+                boolean isOk = showAlert(AlertType.INFORMATION, null, "Incorrecto");
+           }
     }
 
     private void showNewTrivia(RandomTrivia trivia) {
