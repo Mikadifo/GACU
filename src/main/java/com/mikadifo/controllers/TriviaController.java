@@ -110,15 +110,15 @@ public class TriviaController implements Initializable, Window {
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
+	Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	    return alert.showAndWait().get() == ButtonType.OK;
+	return alert.showAndWait().get() == ButtonType.OK;
     }
-
+           
     @FXML
     private void onContinueAction(ActionEvent event) {
 //        options.get(0).getStyle().;
@@ -156,8 +156,8 @@ public class TriviaController implements Initializable, Window {
 
     private void setOptionsbyAnswers(Button button, String answerContent) {
         button.setText(answerContent);
-    }
-
+        }
+        
     private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {
         return null;
         //TODO

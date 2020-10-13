@@ -268,11 +268,11 @@ public class GalleryController implements Initializable, Window {
             case ADMIN:
                 break;
             case GUEST:
-                btnTrivia.setDisable(true);
+            btnTrivia.setDisable(true);
                 guestPane.setVisible(false);
-                rootPane.setTop(logedPane);
-                logedPane.setVisible(true);
-
+            rootPane.setTop(logedPane);
+            logedPane.setVisible(true);
+        
                 break;
             case USER:
                 break;
@@ -298,7 +298,7 @@ public class GalleryController implements Initializable, Window {
     private void onMenuAction(ActionEvent event) {
 
     }
-
+    
     @FXML
     private void onAccountAction(ActionEvent event) {
         AccountController account = (AccountController) ACCOUNT.createWindow();
@@ -308,12 +308,12 @@ public class GalleryController implements Initializable, Window {
     @FXML
     private void onLoginAction(ActionEvent event) {
 	LOGIN.createWindow().init();
-    }
-
+        }
+    
     @FXML
     private void onSignupAction(ActionEvent event) {
         SIGNUP.createWindow().init();
-    }
+            }
 
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
 	Alert alert = new Alert(alertType);
@@ -333,4 +333,4 @@ public class GalleryController implements Initializable, Window {
 	    showPlaces(selectedCategoryId);
     }
 
-}
+    }
