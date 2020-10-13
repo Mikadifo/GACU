@@ -1,5 +1,9 @@
 package com.mikadifo.controllers;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+
 import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.Roles;
 import com.mikadifo.models.function_calls.AllImagesByPlace;
@@ -10,11 +14,14 @@ import com.mikadifo.models.table_statements.PlaceDB;
 import com.mikadifo.models.table_statements.UserDB;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -22,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -49,6 +57,7 @@ public class GalleryController implements Initializable, Window {
     private List<AllImagesByPlace> imgsToShow;
     private boolean isOnPlaces;
     private int selectedCategoryId;
+    private HamburgerBackArrowBasicTransition hamburgerTransition;
 
     @FXML
     private Button btnExit;
@@ -61,8 +70,6 @@ public class GalleryController implements Initializable, Window {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private Button btnMenu;
-    @FXML
     private Button btnAccount;
     @FXML
     private Button btnLogin;
@@ -74,6 +81,10 @@ public class GalleryController implements Initializable, Window {
     private FlowPane imagesFlowPane;
     @FXML
     private Button backButton;
+    @FXML
+    private JFXDrawer sideDrawer;
+    @FXML
+    private JFXHamburger hamburgerMenu;
 
     /**
      * Initializes the controller class.
@@ -82,6 +93,7 @@ public class GalleryController implements Initializable, Window {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+	initHamburgerMenu();
 	imgBoxes = FXCollections.observableArrayList();
 	showCategories();
     }
@@ -111,6 +123,21 @@ public class GalleryController implements Initializable, Window {
 
 	backButton.setVisible(false);
 	isOnPlaces = false;
+    }
+
+    private void initHamburgerMenu() {
+	loadSideBoxMenu();
+	hamburgerTransition = new HamburgerBackArrowBasicTransition(hamburgerMenu);
+	hamburgerTransition.setRate(-1.0);
+    }
+
+    private void loadSideBoxMenu() {
+	try {
+	    VBox sidePane = FXMLLoader.load(MainController.class.getResource("/com/mikadifo/views/SideBoxMenu.fxml"));
+	    sideDrawer.setSidePane(sidePane);
+	} catch (IOException e) {
+	    Logger.getLogger(GalleryController.class.getName()).log(Level.SEVERE, null, e);
+	}
     }
 
     private void addImgViewers() {
@@ -294,10 +321,6 @@ public class GalleryController implements Initializable, Window {
         trivia.init(currentUser);
     }
 
-    @FXML
-    private void onMenuAction(ActionEvent event) {
-
-    }
 
     @FXML
     private void onAccountAction(ActionEvent event) {
@@ -331,6 +354,17 @@ public class GalleryController implements Initializable, Window {
 	    showCategories();
 	else
 	    showPlaces(selectedCategoryId);
+    }
+
+    @FXML
+    private void onHamburgerMenu(MouseEvent event) {
+	hamburgerTransition.setRate(hamburgerTransition.getRate() * -1);
+	hamburgerTransition.play();
+
+	if(sideDrawer.isOpened())
+	    sideDrawer.close();
+	else
+	    sideDrawer.open();
     }
 
 }

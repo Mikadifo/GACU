@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -21,9 +22,9 @@
                         <Insets bottom="15.0" top="15.0" />
                      </padding>
                      <children>
-                        <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#onMenuAction" text="Menu" />
-                        <Button fx:id="btnAccount" mnemonicParsing="false" onAction="#onAccountAction" text="Account" />
+                        <Button fx:id="btnAccount" mnemonicParsing="false" onAction="#onAccountAction" styleClass="main_button" text="Account" />
                      </children></HBox>
+                  <JFXHamburger id="hamburger_menu" fx:id="hamburgerMenu" alignment="CENTER_LEFT" onMousePressed="#onHamburgerMenu" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
          </top>
@@ -32,8 +33,8 @@
                <children>
                   <HBox layoutY="-20.0" prefHeight="60.0" prefWidth="720.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button id="secondary_button" fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" text="Salir" />
-                        <Button id="main_button" fx:id="btnTrivia" mnemonicParsing="false" onAction="#onTriviaAction" text="Trivia" />
+                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" styleClass="secondary_button" text="Salir" />
+                        <Button fx:id="btnTrivia" mnemonicParsing="false" onAction="#onTriviaAction" styleClass="main_button" text="Trivia" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -71,11 +72,12 @@
          <children>
             <HBox alignment="TOP_RIGHT" layoutY="-36.0" prefHeight="64.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginAction" text="Iniciar Sesion" />
-                  <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#onSignupAction" text="Registrarse" />
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#onLoginAction" styleClass="secondary_button" text="Iniciar Sesion" />
+                  <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#onSignupAction" styleClass="main_button" text="Registrarse" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
+      <JFXDrawer fx:id="sideDrawer" layoutY="49.0" prefHeight="400.0" prefWidth="100.0" />
    </children>
 </AnchorPane>

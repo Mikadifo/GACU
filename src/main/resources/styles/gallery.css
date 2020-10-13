@@ -42,7 +42,7 @@
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 4, 0, 0, 4);
 }
 
-#main_button {
+.main_button {
     -fx-background-color: #FFBB33;
     -fx-text-fill: #000;
     -fx-font-weight: 400;
@@ -51,17 +51,23 @@
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 4, 0, 0, 4);
 }
 
-#main_button:hover {
+.main_button:hover {
     -fx-background-color: #FFC654;
 }
 
-#secondary_button {
+.secondary_button {
     -fx-background-color: transparent;
     -fx-text-fill: #121212;
     -fx-font-weight: 400;
     -fx-font-size: 16px;
 }
 
-#secondary_button:hover {
+.secondary_button:hover {
     -fx-underline: true;
+}
+
+#hamburger_menu StackPane {
+    -fx-background-color: #FFBB33;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 2, 0, 0, 2);
 }

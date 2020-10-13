@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox fx:id="sideBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SideBoxMenuController">
+   <children>
+      <JFXButton onAction="#onMenuAction" prefHeight="40.0" prefWidth="100.0" text="MENU" />
+      <JFXButton onAction="#onViewAction" prefHeight="40.0" prefWidth="100.0" text="Ver&gt;" />
+      <JFXButton onAction="#onEnter_Action" prefHeight="40.0" prefWidth="100.0" text="Ingresar&gt;" />
+      <JFXButton onAction="#onUpdate_Action" prefHeight="40.0" prefWidth="100.0" text="Editar&gt;" />
+      <JFXButton onAction="#onDelete_Action" prefHeight="40.0" prefWidth="100.0" text="Eliminar&gt;" />
+      <JFXButton prefHeight="40.0" prefWidth="100.0" />
+      <JFXButton prefHeight="40.0" prefWidth="100.0" text="Button" />
+      <JFXButton onAction="#onReportsAction" prefHeight="40.0" prefWidth="100.0" text="Reportes" />
+      <JFXButton onAction="#onFAQAction" prefHeight="40.0" prefWidth="100.0" text="FAQ" />
+      <JFXButton onAction="#onHelpAction" prefHeight="40.0" prefWidth="100.0" text="Ayuda" />
+   </children>
+</VBox>
