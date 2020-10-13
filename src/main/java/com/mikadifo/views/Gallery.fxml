@@ -78,6 +78,6 @@
             </HBox>
          </children>
       </AnchorPane>
-      <JFXDrawer fx:id="sideDrawer" layoutY="49.0" prefHeight="400.0" prefWidth="100.0" />
+      <JFXDrawer fx:id="sideDrawer" defaultDrawerSize="200.0" layoutY="49.0" prefHeight="400.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
