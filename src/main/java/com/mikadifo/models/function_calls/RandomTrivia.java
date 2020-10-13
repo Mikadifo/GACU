@@ -1,4 +1,5 @@
 
+
 package com.mikadifo.models.function_calls;
 
 import com.mikadifo.models.DB_Connection;
@@ -102,3 +103,8 @@ public class RandomTrivia implements FunctionDB{
 //    }
    
 }
+
+
+
+
+   

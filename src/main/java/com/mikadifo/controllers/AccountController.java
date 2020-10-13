@@ -152,8 +152,8 @@ public class AccountController implements Initializable, Window {
 	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
         if (isOk) getUserFromView().delete();
-    }
-
+        }
+        
     @FXML
     private void onUpdateAction(ActionEvent event) {
 	UserDB userInView = getUserFromView();

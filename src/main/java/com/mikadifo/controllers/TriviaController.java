@@ -11,9 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.ButtonGroup;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -118,17 +116,29 @@ public class TriviaController implements Initializable, Window {
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-        Alert alert = new Alert(alertType);
+
+	Alert alert = new Alert(alertType);
+
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-        return alert.showAndWait().get() == ButtonType.OK;
-    }
 
+
+	return alert.showAndWait().get() == ButtonType.OK;
+  }
+    
+    private void ButtonGroup(){
+        Group g=new Group();
+           g.getChildren().add(btnOption_1);
+           g.getChildren().add(btnOption_2);
+           g.getChildren().add(btnOption_3);
+           g.getChildren().add(btnOption_4);
+    }
     @FXML
     private void onContinueAction(ActionEvent event) {
+
     if(estado){
             
             // cargar otra pregunta aleatoria desde la base de datos   basada en el place id 
@@ -137,7 +147,36 @@ public class TriviaController implements Initializable, Window {
             alert.setTitle("Confirmación");
             alert.setContentText("Seleccione una ");
             alert.showAndWait();
-        }
+    }
+//        options.get(0).getStyle().;
+//        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
+//	    txtQuestion.clear();
+//            btnOption_1.setText(null);
+//            btnOption_2.setText(null);
+//            btnOption_3.setText(null);
+//            btnOption_4.setText(null);
+//           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
+//
+//        } else { 
+//            alert.setHeaderText(null);
+//            alert.setTitle("Confirmación");
+//            alert.setContentText("Seleccione una opción");
+//            alert.showAndWait();
+//        }
+           
+           
+           if( randomTrivia.equals(randomTrivia.getCorrectAnswerContent())){
+               ButtonGroup();
+               callOption();
+               boolean isOk = showAlert(AlertType.INFORMATION, null, "Correcto");
+               
+               
+           }else if(randomTrivia.equals(randomTrivia.getIncorrectAnswersContents())){
+                ButtonGroup();
+                callOption();
+                boolean isOk = showAlert(AlertType.INFORMATION, null, "Incorrecto");
+           }
+
     }
 
    
@@ -161,8 +200,8 @@ public class TriviaController implements Initializable, Window {
 
     private void setOptionsbyAnswers(Button button, String answerContent) {
         button.setText(answerContent);
-    }
-
+        }
+        
     private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {
         return null;
         //TODO
@@ -176,6 +215,7 @@ public class TriviaController implements Initializable, Window {
     private int generarNumeroRandom(int min, int max) {
         return (int) (Math.random() * ((max - min) + 1) + min);
     }
+
 
     @FXML
     private void OnMouseBtn_1Clicked(MouseEvent event) {
@@ -198,3 +238,5 @@ public class TriviaController implements Initializable, Window {
         estado = true;
     }
 }
+
+

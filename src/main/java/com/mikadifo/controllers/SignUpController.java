@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -215,5 +216,9 @@ public class SignUpController implements Initializable, Window {
 	String filter = comboCity.getEditor().getText().toUpperCase();
 	filteredCities.setPredicate(item -> item.getName().contains(filter));//review
 	comboCity.setItems(filteredCities);
+    }
+
+    void init(Scene scene, Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
