@@ -36,6 +36,7 @@ public class TriviaController implements Initializable, Window {
     private Alert alert;
     private RandomTrivia randomTrivia;
     private List<Button> options;
+    private boolean estado=true; 
 
     @FXML
     private Button bntHome;
@@ -100,6 +101,13 @@ public class TriviaController implements Initializable, Window {
 	    showNewTrivia(randomTrivia);
 	}
     }
+    
+    public java.sql.Time HoraActual() {
+        java.util.Date utilDate = new java.util.Date();
+        long lnMilisegundos = utilDate.getTime();
+        java.sql.Time HoraActual = new java.sql.Time(lnMilisegundos);
+        return HoraActual;
+    }
 
     @FXML
     private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
@@ -109,36 +117,33 @@ public class TriviaController implements Initializable, Window {
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
+        Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	    return alert.showAndWait().get() == ButtonType.OK;
+        return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-//        options.get(0).getStyle().;
-//        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
-//	    txtQuestion.clear();
-//            btnOption_1.setText(null);
-//            btnOption_2.setText(null);
-//            btnOption_3.setText(null);
-//            btnOption_4.setText(null);
-//           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
-//
-//        } else { 
-//            alert.setHeaderText(null);
-//            alert.setTitle("Confirmación");
-//            alert.setContentText("Seleccione una opción");
-//            alert.showAndWait();
-//        }
+    if(estado){
+            
+            // cargar otra pregunta aleatoria desde la base de datos   basada en el place id 
+        } else  {
+            alert.setHeaderText(null);
+            alert.setTitle("Confirmación");
+            alert.setContentText("Seleccione una ");
+            alert.showAndWait();
+        }
     }
 
+   
+
     private void showNewTrivia(RandomTrivia trivia) {
-	//setQuestion 
+	
+    //setQuestion 
 	List<String> allAnswers;
         
         
@@ -171,4 +176,24 @@ public class TriviaController implements Initializable, Window {
         return (int) (Math.random() * ((max - min) + 1) + min);
     }
 
+    @FXML
+    private void OnMouseBtn_1Clicked(MouseEvent event) {
+        estado = true;
+
+    }
+
+    @FXML
+    private void OnMouseBtn_2Clicked(MouseEvent event) {
+        estado = true;
+    }
+
+    @FXML
+    private void OnMouseBtn_3Clicked(MouseEvent event) {
+        estado = true;
+    }
+
+    @FXML
+    private void OnMouseBtn_4Clicked(MouseEvent event) {
+        estado = true;
+    }
 }
