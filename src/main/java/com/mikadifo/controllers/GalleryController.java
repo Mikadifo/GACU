@@ -95,7 +95,7 @@ public class GalleryController implements Initializable, Window {
     public void initialize(URL url, ResourceBundle rb) {
 	initHamburgerMenu();
 	imgBoxes = FXCollections.observableArrayList();
-	showCategories();
+//	showCategories();
     }
     
     public void init(Roles role, UserDB user) {
