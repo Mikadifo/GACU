@@ -48,7 +48,7 @@
 }
 
 .options:selected{
-    -fx-background-color: #000;
+    -fx-background-color: #FF6141;
 }
 
 #main_button {

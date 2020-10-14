@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Abel';
+    src: url('fonts/Abel-Regular.ttf');
+}
+
+* {
+    -fx-font-family: 'Abel';
+    -fx-alignment: center;
+}
+/*
+.dialog > .dialog-pane { 
+    -fx-background-color: greenyellow; 
+     
+} 
+
+.dialog > .dialog-pane > .button-bar { 
+    -fx-font-size: 24px; 
+    -fx-background-color: indianred; 
+} 
+.dialog > .dialog-pane > .content.label { 
+    -fx-font-size: 35px;
+    -fx-font-weight: bold; 
+    -fx-fill: blue; 
+} 
+.dialog:header > .dialog-pane .header-panel { 
+    -fx-background-color: cadetblue; 
+    -fx-font-style: italic; 
+}*/
+.alert.information.dialog-pane { 
+    -fx-graphic: url("/imgs/Check.png"); 
+    -fx-font-size: 20 px;
+}
+
+.alert.error.dialog-pane{
+    -fx-graphic: url("/imgs/Incorrect.png"); 
+    -fx-font-size: 20 px;
+}
+

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ButtonGroup;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -23,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
@@ -83,53 +85,59 @@ public class TriviaController implements Initializable, Window {
 
     @Override
     public void init() {
-        loadTriviasIfUserHasVisitedPlaces();
+        loadTriviasIfUserHasVisitedPlaces(); 
     }
 
 
     private void loadTriviasIfUserHasVisitedPlaces() {
         randomTrivia = new RandomTrivia(currentUser.getId()).select();
         if (randomTrivia == null){
-            showAlert(AlertType.INFORMATION, null, "Usted no ha visitado ningun lugar");
+            showAlert(AlertType.INFORMATION, "Usted no ha visitado ningun lugar");
         }else{
             showNewTrivia(randomTrivia);
             currentScene.getStylesheets().add("/styles/trivia.css");
-            currentStage.showAndWait();
+            currentStage.setOnCloseRequest(event->{
+                requestClose();   
+                event.consume();
+            });
+            currentStage.showAndWait(); 
         }  
     }
 
-
     @FXML
-    private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
-        boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
-
-        if (isOk) {
-            currentStage.close();
-        }
+    private void onHomeAction(ActionEvent event) {
+        requestClose(); 
     }
-
-    private boolean showAlert(AlertType alertType, String header, String message) {
-
+    private void requestClose(){
+        boolean isOk = showAlert(AlertType.CONFIRMATION,
+            "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
+        
+            if(isOk) currentStage.close(); 
+    }
+    private boolean showAlert(AlertType alertType, String message) {
+        
         Alert alert = new Alert(alertType);
-        alert.setGraphic(new ImageView(new Image("/imgs/logo.png")));
-        alert.setHeaderText(header);
         alert.setTitle(null);
+        alert.setHeaderText(null);
         alert.setContentText(message);
+        DialogPane dialogPane = alert.getDialogPane(); 
+        dialogPane.getStylesheets().add( getClass().getResource("/styles/myDialogs.css").toExternalForm()); 
         
         return alert.showAndWait().orElse(ButtonType.CANCEL)== ButtonType.OK;
     }
-
+    
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-
         if (options.getSelectedToggle() != null) {
             selectedOption = (ToggleButton) options.getSelectedToggle();
             isCorrect=selectedOption.getText().equals(randomTrivia.getCorrectAnswerContent());
-            if(isCorrect)                
-                showAlert(AlertType.INFORMATION, null, "Correcto");
-           else
-                showAlert(AlertType.INFORMATION, null, "Incorrecto");
+            if(isCorrect)      
+                showAlert(AlertType.INFORMATION, "Correcto");
+            else
+                showAlert(AlertType.ERROR,  
+                        "Incorrecto, la respuesta correcta es "
+                        + randomTrivia.getCorrectAnswerContent());
             
             finished=LocalTime.now();
             fillData();
@@ -137,10 +145,7 @@ public class TriviaController implements Initializable, Window {
             randomTrivia = new RandomTrivia(currentUser.getId()).select();
             showNewTrivia(randomTrivia);
         } else {
-            alert.setHeaderText(null);
-            alert.setTitle("Confirmación");
-            alert.setContentText("Seleccione una opcion");
-            alert.showAndWait();
+            showAlert(AlertType.INFORMATION, "Debe Seleccionar una opcion");
         }
 
     }
