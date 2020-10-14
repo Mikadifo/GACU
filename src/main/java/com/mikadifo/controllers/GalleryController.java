@@ -119,7 +119,7 @@ public class GalleryController implements Initializable, Window {
 
 	imagesFlowPane.setHgap(20);
 	imagesFlowPane.setVgap(20);
-	imagesFlowPane.getChildren().addAll(imgBoxes);
+//	imagesFlowPane.getChildren().addAll(imgBoxes);
 
 	backButton.setVisible(false);
 	isOnPlaces = false;
@@ -141,9 +141,9 @@ public class GalleryController implements Initializable, Window {
     }
 
     private void addImgViewers() {
-	new RandomImgForCategory()
-		.selectAll()
-		.forEach(categoryConsumer);
+//	new RandomImgForCategory()
+//		.selectAll()
+//		.forEach(categoryConsumer);
     }
 
     private EventHandler<MouseEvent> categoryEventHandler = (event) -> {
@@ -295,11 +295,11 @@ public class GalleryController implements Initializable, Window {
             case ADMIN:
                 break;
             case GUEST:
-                btnTrivia.setDisable(true);
+            btnTrivia.setDisable(true);
                 guestPane.setVisible(false);
-                rootPane.setTop(logedPane);
-                logedPane.setVisible(true);
-
+            rootPane.setTop(logedPane);
+            logedPane.setVisible(true);
+        
                 break;
             case USER:
                 break;
@@ -321,7 +321,6 @@ public class GalleryController implements Initializable, Window {
         trivia.init(currentUser);
     }
 
-
     @FXML
     private void onAccountAction(ActionEvent event) {
         AccountController account = (AccountController) ACCOUNT.createWindow();
@@ -331,12 +330,12 @@ public class GalleryController implements Initializable, Window {
     @FXML
     private void onLoginAction(ActionEvent event) {
 	LOGIN.createWindow().init();
-    }
-
+        }
+    
     @FXML
     private void onSignupAction(ActionEvent event) {
         SIGNUP.createWindow().init();
-    }
+            }
 
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
 	Alert alert = new Alert(alertType);

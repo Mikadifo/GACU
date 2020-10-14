@@ -123,5 +123,5 @@ public class DescriptionsController implements Initializable, Window {
 	//need other button to set in false the pressed and need to disable the close operation in x window
     }
 
-    
-}
+
+        }

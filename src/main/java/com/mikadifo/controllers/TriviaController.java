@@ -3,19 +3,36 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.table_statements.QuestionDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
+import com.mikadifo.models.function_calls.RandomTrivia;
 import com.mikadifo.models.table_statements.User_PlaceDB;
+import com.mikadifo.models.table_statements.User_QuestionDB;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.ButtonGroup;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -26,6 +43,13 @@ public class TriviaController implements Initializable, Window {
 
     private UserDB currentUser;
     private Alert alert;
+    private RandomTrivia randomTrivia;
+    private LocalTime started;
+    private LocalTime finished;
+    private ToggleButton selectedOption;
+    private boolean isCorrect;
+    @FXML
+    private ToggleGroup options;
 
     @FXML
     private Button bntHome;
@@ -34,123 +58,132 @@ public class TriviaController implements Initializable, Window {
     @FXML
     private TextArea txtQuestion;
     @FXML
-    private Button btnOption_1;
+    private ToggleButton toggle1;
     @FXML
-    private Button btnOption_2;
+    private ToggleButton toggle2;
     @FXML
-    private Button btnOption_3;
+    private ToggleButton toggle3;
     @FXML
-    private Button btnOption_4;
+    private ToggleButton toggle4;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	alert = new Alert(Alert.AlertType.INFORMATION);
+        alert = new Alert(Alert.AlertType.INFORMATION);
     }
-    
+
+
     public void init(UserDB user) {
         currentUser = user;
-	init();
+        init();
     }
 
     @Override
     public void init() {
-	currentScene.getStylesheets().add("/styles/trivia.css");
-	currentStage.showAndWait();
+        loadTriviasIfUserHasVisitedPlaces(); 
+    }
+
+
+    private void loadTriviasIfUserHasVisitedPlaces() {
+        randomTrivia = new RandomTrivia(currentUser.getId()).select();
+        if (randomTrivia == null){
+            showAlert(AlertType.INFORMATION, "Usted no ha visitado ningun lugar");
+        }else{
+            showNewTrivia(randomTrivia);
+            currentScene.getStylesheets().add("/styles/trivia.css");
+            currentStage.setOnCloseRequest(event->{
+                requestClose();   
+                event.consume();
+            });
+            currentStage.showAndWait(); 
+        }  
     }
 
     @FXML
-    private void onHomeAction(ActionEvent event) { //regresar a galleria y avisar que la proxima vez que entre se le generara una pegunta aleatoria(alert d confirmacion)
-	boolean isOk = showAlert(AlertType.CONFIRMATION, null, "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
-
-	if (isOk) currentStage.close();
+    private void onHomeAction(ActionEvent event) {
+        requestClose(); 
     }
-
-    private boolean showAlert(AlertType alertType, String header, String message) {
-	    Alert alert = new Alert(alertType);
-
-        alert.setHeaderText(header);
+    private void requestClose(){
+        boolean isOk = showAlert(AlertType.CONFIRMATION,
+            "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
+        
+            if(isOk) currentStage.close(); 
+    }
+    private boolean showAlert(AlertType alertType, String message) {
+        
+        Alert alert = new Alert(alertType);
         alert.setTitle(null);
+        alert.setHeaderText(null);
         alert.setContentText(message);
-
-	    return alert.showAndWait().get() == ButtonType.OK;
+        DialogPane dialogPane = alert.getDialogPane(); 
+        dialogPane.getStylesheets().add( getClass().getResource("/styles/myDialogs.css").toExternalForm()); 
+        
+        return alert.showAndWait().orElse(ButtonType.CANCEL)== ButtonType.OK;
     }
+    
 
     @FXML
     private void onContinueAction(ActionEvent event) {
-        if(btnOption_1.isFocused()||btnOption_2.isFocused()||btnOption_3.isFocused()||btnOption_4.isFocused()){
-	    txtQuestion.clear();
-            btnOption_1.setText(null);
-            btnOption_2.setText(null);
-            btnOption_3.setText(null);
-            btnOption_4.setText(null);
-           //Obtener una pregunta aleatoria basada en el place id que ha visitado el usuario
-
-        } else { 
-            alert.setHeaderText(null);
-            alert.setTitle("Confirmación");
-            alert.setContentText("Seleccione una opción");
-            alert.showAndWait();
+        if (options.getSelectedToggle() != null) {
+            selectedOption = (ToggleButton) options.getSelectedToggle();
+            isCorrect=selectedOption.getText().equals(randomTrivia.getCorrectAnswerContent());
+            if(isCorrect)      
+                showAlert(AlertType.INFORMATION, "Correcto");
+            else
+                showAlert(AlertType.ERROR,  
+                        "Incorrecto, la respuesta correcta es "
+                        + randomTrivia.getCorrectAnswerContent());
+            
+            finished=LocalTime.now();
+            fillData();
+            selectedOption.setSelected(false);            
+            randomTrivia = new RandomTrivia(currentUser.getId()).select();
+            showNewTrivia(randomTrivia);
+        } else {
+            showAlert(AlertType.INFORMATION, "Debe Seleccionar una opcion");
         }
 
-        // if comprobar que 1 y solo 1 boton esta focused 
-            // limpiar todas las opciones y el textflow del enunciado
-
-
-            // cargar otra aleatoria desde la base de datosc
-        // caso contrario avisar con un alert
     }
 
-    private void showNewTrivia() {
-        //TABLES: Types, Questions, Answers, Question_Answer
-            /////////
-            //if place_id exist in table User_Places by userId (Si el usuario ha visitado algun lugar)
-            User_PlaceDB visitedPlaces = new User_PlaceDB();
-            List<User_PlaceDB> userVisitedPlaces;
-            List<QuestionDB> questions;
+    private void showNewTrivia(RandomTrivia trivia) {
+        
+        txtQuestion.setText(randomTrivia.getQuestionContent());
+  
+        List<String> allAnswers;
 
-            visitedPlaces.selectAll();
-            userVisitedPlaces = getVisitedPlacesByUserId(currentUser.getId()); //method in visited places todo is get place_id by user_id
+        allAnswers = trivia.getIncorrectAnswersContents();
+        allAnswers.add(trivia.getCorrectAnswerContent());
 
-            if (userVisitedPlaces != null) { 
-                //Obtener un placeid aleatorio de la tabla User_Places;
-                int randomPlaceId = getRandomFromArray(userVisitedPlaces);
-                QuestionDB questionDB = new QuestionDB();
-                questionDB.selectAll();
-                questions = questionDB.getResults();
-                //Obtener una pregunta aleatoria con el mismo place_id anterior ^
-                String question = "";//set the contetn question here
-                short typeId = 0;//sets the question type id here
-                //Obtener el answer_id que corresponde al question id de la tabla QUESTION_ASNWERS
-                String correctAnswer = "";//set the content answer hereA
-                //select * from Answer join types using(type_id) where Answer.type_id != typeId and Answer.type_id (3 result only)
-                //array con todas las 4 respuestas here
-                //[1][2][3][4]
-                //mezclar [4][1][2][3]
-                //for botones asginar el shuffled array
-            //else alert de que aun no ha visitado un lugar
-            } else {
-                alert.setHeaderText(null);
-                alert.setTitle("Aviso");
-                alert.setContentText("Aún no ha visitado ningun lugar. No puede acceder a la trivia");
-                alert.showAndWait();
-            }
+        Collections.shuffle(allAnswers);
+        Iterator<Toggle> optionIterator = options.getToggles().iterator();
+	allAnswers.forEach(answer->{
+            setOptionsbyAnswers(optionIterator.next(), answer);
+        });
+        started=LocalTime.now();
     }
 
-    private List<User_PlaceDB> getVisitedPlacesByUserId(int userId) {
-        return null;
-        //TODO
+    private void setOptionsbyAnswers(Toggle option, String answerContent) {
+        ToggleButton op = (ToggleButton) option;
+        op.setText(answerContent);
     }
-
-    private int getRandomFromArray(List<?> array) {
-        return 0;
-        //TODO
+    
+    private void fillData(){
+        User_QuestionDB quizzResult = new User_QuestionDB();
+    
+        quizzResult.setUserId(currentUser.getId());
+        quizzResult.setQuestionId(randomTrivia.getQuestionId());
+        quizzResult.setAnswerId(randomTrivia.getAnswerId());
+        quizzResult.setStartedAt(started);
+        quizzResult.setFinishedAt(finished);
+        quizzResult.setUserAnswer(selectedOption.getText());
+        quizzResult.setCorrect(isCorrect);
+        
+        quizzResult.insert();
     }
-
-    private int generarNumeroRandom(int min, int max) {
-        return (int) (Math.random() * ((max - min) + 1) + min);
-    }
-
+    
 }

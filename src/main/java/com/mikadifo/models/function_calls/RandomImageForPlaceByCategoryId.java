@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomImgForPlaceByCategory implements FunctionDB {
+public class RandomImageForPlaceByCategoryId implements FunctionDB {
 
     private DB_Connection dbConnection = new DB_Connection();
-    private final String functionName = "random_img_for_places_by_category_id(?)";
+    private final String functionName = "random_images_for_places_by_category(?)";
     private ResultSet results;
-    private List<RandomImgForPlaceByCategory> resultList;
+    private List<RandomImageForPlaceByCategoryId> resultList;
 
     private int categoryId;
     
@@ -21,65 +21,69 @@ public class RandomImgForPlaceByCategory implements FunctionDB {
     private String placeInfo; 
     private byte[] image;
 
-    public RandomImgForPlaceByCategory(int categoryId) {
+    public RandomImageForPlaceByCategoryId(int categoryId) {
             this.categoryId = categoryId;
     }
 
-    private RandomImgForPlaceByCategory(int placeId,
-					String placeName,
-					String placeInfo,
-					byte[] image) {
+    private RandomImageForPlaceByCategoryId(int placeId, String placeName, String placeInfo, byte[] image) {
         this.placeId = placeId;
         this.placeName = placeName;
-	this.placeInfo = placeInfo;
         this.image = image;
     }
 
     @Override
-    public List<RandomImgForPlaceByCategory> selectAll() {
+    public List<RandomImageForPlaceByCategoryId> selectAll() {
         resultList = new ArrayList<>();
         
         try {
             dbConnection.buildAndPrepareSelect(functionName);
             dbConnection.getStatement().setInt(1, categoryId);
             results = dbConnection.executeQuery();
-
             while (results.next()) {                
                 resultList.add(getObjectFromResulSet());
             }   
-
             results.close();
             dbConnection.closeStatement();
         } catch (SQLException e) {
-            System.out.println("eee = " + e.getMessage());
-            e.printStackTrace();
             return null;
         }
-
         return resultList;
     }
     
-    private RandomImgForPlaceByCategory getObjectFromResulSet()
+    
+    private RandomImageForPlaceByCategoryId getObjectFromResulSet()
             throws SQLException{
-        return new RandomImgForPlaceByCategory(
-                results.getInt("place_id"),
-                results.getString("place_name"),
-                results.getString("place_info"),
-                results.getBytes("image")
+            return new RandomImageForPlaceByCategoryId(
+                    results.getInt("place_id"),
+                    results.getString("place_name"),
+                    results.getString("place_info"),
+                    results.getBytes("image")
             );
     }
 
-    public int getPlaceId() { return placeId; }
+    public int getPlaceId() {
+        return placeId;
+    }
 
-    public String getPlaceName() { return placeName; }
+    public String getPlaceName() {
+        return placeName;
+    }
 
-    public String getPlaceInfo() { return placeInfo; }
+    public String getPlaceInfo() {
+        return placeInfo;
+    }
 
-    public byte[] getImage() { return image; }
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
 
     @Override
     public String toString() {
-        return  placeId + "---" + placeName + "---" + placeInfo + "---" + image[0];
+        return  placeId+"---" + placeName+ "---" + placeInfo + "---" + image[0]+"---" ;   
     }
     
 }
