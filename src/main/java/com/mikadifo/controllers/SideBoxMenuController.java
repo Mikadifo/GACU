@@ -64,8 +64,6 @@ public class SideBoxMenuController implements Initializable {
             JasperPrint jp = JasperFillManager.fillReport(jr, parameters,conection.getConnection());
             JasperViewer.viewReport(jp,false);
             
-           
-
         } catch (JRException ex) {
             Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
