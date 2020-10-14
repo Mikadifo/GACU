@@ -51,7 +51,7 @@ import javafx.scene.layout.VBox;
  */
 public class GalleryController implements Initializable, Window {
 
-    private UserDB currentUser;
+    public static UserDB currentUser;
     private ObservableList<VBox> imgBoxes;
     private List<RandomImgForPlaceByCategory> placesToShow;
     private List<AllImagesByPlace> imgsToShow;

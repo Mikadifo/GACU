@@ -27,6 +27,7 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onUserRolesReportAction(ActionEvent event) {
+	System.out.println(GalleryController.currentUser.getLogin());
     }
 
     @FXML
