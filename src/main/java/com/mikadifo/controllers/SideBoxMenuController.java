@@ -10,6 +10,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -27,6 +30,16 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private VBox sideBox;
+    @FXML
+    private VBox accountOptions;
+    @FXML
+    private VBox reportsOptions;
+    @FXML
+    private TitledPane insertPane;
+    @FXML
+    private TitledPane updatePane;
+    @FXML
+    private TitledPane DeletePane;
 
     /**
      * Initializes the controller class.
@@ -63,5 +76,27 @@ public class SideBoxMenuController implements Initializable {
         }
         
     }
- 
+
+    @FXML
+    private void onAboutAction(ActionEvent event) {
+	Alert alert = new Alert(AlertType.INFORMATION);
+	alert.setTitle("Acerca de");
+	alert.setHeaderText("GACU");
+	alert.setContentText("El objetivo de esta aplicacion es informar o dar a conocer"
+		+ " la vasta diversidad cultural arquitectónica de la ciudad de Cuenca(Ecuador),"
+		+ " compartir en ella información general, datos históricos y curiosos," 
+		+ " ademas cuenta con una trivia donde se generan preguntas aletorias de"
+		+ " los lugares que has visitado en la aplicacion."
+	);
+	alert.showAndWait();
+    }
+
+    @FXML
+    private void onReportAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onExitAction(ActionEvent event) {
+    }
+
 }

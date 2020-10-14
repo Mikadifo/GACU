@@ -16,7 +16,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="accountOptions" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Mi Cuenta" />
                               <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Crear Nueva" />
@@ -34,7 +34,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="reportsOptions" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <JFXButton alignment="TOP_LEFT" onAction="#onUserRolesReportAction" prefHeight="27.0" prefWidth="182.0" text="Roles de Usuario" />
                               <JFXButton alignment="TOP_LEFT" onAction="#onCompletedQuizzesAction" prefHeight="27.0" prefWidth="182.0" text="Trivias Realizadas" />
@@ -45,7 +45,7 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane alignment="CENTER" animated="false" text="Insertar">
+            <TitledPane fx:id="insertPane" alignment="CENTER" animated="false" text="Insertar">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -62,7 +62,7 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane alignment="CENTER" animated="false" text="Editar">
+            <TitledPane fx:id="updatePane" alignment="CENTER" animated="false" text="Editar">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -79,7 +79,7 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane alignment="CENTER" animated="false" text="Eliminar">
+            <TitledPane fx:id="DeletePane" alignment="CENTER" animated="false" text="Eliminar">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -98,8 +98,8 @@
             </TitledPane>
          </panes>
       </Accordion>
-      <JFXButton prefHeight="27.0" prefWidth="202.0" text="Button" />
-      <JFXButton prefHeight="27.0" prefWidth="202.0" text="Reportar" />
-      <JFXButton prefHeight="27.0" prefWidth="202.0" text="Salir" />
+      <JFXButton onAction="#onAboutAction" prefHeight="27.0" prefWidth="202.0" text="Acerca de" />
+      <JFXButton onAction="#onReportAction" prefHeight="27.0" prefWidth="202.0" text="Reportar" />
+      <JFXButton onAction="#onExitAction" prefHeight="27.0" prefWidth="202.0" text="Salir" />
    </children>
 </VBox>
