@@ -11,9 +11,9 @@ public class DB_Connection {
     private Connection connection;
     private PreparedStatement statement;
 
-    private String url = "jdbc:postgresql://localhost:5432/gacu_db";
+    private String url = "jdbc:postgresql://localhost:5432/GacuBD";
     private String login = "postgres"; 
-    private String password = "admin";
+    private String password = "computer147";
     
     public DB_Connection() {
 	loadDriver();
