@@ -1,10 +1,7 @@
 package com.mikadifo.controllers;
 
 import com.mikadifo.models.DB_Connection;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -14,8 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
-import javax.imageio.ImageIO;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -52,7 +47,6 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onVisitedPlacesAction(ActionEvent event) {
-//        System.out.println(GalleryController.currentUser.getLogin());
         try {
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/ReportUserPlaces_1.jasper"));
             DB_Connection conection = new DB_Connection();
@@ -69,6 +63,5 @@ public class SideBoxMenuController implements Initializable {
         }
         
     }
-
-    
+ 
 }
