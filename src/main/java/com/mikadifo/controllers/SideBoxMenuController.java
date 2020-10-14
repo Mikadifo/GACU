@@ -54,15 +54,15 @@ public class SideBoxMenuController implements Initializable {
     private void onVisitedPlacesAction(ActionEvent event) {
 //        System.out.println(GalleryController.currentUser.getLogin());
         try {
-            JasperReport jr = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/ReportUserPlaces_1.jasper"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/ReportUserPlaces_1.jasper"));
             DB_Connection conection = new DB_Connection();
             Map<String,Object> parameters = new HashMap<String,Object>();
             String login = GalleryController.currentUser.getLogin();
             URL image = MainController.class.getResource("/imgs/logo.png") ;
             parameters.put("PlacesForLogin", login);
             parameters.put("Image", image);
-            JasperPrint jp = JasperFillManager.fillReport(jr, parameters,conection.getConnection());
-            JasperViewer.viewReport(jp,false);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,conection.getConnection());
+            JasperViewer.viewReport(jasperPrint,false);
             
         } catch (JRException ex) {
             Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
