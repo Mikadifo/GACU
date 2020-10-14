@@ -24,6 +24,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author MIKADIFO
  */
 public class SideBoxMenuController implements Initializable {
+    
 
     @FXML
     private VBox sideBox;
@@ -38,7 +39,20 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onUserRolesReportAction(ActionEvent event) {
-	
+	try {
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/UserRolesReport.jasper"));
+            DB_Connection conection = new DB_Connection();
+            Map<String,Object> parameters = new HashMap<String,Object>();
+            short role = GalleryController.currentUser.getRoleId();
+            URL image = MainController.class.getResource("/imgs/logo.png") ;
+            parameters.put("RoleName", role);
+            parameters.put("Image", image);     
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,conection.getConnection());
+            JasperViewer.viewReport(jasperPrint,false);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
