@@ -48,7 +48,7 @@ public class SideBoxMenuController implements Initializable {
     @FXML
     private void onVisitedPlacesAction(ActionEvent event) {
         try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/ReportUserPlaces_1.jasper"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/VsitedPlacesReport.jasper"));
             DB_Connection conection = new DB_Connection();
             Map<String,Object> parameters = new HashMap<String,Object>();
             String login = GalleryController.currentUser.getLogin();
