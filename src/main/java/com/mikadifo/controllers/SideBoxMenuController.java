@@ -57,6 +57,20 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onCompletedQuizzesAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/quizzReport.jasper"));
+            DB_Connection conection = new DB_Connection();
+            Map<String,Object> parameters = new HashMap<String,Object>();
+            String login = GalleryController.currentUser.getLogin();
+            URL image = MainController.class.getResource("/imgs/logo.png") ;
+            parameters.put("Login", login);
+            parameters.put("Image", image);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,conection.getConnection());
+            JasperViewer.viewReport(jasperPrint,false);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
