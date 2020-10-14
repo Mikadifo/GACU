@@ -1,16 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mikadifo.controllers;
 
+import com.mikadifo.models.DB_Connection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -31,35 +37,31 @@ public class SideBoxMenuController implements Initializable {
     }    
 
     @FXML
-    private void onMenuAction(ActionEvent event) {
+    private void onUserRolesReportAction(ActionEvent event) {
+	
     }
 
     @FXML
-    private void onViewAction(ActionEvent event) {
+    private void onCompletedQuizzesAction(ActionEvent event) {
     }
 
     @FXML
-    private void onEnter_Action(ActionEvent event) {
+    private void onVisitedPlacesAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/VsitedPlacesReport.jasper"));
+            DB_Connection conection = new DB_Connection();
+            Map<String,Object> parameters = new HashMap<String,Object>();
+            String login = GalleryController.currentUser.getLogin();
+            URL image = MainController.class.getResource("/imgs/logo.png") ;
+            parameters.put("PlacesForLogin", login);
+            parameters.put("Image", image);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,conection.getConnection());
+            JasperViewer.viewReport(jasperPrint,false);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
-
-    @FXML
-    private void onUpdate_Action(ActionEvent event) {
-    }
-
-    @FXML
-    private void onDelete_Action(ActionEvent event) {
-    }
-
-    @FXML
-    private void onReportsAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void onFAQAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void onHelpAction(ActionEvent event) {
-    }
-    
+ 
 }

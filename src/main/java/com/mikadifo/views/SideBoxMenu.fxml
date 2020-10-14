@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,18 +8,98 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox fx:id="sideBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SideBoxMenuController">
+<VBox fx:id="sideBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.SideBoxMenuController">
    <children>
-      <JFXButton onAction="#onMenuAction" prefHeight="40.0" prefWidth="100.0" text="MENU" />
-      <JFXButton onAction="#onViewAction" prefHeight="40.0" prefWidth="100.0" text="Ver&gt;" />
-      <JFXButton onAction="#onEnter_Action" prefHeight="40.0" prefWidth="100.0" text="Ingresar&gt;" />
-      <JFXButton onAction="#onUpdate_Action" prefHeight="40.0" prefWidth="100.0" text="Editar&gt;" />
-      <JFXButton onAction="#onDelete_Action" prefHeight="40.0" prefWidth="100.0" text="Eliminar&gt;" />
-      <JFXButton prefHeight="40.0" prefWidth="100.0" />
-      <JFXButton prefHeight="40.0" prefWidth="100.0" text="Button" />
-      <JFXButton onAction="#onReportsAction" prefHeight="40.0" prefWidth="100.0" text="Reportes" />
-      <JFXButton onAction="#onFAQAction" prefHeight="40.0" prefWidth="100.0" text="FAQ" />
-      <JFXButton onAction="#onHelpAction" prefHeight="40.0" prefWidth="100.0" text="Ayuda" />
+      <Accordion>
+         <panes>
+            <TitledPane alignment="CENTER" animated="false" text="Cuenta">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Mi Cuenta" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Crear Nueva" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Editar Cuenta" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Cambiar Contrasena" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Eliminar" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Cerrar Sesion" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane alignment="CENTER" animated="false" text="Reportes">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXButton alignment="TOP_LEFT" onAction="#onUserRolesReportAction" prefHeight="27.0" prefWidth="182.0" text="Roles de Usuario" />
+                              <JFXButton alignment="TOP_LEFT" onAction="#onCompletedQuizzesAction" prefHeight="27.0" prefWidth="182.0" text="Trivias Realizadas" />
+                              <JFXButton alignment="TOP_LEFT" onAction="#onVisitedPlacesAction" prefHeight="27.0" prefWidth="182.0" text="Lugares Visitados" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane alignment="CENTER" animated="false" text="Insertar">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Admins" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Roles" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Trivias" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Galeria" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Otro" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane alignment="CENTER" animated="false" text="Editar">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Admins" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Roles" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Trivias" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Galeria" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Otro" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane alignment="CENTER" animated="false" text="Eliminar">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Admins" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Roles" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Trivias" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Galeria" />
+                              <JFXButton alignment="TOP_LEFT" prefHeight="27.0" prefWidth="182.0" text="Otro" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+         </panes>
+      </Accordion>
+      <JFXButton prefHeight="27.0" prefWidth="202.0" text="Button" />
+      <JFXButton prefHeight="27.0" prefWidth="202.0" text="Reportar" />
+      <JFXButton prefHeight="27.0" prefWidth="202.0" text="Salir" />
    </children>
 </VBox>
