@@ -43,7 +43,7 @@ public class SideBoxMenuController implements Initializable {
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/UserRolesReport.jasper"));
             DB_Connection conection = new DB_Connection();
             Map<String,Object> parameters = new HashMap<String,Object>();
-            short role = GalleryController.currentUser.getRoleId();
+            String role = "admin";
             URL image = MainController.class.getResource("/imgs/logo.png") ;
             parameters.put("RoleName", role);
             parameters.put("Image", image);     
