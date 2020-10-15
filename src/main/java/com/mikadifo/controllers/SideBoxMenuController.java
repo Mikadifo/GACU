@@ -32,6 +32,13 @@ public class SideBoxMenuController implements Initializable {
 
     private TextInputDialog dialog = new TextInputDialog();
     private RoleDB roleDB;
+    JasperReport jasperReport;
+    DB_Connection conection = new DB_Connection();
+    Map<String, Object> parameters = new HashMap<String, Object>();
+    URL image = MainController.class.getResource("/imgs/logo.png");
+    String login;
+    JasperPrint jasperPrint;
+    
 
     @FXML
     private VBox sideBox;
@@ -52,13 +59,10 @@ public class SideBoxMenuController implements Initializable {
         boolean resultIsValid = result.map(i -> i.matches("[A-Za-z_]{3,254}")).get();
         if (resultIsValid) {
                 try {
-                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/UserRolesReport.jasper"));
-                    DB_Connection conection = new DB_Connection();
-                    Map<String, Object> parameters = new HashMap<String, Object>();
-                    URL image = MainController.class.getResource("/imgs/logo.png");
+                    jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/UserRolesReport.jasper"));
                     parameters.put("RoleName", result.get());
                     parameters.put("Image", image);
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
+                    jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
                     JasperViewer.viewReport(jasperPrint, false);
                 } catch (JRException ex) {
                     Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +71,6 @@ public class SideBoxMenuController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("El campo de texto solo puede contener letras y '_'");
-
             alert.showAndWait();
 
         }
@@ -77,14 +80,11 @@ public class SideBoxMenuController implements Initializable {
     @FXML
     private void onCompletedQuizzesAction(ActionEvent event) {
         try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/quizzReport.jasper"));
-            DB_Connection conection = new DB_Connection();
-            Map<String, Object> parameters = new HashMap<String, Object>();
-            String login = GalleryController.currentUser.getLogin();
-            URL image = MainController.class.getResource("/imgs/logo.png");
+            jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/quizzReport.jasper"));
+            login = GalleryController.currentUser.getLogin();
             parameters.put("Login", login);
             parameters.put("Image", image);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (JRException ex) {
@@ -95,16 +95,12 @@ public class SideBoxMenuController implements Initializable {
     @FXML
     private void onVisitedPlacesAction(ActionEvent event) {
         try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/visitedPlacesReport.jasper"));
-            DB_Connection conection = new DB_Connection();
-            Map<String, Object> parameters = new HashMap<String, Object>();
-            String login = GalleryController.currentUser.getLogin();
-            URL image = MainController.class.getResource("/imgs/logo.png");
+            jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/visitedPlacesReport.jasper"));
+            login = GalleryController.currentUser.getLogin();
             parameters.put("PlacesForLogin", login);
             parameters.put("Image", image);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
-            JasperViewer.viewReport(jasperPrint, false);
-
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
+            JasperViewer.viewReport(jasperPrint, false);            
         } catch (JRException ex) {
             Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
