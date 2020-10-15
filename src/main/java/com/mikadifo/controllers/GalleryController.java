@@ -95,7 +95,6 @@ public class GalleryController implements Initializable, Window {
     public void initialize(URL url, ResourceBundle rb) {
 	initHamburgerMenu();
 	imgBoxes = FXCollections.observableArrayList();
-//	showCategories();
     }
     
     public void init(Roles role, UserDB user) {
@@ -108,6 +107,7 @@ public class GalleryController implements Initializable, Window {
     public void init() {
 	currentScene.getStylesheets().add("/styles/gallery.css");
 	currentStage.show();
+        showCategories(); //show when de stage is shown
     }
 
     private void showCategories() {
@@ -119,7 +119,7 @@ public class GalleryController implements Initializable, Window {
 
 	imagesFlowPane.setHgap(20);
 	imagesFlowPane.setVgap(20);
-//	imagesFlowPane.getChildren().addAll(imgBoxes);
+	imagesFlowPane.getChildren().addAll(imgBoxes);
 
 	backButton.setVisible(false);
 	isOnPlaces = false;
@@ -129,6 +129,7 @@ public class GalleryController implements Initializable, Window {
 	loadSideBoxMenu();
 	hamburgerTransition = new HamburgerBackArrowBasicTransition(hamburgerMenu);
 	hamburgerTransition.setRate(-1.0);
+        sideDrawer.setVisible(false);
     }
 
     private void loadSideBoxMenu() {
@@ -141,9 +142,9 @@ public class GalleryController implements Initializable, Window {
     }
 
     private void addImgViewers() {
-//	new RandomImgForCategory()
-//		.selectAll()
-//		.forEach(categoryConsumer);
+	new RandomImgForCategory()
+		.selectAll()
+		.forEach(categoryConsumer);
     }
 
     private EventHandler<MouseEvent> categoryEventHandler = (event) -> {
@@ -360,10 +361,13 @@ public class GalleryController implements Initializable, Window {
 	hamburgerTransition.setRate(hamburgerTransition.getRate() * -1);
 	hamburgerTransition.play();
 
-	if(sideDrawer.isOpened())
+	if(sideDrawer.isOpened()) {
 	    sideDrawer.close();
-	else
+            sideDrawer.setVisible(false); //delay missing
+        } else {
+            sideDrawer.setVisible(true);
 	    sideDrawer.open();
+        }
     }
 
 }
