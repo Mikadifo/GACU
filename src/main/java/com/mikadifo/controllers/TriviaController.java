@@ -1,38 +1,27 @@
 package com.mikadifo.controllers;
 
-import com.mikadifo.models.table_statements.QuestionDB;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.function_calls.RandomTrivia;
-import com.mikadifo.models.table_statements.User_PlaceDB;
 import com.mikadifo.models.table_statements.User_QuestionDB;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.swing.ButtonGroup;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -108,24 +97,24 @@ public class TriviaController implements Initializable, Window {
     private void onHomeAction(ActionEvent event) {
         requestClose(); 
     }
+    
     private void requestClose(){
         boolean isOk = showAlert(AlertType.CONFIRMATION,
             "Se generará una pregunta aleatoria la proxima vez que entre, ¿Esta seguro de hacerlo?");
         
             if(isOk) currentStage.close(); 
     }
+    
     private boolean showAlert(AlertType alertType, String message) {
-        
         Alert alert = new Alert(alertType);
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setContentText(message);
         DialogPane dialogPane = alert.getDialogPane(); 
-        dialogPane.getStylesheets().add( getClass().getResource("/styles/myDialogs.css").toExternalForm()); 
+        dialogPane.getStylesheets().add(getClass().getResource("/styles/myDialogs.css").toExternalForm()); 
         
         return alert.showAndWait().orElse(ButtonType.CANCEL)== ButtonType.OK;
     }
-    
 
     @FXML
     private void onContinueAction(ActionEvent event) {
@@ -133,13 +122,13 @@ public class TriviaController implements Initializable, Window {
             selectedOption = (ToggleButton) options.getSelectedToggle();
             isCorrect=selectedOption.getText().equals(randomTrivia.getCorrectAnswerContent());
             if(isCorrect)      
-                showAlert(AlertType.INFORMATION, "Correcto");
+                showAlert(AlertType.WARNING, "Correcto");
             else
                 showAlert(AlertType.ERROR,  
                         "Incorrecto, la respuesta correcta es "
                         + randomTrivia.getCorrectAnswerContent());
             
-            finished=LocalTime.now();
+            finished = LocalTime.now();
             fillData();
             selectedOption.setSelected(false);            
             randomTrivia = new RandomTrivia(currentUser.getId()).select();
@@ -151,7 +140,6 @@ public class TriviaController implements Initializable, Window {
     }
 
     private void showNewTrivia(RandomTrivia trivia) {
-        
         txtQuestion.setText(randomTrivia.getQuestionContent());
   
         List<String> allAnswers;
@@ -160,11 +148,14 @@ public class TriviaController implements Initializable, Window {
         allAnswers.add(trivia.getCorrectAnswerContent());
 
         Collections.shuffle(allAnswers);
+        
         Iterator<Toggle> optionIterator = options.getToggles().iterator();
-	allAnswers.forEach(answer->{
+        
+	allAnswers.forEach(answer -> {
             setOptionsbyAnswers(optionIterator.next(), answer);
         });
-        started=LocalTime.now();
+        
+        started = LocalTime.now();
     }
 
     private void setOptionsbyAnswers(Toggle option, String answerContent) {
@@ -172,7 +163,7 @@ public class TriviaController implements Initializable, Window {
         op.setText(answerContent);
     }
     
-    private void fillData(){
+    private void fillData() {
         User_QuestionDB quizzResult = new User_QuestionDB();
     
         quizzResult.setUserId(currentUser.getId());

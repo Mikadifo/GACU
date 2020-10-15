@@ -12,6 +12,7 @@ import com.mikadifo.models.function_calls.RandomImgForPlaceByCategory;
 import com.mikadifo.models.table_statements.ImageDB;
 import com.mikadifo.models.table_statements.PlaceDB;
 import com.mikadifo.models.table_statements.UserDB;
+import com.mikadifo.models.table_statements.User_PlaceDB;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -217,10 +218,22 @@ public class GalleryController implements Initializable, Window {
 
 	DescriptionsController placeDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
 	placeDescriptions.init(place);
-
+        
+        if (currentUser != null)
+            insertVisited(place.getId());
+        
 	if (DescriptionsController.imagesButtonIsPressed)
 	    showImages(place.getId());
     };
+    
+    private void insertVisited(int placeId) {
+        User_PlaceDB visitedPlace = new User_PlaceDB();
+        
+        visitedPlace.setUserId(currentUser.getId());
+        visitedPlace.setPlaceId(placeId);
+        
+        visitedPlace.insert();
+    }
 
     private void showImages(int placePressed) {
 	clearImgs();

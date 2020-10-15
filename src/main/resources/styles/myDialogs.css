@@ -26,13 +26,13 @@
     -fx-background-color: cadetblue; 
     -fx-font-style: italic; 
 }*/
-.alert.information.dialog-pane { 
+.alert.warning.dialog-pane { 
     -fx-graphic: url("/imgs/Check.png"); 
     -fx-font-size: 20 px;
 }
 
 .alert.error.dialog-pane{
-    -fx-graphic: url("/imgs/Incorrect.png"); 
+    -fx-graphic: url("/imgs/incorrect.jpeg"); 
     -fx-font-size: 20 px;
 }
 
