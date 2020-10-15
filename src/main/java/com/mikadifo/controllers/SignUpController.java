@@ -7,7 +7,6 @@ import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import static com.mikadifo.controllers.UserValidator.*;
 import static java.lang.Character.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +15,6 @@ import javafx.util.StringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,7 +38,6 @@ public class SignUpController implements Initializable, Window {
 
     private CityDB userCity;
     private CountryDB userCountry;
-    private WindowLoader loader;
     private List<CityDB> citiesFromDB;
     private List<CountryDB> countriesFromDB;
     private ObservableList<CityDB> cities;
@@ -214,11 +210,8 @@ public class SignUpController implements Initializable, Window {
     @FXML
     private void onCityKeyReleased(KeyEvent event) {
 	String filter = comboCity.getEditor().getText().toUpperCase();
-	filteredCities.setPredicate(item -> item.getName().contains(filter));//review
+	filteredCities.setPredicate(item -> item.getName().toUpperCase().contains(filter));
 	comboCity.setItems(filteredCities);
     }
 
-    void init(Scene scene, Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
