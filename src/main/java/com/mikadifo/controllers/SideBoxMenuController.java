@@ -1,6 +1,13 @@
 package com.mikadifo.controllers;
 
+import static com.mikadifo.controllers.GalleryController.currentUser;
+import static com.mikadifo.controllers.WindowFactories.ACCOUNT;
+import static com.mikadifo.controllers.WindowFactories.CHANGE_PASSWORD;
+import static com.mikadifo.controllers.WindowFactories.LOGIN;
+import static com.mikadifo.controllers.WindowFactories.SIGNUP;
 import com.mikadifo.models.DB_Connection;
+import com.mikadifo.models.table_statements.CityDB;
+import com.mikadifo.models.table_statements.UserDB;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -34,6 +43,12 @@ public class SideBoxMenuController implements Initializable {
     private VBox accountOptions;
     @FXML
     private VBox reportsOptions;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private TextField txtLogin;
+    @FXML
+    private ComboBox<CityDB> comboCity;
 
     /**
      * Initializes the controller class.
@@ -88,26 +103,53 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onExitAction(ActionEvent event) {
+        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea salir?");
+        if (isOk) System.exit(0);
     }
 
     @FXML
     private void onAccountAction(ActionEvent event) {
+        AccountController account = (AccountController) ACCOUNT.createWindow();
+        account.init(currentUser);
     }
 
     @FXML
     private void onCreateAccountAction(ActionEvent event) {
+        SIGNUP.createWindow().init();
     }
 
     @FXML
     private void onChangePasswordAction(ActionEvent event) {
+         ChangePasswordController password = (ChangePasswordController) CHANGE_PASSWORD.createWindow();
+         password.init(currentUser);
     }
 
     @FXML
     private void onDeleteAccountAction(ActionEvent event) {
+        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
+
+        if (isOk) getUserFromView().delete();
+        
     }
 
     @FXML
     private void onLogOutAction(ActionEvent event) {
+        
+        
     }
+
+    private boolean showAlert(AlertType alertType, Object object, String estas_seguro_que_desea_salir) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    private UserDB getUserFromView() {
+        UserDB user = new UserDB();
+        
+	user.setLogin(txtLogin.getText());
+        user.setUsername(txtUsername.getText());
+	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
+
+        return user;
+    }
+   
 
 }

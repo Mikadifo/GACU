@@ -91,4 +91,8 @@ public class ChangePasswordController implements Initializable, Window {
 	return alert.showAndWait().get() == ButtonType.OK;
     }
 
+    void init(UserDB currentUser) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
