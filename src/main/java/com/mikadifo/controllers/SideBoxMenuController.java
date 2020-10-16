@@ -59,7 +59,7 @@ public class SideBoxMenuController implements Initializable {
         boolean resultIsValid = result.map(i -> i.matches("[A-Za-z_]{3,254}")).get();
         if (resultIsValid) {
                 try {
-                    jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/UserRolesReport.jasper"));
+                    jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/userRolesReport.jasper"));
                     parameters.put("RoleName", result.get());
                     parameters.put("Image", image);
                     jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
@@ -80,7 +80,7 @@ public class SideBoxMenuController implements Initializable {
     @FXML
     private void onCompletedQuizzesAction(ActionEvent event) {
         try {
-            jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/quizzReport.jasper"));
+            jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/quizzesReport.jasper"));
             login = GalleryController.currentUser.getLogin();
             parameters.put("Login", login);
             parameters.put("Image", image);
