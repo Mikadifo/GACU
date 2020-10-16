@@ -1,8 +1,10 @@
 package com.mikadifo.controllers;
 
+import static com.mikadifo.controllers.GalleryController.currentUser;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
 import static com.mikadifo.controllers.WindowFactories.*;
+import com.mikadifo.models.Roles;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -43,6 +45,11 @@ public class ChangePasswordController implements Initializable, Window {
     public void init() {
 	currentScene.getStylesheets().add("/styles/account.css");
 	currentStage.showAndWait();
+        
+    }
+    public void init( UserDB user) {
+	currentUser = user;
+	init();
     }
 
     @FXML
@@ -91,8 +98,6 @@ public class ChangePasswordController implements Initializable, Window {
 	return alert.showAndWait().get() == ButtonType.OK;
     }
 
-    void init(UserDB currentUser) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
 }

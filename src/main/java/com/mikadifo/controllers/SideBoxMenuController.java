@@ -17,12 +17,15 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -134,12 +137,24 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onLogOutAction(ActionEvent event) {
-        
+         boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea cerrar la sesion?");
+        if (isOk){  
+        Node currentStag = (Node) event.getSource();
+        Stage stage = (Stage) currentStag.getScene().getWindow();
+
+        stage.close();
+        }
         
     }
 
-    private boolean showAlert(AlertType alertType, Object object, String estas_seguro_que_desea_salir) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   private boolean showAlert(Alert.AlertType alertType, String header, String message) {
+	Alert alert = new Alert(alertType);
+
+        alert.setHeaderText(header);
+        alert.setTitle(null);
+        alert.setContentText(message);
+
+	return alert.showAndWait().get() == ButtonType.OK;
     }
     private UserDB getUserFromView() {
         UserDB user = new UserDB();
