@@ -68,22 +68,22 @@ public class SideBoxMenuController implements Initializable {
         dialog.setContentText("Ingrese el rol que desea ver:");
         Optional<String> result = dialog.showAndWait();
         boolean resultIsValid = result.map(i -> i.matches("[A-Za-z_]{3,254}")).get();
+        
         if (resultIsValid) {
-                try {
-                    jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/userRolesReport.jasper"));
-                    parameters.put("RoleName", result.get());
-                    parameters.put("Image", image);
-                    jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
-                    JasperViewer.viewReport(jasperPrint, false);
-                } catch (JRException ex) {
-                    Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try {
+                jasperReport = (JasperReport) JRLoader.loadObject(MainController.class.getResource("/reports/userRolesReport.jasper"));
+                parameters.put("RoleName", result.get());
+                parameters.put("Image", image);
+                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conection.getConnection());
+                JasperViewer.viewReport(jasperPrint, false);
+            } catch (JRException ex) {
+                Logger.getLogger(SideBoxMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("El campo de texto solo puede contener letras y '_'");
             alert.showAndWait();
-
         }
 
     }
