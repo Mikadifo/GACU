@@ -47,10 +47,7 @@ public class ChangePasswordController implements Initializable, Window {
 	currentStage.showAndWait();
         
     }
-    public void init( UserDB user) {
-	currentUser = user;
-	init();
-    }
+    
 
     @FXML
     private void onCancelAction(ActionEvent event) {

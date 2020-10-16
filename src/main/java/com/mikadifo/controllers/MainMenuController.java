@@ -87,9 +87,5 @@ public class MainMenuController implements Initializable, Window {
     private void onSigninAction(ActionEvent event) {
 	SIGNUP.createWindow().init();
     }
-   
-    void init(Scene scene, Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+       
 }

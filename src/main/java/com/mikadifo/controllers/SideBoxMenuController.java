@@ -5,6 +5,7 @@ import static com.mikadifo.controllers.WindowFactories.ACCOUNT;
 import static com.mikadifo.controllers.WindowFactories.CHANGE_PASSWORD;
 import static com.mikadifo.controllers.WindowFactories.LOGIN;
 import static com.mikadifo.controllers.WindowFactories.SIGNUP;
+import static com.mikadifo.controllers.WindowFactories.currentStage;
 import com.mikadifo.models.DB_Connection;
 import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.UserDB;
@@ -46,12 +47,6 @@ public class SideBoxMenuController implements Initializable {
     private VBox accountOptions;
     @FXML
     private VBox reportsOptions;
-    @FXML
-    private TextField txtUsername;
-    @FXML
-    private TextField txtLogin;
-    @FXML
-    private ComboBox<CityDB> comboCity;
 
     /**
      * Initializes the controller class.
@@ -123,27 +118,21 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onChangePasswordAction(ActionEvent event) {
-         ChangePasswordController password = (ChangePasswordController) CHANGE_PASSWORD.createWindow();
-         password.init(currentUser);
+        CHANGE_PASSWORD.createWindow();;
     }
 
     @FXML
     private void onDeleteAccountAction(ActionEvent event) {
         boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
-        if (isOk) getUserFromView().delete();
+        if (isOk) currentUser.delete();
         
     }
 
     @FXML
     private void onLogOutAction(ActionEvent event) {
          boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea cerrar la sesion?");
-        if (isOk){  
-        Node currentStag = (Node) event.getSource();
-        Stage stage = (Stage) currentStag.getScene().getWindow();
-
-        stage.close();
-        }
+        if (isOk)  currentStage.close();
         
     }
 
@@ -156,15 +145,7 @@ public class SideBoxMenuController implements Initializable {
 
 	return alert.showAndWait().get() == ButtonType.OK;
     }
-    private UserDB getUserFromView() {
-        UserDB user = new UserDB();
-        
-	user.setLogin(txtLogin.getText());
-        user.setUsername(txtUsername.getText());
-	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
-
-        return user;
-    }
+   
    
 
 }
