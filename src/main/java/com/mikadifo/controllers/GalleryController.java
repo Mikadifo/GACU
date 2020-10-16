@@ -11,6 +11,7 @@ import com.mikadifo.models.function_calls.RandomImgForCategory;
 import com.mikadifo.models.function_calls.RandomImgForPlaceByCategory;
 import com.mikadifo.models.table_statements.ImageDB;
 import com.mikadifo.models.table_statements.PlaceDB;
+import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import com.mikadifo.models.table_statements.User_PlaceDB;
 
@@ -58,6 +59,7 @@ public class GalleryController implements Initializable, Window {
     private List<AllImagesByPlace> imgsToShow;
     private boolean isOnPlaces;
     private int selectedCategoryId;
+    private static String roleName;
     private HamburgerBackArrowBasicTransition hamburgerTransition;
 
     @FXML
@@ -89,244 +91,249 @@ public class GalleryController implements Initializable, Window {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	initHamburgerMenu();
-	imgBoxes = FXCollections.observableArrayList();
+        initHamburgerMenu();
+        imgBoxes = FXCollections.observableArrayList();
     }
-    
+
     public void init(Roles role, UserDB user) {
-        loadByRole(role);
-	currentUser = user;
-	init();
+        currentUser = user;
+        init();
     }
 
     @Override
     public void init() {
-	currentScene.getStylesheets().add("/styles/gallery.css");
-	currentStage.show();
+        currentScene.getStylesheets().add("/styles/gallery.css");
+        currentStage.show();
+        loadByRole();
         showCategories(); //show when de stage is shown
     }
 
+    private void loadByRole() {
+        if (currentUser == null) {
+            btnTrivia.setDisable(true);
+            guestPane.setVisible(true);
+            rootPane.setTop(guestPane);
+            logedPane.setVisible(false);
+        } else {
+            RoleDB role = new RoleDB();
+            role.setId(currentUser.getRoleId());
+            role.selectById();
+            role = role.getRole();
+
+            btnTrivia.setDisable(false);
+            rootPane.setTop(logedPane);
+            logedPane.setVisible(true);
+            roleName = role.getName();
+        }
+    }
+
     private void showCategories() {
-	clearImgs();
-    	addImgViewers();
+        clearImgs();
+        addImgViewers();
 
-	imagesFlowPane.prefWidthProperty().bind(Bindings.add(-5, rootScroll.widthProperty()));
-	imagesFlowPane.prefHeightProperty().bind(Bindings.add(-5, rootScroll.heightProperty()));
+        imagesFlowPane.prefWidthProperty().bind(Bindings.add(-5, rootScroll.widthProperty()));
+        imagesFlowPane.prefHeightProperty().bind(Bindings.add(-5, rootScroll.heightProperty()));
 
-	imagesFlowPane.setHgap(20);
-	imagesFlowPane.setVgap(20);
-	imagesFlowPane.getChildren().addAll(imgBoxes);
+        imagesFlowPane.setHgap(20);
+        imagesFlowPane.setVgap(20);
+        imagesFlowPane.getChildren().addAll(imgBoxes);
 
-	backButton.setVisible(false);
-	isOnPlaces = false;
+        backButton.setVisible(false);
+        isOnPlaces = false;
     }
 
     private void initHamburgerMenu() {
-	loadSideBoxMenu();
-	hamburgerTransition = new HamburgerBackArrowBasicTransition(hamburgerMenu);
-	hamburgerTransition.setRate(-1.0);
+        loadSideBoxMenu();
+        hamburgerTransition = new HamburgerBackArrowBasicTransition(hamburgerMenu);
+        hamburgerTransition.setRate(-1.0);
         sideDrawer.setVisible(false);
     }
 
     private void loadSideBoxMenu() {
-	try {
-	    VBox sidePane = FXMLLoader.load(MainController.class.getResource("/com/mikadifo/views/SideBoxMenu.fxml"));
-	    sideDrawer.setSidePane(sidePane);
-	} catch (IOException e) {
-	    Logger.getLogger(GalleryController.class.getName()).log(Level.SEVERE, null, e);
-	}
+        try {
+            VBox sidePane = FXMLLoader.load(MainController.class.getResource("/com/mikadifo/views/SideBoxMenu.fxml"));
+            sideDrawer.setSidePane(sidePane);
+        } catch (IOException e) {
+            Logger.getLogger(GalleryController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     private void addImgViewers() {
-	new RandomImgForCategory()
-		.selectAll()
-		.forEach(categoryConsumer);
+        new RandomImgForCategory()
+                .selectAll()
+                .forEach(categoryConsumer);
     }
 
     private EventHandler<MouseEvent> categoryEventHandler = (event) -> {
-	VBox box = (VBox) event.getSource();
-	selectedCategoryId = Integer.parseInt(box.getId());
-	showPlaces(selectedCategoryId);
-	backButton.setVisible(true);
+        VBox box = (VBox) event.getSource();
+        selectedCategoryId = Integer.parseInt(box.getId());
+        showPlaces(selectedCategoryId);
+        backButton.setVisible(true);
     };
 
     private Consumer<RandomImgForCategory> categoryConsumer = (record) -> {
-	VBox imageBox = new VBox();
-	ImageView imgView = new ImageView(getImage(record.getRandomImage()));
-	//imgView.setPreserveRatio(true);
-	imgView.setFitWidth(300); //record.getWidth();
-	imgView.setFitHeight(300);
-	imgView.setSmooth(true);
-	imgView.setCache(true);
+        VBox imageBox = new VBox();
+        ImageView imgView = new ImageView(getImage(record.getRandomImage()));
+        //imgView.setPreserveRatio(true);
+        imgView.setFitWidth(300); //record.getWidth();
+        imgView.setFitHeight(300);
+        imgView.setSmooth(true);
+        imgView.setCache(true);
 
-	imageBox.getChildren().add(imgView);
-	imageBox.getChildren().add(new Label(record.getCategoryName()));
-	imageBox.setOnMouseClicked(categoryEventHandler);
-	imageBox.setId(String.valueOf(record.getCategoryId()));
+        imageBox.getChildren().add(imgView);
+        imageBox.getChildren().add(new Label(record.getCategoryName()));
+        imageBox.setOnMouseClicked(categoryEventHandler);
+        imageBox.setId(String.valueOf(record.getCategoryId()));
 
-	imgBoxes.add(imageBox);
+        imgBoxes.add(imageBox);
     };
-    
-    private Image getImage(byte... imageBytes) {
-	imageBytes = Base64.getDecoder().decode(imageBytes);
-	ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(imageBytes);
 
-	return new Image(arrayInputStream);
+    private Image getImage(byte... imageBytes) {
+        imageBytes = Base64.getDecoder().decode(imageBytes);
+        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(imageBytes);
+
+        return new Image(arrayInputStream);
     }
 
     private void showPlaces(int categoryPressed) {
-	clearImgs();
-    	addImgViewersPlaces(categoryPressed);
+        clearImgs();
+        addImgViewersPlaces(categoryPressed);
 
-	imagesFlowPane.prefWidthProperty().bind(Bindings.add(-5, rootScroll.widthProperty()));
-	imagesFlowPane.prefHeightProperty().bind(Bindings.add(-5, rootScroll.heightProperty()));
+        imagesFlowPane.prefWidthProperty().bind(Bindings.add(-5, rootScroll.widthProperty()));
+        imagesFlowPane.prefHeightProperty().bind(Bindings.add(-5, rootScroll.heightProperty()));
 
-	imagesFlowPane.setHgap(20);
-	imagesFlowPane.setVgap(20);
-	imagesFlowPane.getChildren().addAll(imgBoxes);
+        imagesFlowPane.setHgap(20);
+        imagesFlowPane.setVgap(20);
+        imagesFlowPane.getChildren().addAll(imgBoxes);
 
-	isOnPlaces = true;
+        isOnPlaces = true;
     }
 
     private void clearImgs() {
-	imgBoxes.clear();
-	imagesFlowPane.getChildren().clear();
+        imgBoxes.clear();
+        imagesFlowPane.getChildren().clear();
     }
 
     private void addImgViewersPlaces(int categoryPressed) {
-	placesToShow = new RandomImgForPlaceByCategory(categoryPressed)
-		.selectAll();
-	placesToShow.forEach(placeConsumer);
+        placesToShow = new RandomImgForPlaceByCategory(categoryPressed)
+                .selectAll();
+        placesToShow.forEach(placeConsumer);
     }
 
     private EventHandler<MouseEvent> placeEventHandler = (event) -> {
-	VBox box = (VBox) event.getSource();
-	backButton.setVisible(true);
-	PlaceDB place = new PlaceDB();
-	placesToShow.stream()
-		.filter(pl -> pl.getPlaceId() == Integer.parseInt(box.getId()))
-		.forEach(item -> {
-		    place.setId(item.getPlaceId());
-		    place.setInfo(item.getPlaceInfo());
-		    place.setName(item.getPlaceName());
-		});
+        VBox box = (VBox) event.getSource();
+        backButton.setVisible(true);
+        PlaceDB place = new PlaceDB();
+        placesToShow.stream()
+                .filter(pl -> pl.getPlaceId() == Integer.parseInt(box.getId()))
+                .forEach(item -> {
+                    place.setId(item.getPlaceId());
+                    place.setInfo(item.getPlaceInfo());
+                    place.setName(item.getPlaceName());
+                });
 
-	DescriptionsController placeDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
-	placeDescriptions.init(place);
-        
-        if (currentUser != null)
+        DescriptionsController placeDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
+        placeDescriptions.init(place);
+
+        if (currentUser != null) {
             insertVisited(place.getId());
-        
-	if (DescriptionsController.imagesButtonIsPressed)
-	    showImages(place.getId());
+        }
+
+        if (DescriptionsController.imagesButtonIsPressed) {
+            showImages(place.getId());
+        }
     };
-    
+
     private void insertVisited(int placeId) {
         User_PlaceDB visitedPlace = new User_PlaceDB();
-        
+
         visitedPlace.setUserId(currentUser.getId());
         visitedPlace.setPlaceId(placeId);
-        
+
         visitedPlace.insert();
     }
 
     private void showImages(int placePressed) {
-	clearImgs();
-    	addImgViewersImages(placePressed);
+        clearImgs();
+        addImgViewersImages(placePressed);
 
-	imagesFlowPane.prefWidthProperty().bind(Bindings.add(-5, rootScroll.widthProperty()));
-	imagesFlowPane.prefHeightProperty().bind(Bindings.add(-5, rootScroll.heightProperty()));
+        imagesFlowPane.prefWidthProperty().bind(Bindings.add(-5, rootScroll.widthProperty()));
+        imagesFlowPane.prefHeightProperty().bind(Bindings.add(-5, rootScroll.heightProperty()));
 
-	imagesFlowPane.setHgap(20);
-	imagesFlowPane.setVgap(20);
-	imagesFlowPane.getChildren().addAll(imgBoxes);
+        imagesFlowPane.setHgap(20);
+        imagesFlowPane.setVgap(20);
+        imagesFlowPane.getChildren().addAll(imgBoxes);
 
-	isOnPlaces = false;
+        isOnPlaces = false;
     }
 
     private void addImgViewersImages(int placePressed) {
-	imgsToShow = new AllImagesByPlace(placePressed)
-		.selectAll();
-	imgsToShow.forEach(imgConsumer);
+        imgsToShow = new AllImagesByPlace(placePressed)
+                .selectAll();
+        imgsToShow.forEach(imgConsumer);
     }
 
     private EventHandler<MouseEvent> imgEventHandler = (event) -> {
-	VBox box = (VBox) event.getSource();
-	backButton.setVisible(true);
-	ImageDB imgs = new ImageDB();
-	imgsToShow.stream()
-		.filter(img -> img.getImageId() == Integer.parseInt(box.getId()))
-		.forEach(item -> {
-		    imgs.setId(item.getImageId());
-		    imgs.setImage(item.getImage());
-		    imgs.setDescription(item.getImage_description());
-		    imgs.setAuthor(item.getImage_author());
-		});
+        VBox box = (VBox) event.getSource();
+        backButton.setVisible(true);
+        ImageDB imgs = new ImageDB();
+        imgsToShow.stream()
+                .filter(img -> img.getImageId() == Integer.parseInt(box.getId()))
+                .forEach(item -> {
+                    imgs.setId(item.getImageId());
+                    imgs.setImage(item.getImage());
+                    imgs.setDescription(item.getImage_description());
+                    imgs.setAuthor(item.getImage_author());
+                });
 
-	DescriptionsController imgDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
-	imgDescriptions.init(imgs);
+        DescriptionsController imgDescriptions = (DescriptionsController) DESCRIPTIONS.createWindow();
+        imgDescriptions.init(imgs);
     };
 
     private Consumer<AllImagesByPlace> imgConsumer = (record) -> {
-	VBox imageBox = new VBox();
-	ImageView imgView = new ImageView(getImage(record.getImage()));
-	imgView.setFitWidth(200); //record.getWidth();
-	imgView.setFitHeight(200);
-	imgView.setSmooth(true);
-	imgView.setCache(true);
+        VBox imageBox = new VBox();
+        ImageView imgView = new ImageView(getImage(record.getImage()));
+        imgView.setFitWidth(200); //record.getWidth();
+        imgView.setFitHeight(200);
+        imgView.setSmooth(true);
+        imgView.setCache(true);
 
-	imageBox.getChildren().add(imgView);
-	imageBox.setOnMouseClicked(imgEventHandler);
-	imageBox.setId(String.valueOf(record.getImageId()));
+        imageBox.getChildren().add(imgView);
+        imageBox.setOnMouseClicked(imgEventHandler);
+        imageBox.setId(String.valueOf(record.getImageId()));
 
-	imgBoxes.add(imageBox);
+        imgBoxes.add(imageBox);
     };
 
     private Consumer<RandomImgForPlaceByCategory> placeConsumer = (record) -> {
-	VBox imageBox = new VBox();
-	ImageView imgView = new ImageView(getImage(record.getImage()));
-	imgView.setFitWidth(300); //record.getWidth();
-	imgView.setFitHeight(300);
-	imgView.setSmooth(true);
-	imgView.setCache(true);
+        VBox imageBox = new VBox();
+        ImageView imgView = new ImageView(getImage(record.getImage()));
+        imgView.setFitWidth(300); //record.getWidth();
+        imgView.setFitHeight(300);
+        imgView.setSmooth(true);
+        imgView.setCache(true);
 
-	imageBox.getChildren().add(imgView);
-	imageBox.getChildren().add(new Label(record.getPlaceName()));
-	imageBox.setOnMouseClicked(placeEventHandler);
-	imageBox.setId(String.valueOf(record.getPlaceId()));
+        imageBox.getChildren().add(imgView);
+        imageBox.getChildren().add(new Label(record.getPlaceName()));
+        imageBox.setOnMouseClicked(placeEventHandler);
+        imageBox.setId(String.valueOf(record.getPlaceId()));
 
-	imgBoxes.add(imageBox);
+        imgBoxes.add(imageBox);
     };
-
-    private void loadByRole(Roles role) {
-	//if user is null so is guest
-        switch(role) {
-            case ADMIN:
-                break;
-            case GUEST:
-            btnTrivia.setDisable(true);
-                guestPane.setVisible(false);
-            rootPane.setTop(logedPane);
-            logedPane.setVisible(true);
-        
-                break;
-            case USER:
-                break;
-            default:
-        }
-        
-    }
 
     @FXML
     private void onExitAction(ActionEvent event) {
-	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea salir?");
+        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea salir?");
 
-        if (isOk) System.exit(0);
+        if (isOk) {
+            System.exit(0);
+        }
     }
 
     @FXML
@@ -343,43 +350,44 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-	LOGIN.createWindow().init();
-        }
-    
+        LOGIN.createWindow().init();
+    }
+
     @FXML
     private void onSignupAction(ActionEvent event) {
         SIGNUP.createWindow().init();
-            }
+    }
 
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
-	Alert alert = new Alert(alertType);
+        Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	return alert.showAndWait().get() == ButtonType.OK;
+        return alert.showAndWait().get() == ButtonType.OK;
     }
 
     @FXML
     private void onBackAction(ActionEvent event) {
-	if (isOnPlaces)
-	    showCategories();
-	else
-	    showPlaces(selectedCategoryId);
+        if (isOnPlaces) {
+            showCategories();
+        } else {
+            showPlaces(selectedCategoryId);
+        }
     }
 
     @FXML
     private void onHamburgerMenu(MouseEvent event) {
-	hamburgerTransition.setRate(hamburgerTransition.getRate() * -1);
-	hamburgerTransition.play();
+        hamburgerTransition.setRate(hamburgerTransition.getRate() * -1);
+        hamburgerTransition.play();
 
-	if(sideDrawer.isOpened()) {
-	    sideDrawer.close();
+        if (sideDrawer.isOpened()) {
+            sideDrawer.close();
             sideDrawer.setVisible(false); //delay missing
         } else {
             sideDrawer.setVisible(true);
-	    sideDrawer.open();
+            sideDrawer.open();
         }
     }
 
