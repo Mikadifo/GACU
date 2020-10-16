@@ -47,12 +47,6 @@ public class SideBoxMenuController implements Initializable {
     private VBox accountOptions;
     @FXML
     private VBox reportsOptions;
-    @FXML
-    private TitledPane insertPane;
-    @FXML
-    private TitledPane updatePane;
-    @FXML
-    private TitledPane DeletePane;
 
     /**
      * Initializes the controller class.
@@ -132,12 +126,29 @@ public class SideBoxMenuController implements Initializable {
 	alert.showAndWait();
     }
 
-    @FXML
-    private void onReportAction(ActionEvent event) {
-    }
 
     @FXML
     private void onExitAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onAccountAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onCreateAccountAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onChangePasswordAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onDeleteAccountAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onLogOutAction(ActionEvent event) {
     }
 
 }
