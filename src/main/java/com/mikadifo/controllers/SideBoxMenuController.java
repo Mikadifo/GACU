@@ -32,12 +32,12 @@ public class SideBoxMenuController implements Initializable {
 
     private TextInputDialog dialog = new TextInputDialog();
     private RoleDB roleDB;
-    JasperReport jasperReport;
-    DB_Connection conection = new DB_Connection();
-    Map<String, Object> parameters = new HashMap<String, Object>();
-    URL image = MainController.class.getResource("/imgs/logo.png");
-    String login;
-    JasperPrint jasperPrint;
+    private JasperReport jasperReport;
+    private DB_Connection conection = new DB_Connection();
+    private Map<String, Object> parameters = new HashMap<String, Object>();
+    private URL image = MainController.class.getResource("/imgs/logo.png");
+    private String login;
+    private JasperPrint jasperPrint;
     
 
     @FXML
