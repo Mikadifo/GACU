@@ -40,7 +40,6 @@ public class SideBoxMenuController implements Initializable {
     private String login;
     private JasperPrint jasperPrint;
     
-
     @FXML
     private VBox sideBox;
     @FXML
@@ -110,11 +109,6 @@ public class SideBoxMenuController implements Initializable {
         }
 
     }
-
-    @FXML
-    private void onAboutAction(ActionEvent event) {
-	    }
-
 
     @FXML
     private void onExitAction(ActionEvent event) {

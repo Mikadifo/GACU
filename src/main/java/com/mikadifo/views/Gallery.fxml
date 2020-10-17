@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.GalleryController">
+<AnchorPane id="AnchorPane" minHeight="450.0" minWidth="720.0" prefHeight="450.0" prefWidth="720.0" stylesheets="@../../../../resources/styles/gallery.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikadifo.controllers.GalleryController">
    <children>
       <BorderPane id="root" fx:id="rootPane" layoutX="127.0" layoutY="123.0" prefHeight="450.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -35,11 +35,6 @@
                      <children>
                         <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExitAction" styleClass="secondary_button" text="Salir" />
                         <Button fx:id="btnTrivia" mnemonicParsing="false" onAction="#onTriviaAction" styleClass="main_button" text="Trivia" />
-                        <JFXButton onAction="#onAboutAction" text="Acerca de">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
                      </children>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -60,7 +55,15 @@
             </AnchorPane>
          </center>
          <right>
-            <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutY="20.0" prefHeight="314.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXButton id="about_button" alignment="BOTTOM_CENTER" onAction="#onAboutAction" text="Acerca de">
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
          </right>
          <left>
             <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">

@@ -46,7 +46,6 @@
             </TitledPane>
          </panes>
       </Accordion>
-      <JFXButton onAction="#onAboutAction" prefHeight="27.0" prefWidth="202.0" text="Acerca de" />
       <JFXButton onAction="#onExitAction" prefHeight="27.0" prefWidth="202.0" text="Salir" />
    </children>
 </VBox>
