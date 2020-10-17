@@ -53,7 +53,6 @@ public class SideBoxMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
@@ -114,17 +113,7 @@ public class SideBoxMenuController implements Initializable {
 
     @FXML
     private void onAboutAction(ActionEvent event) {
-	Alert alert = new Alert(AlertType.INFORMATION);
-	alert.setTitle("Acerca de");
-	alert.setHeaderText("GACU");
-	alert.setContentText("El objetivo de esta aplicacion es informar o dar a conocer"
-		+ " la vasta diversidad cultural arquitectónica de la ciudad de Cuenca(Ecuador),"
-		+ " compartir en ella información general, datos históricos y curiosos," 
-		+ " ademas cuenta con una trivia donde se generan preguntas aletorias de"
-		+ " los lugares que has visitado en la aplicacion."
-	);
-	alert.showAndWait();
-    }
+	    }
 
 
     @FXML

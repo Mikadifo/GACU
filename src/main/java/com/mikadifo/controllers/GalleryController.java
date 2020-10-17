@@ -38,6 +38,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -389,6 +390,21 @@ public class GalleryController implements Initializable, Window {
             sideDrawer.setVisible(true);
             sideDrawer.open();
         }
+    }
+
+    @FXML
+    private void onAboutAction(ActionEvent event) {
+	Alert alert = new Alert(AlertType.INFORMATION);
+	alert.setTitle("Acerca de");
+	alert.setHeaderText("GACU");
+	alert.setContentText("El objetivo de esta aplicacion es informar o dar a conocer"
+		+ " la vasta diversidad cultural arquitect√≥nica de la ciudad de Cuenca(Ecuador),"
+		+ " compartir en ella informaci√≥n general, datos hist√≥ricos y curiosos," 
+		+ " ademas cuenta con una trivia donde se generan preguntas aletorias de"
+		+ " los lugares que has visitado en la aplicacion."
+	);
+
+	alert.showAndWait();
     }
 
 }
