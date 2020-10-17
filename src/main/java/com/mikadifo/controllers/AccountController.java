@@ -1,5 +1,6 @@
 package com.mikadifo.controllers;
 
+import static com.mikadifo.controllers.MainMenuController.isLogedIn;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import static java.lang.Character.*;
@@ -145,6 +146,7 @@ public class AccountController implements Initializable, Window {
 	Node currentStage = (Node) event.getSource();
 	Stage stage = (Stage) currentStage.getScene().getWindow();
 	stage.close();
+        GALLERY.createWindow().init();
     }
 
     @FXML
@@ -152,10 +154,8 @@ public class AccountController implements Initializable, Window {
 	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
         if (isOk) getUserFromView().delete();
+        MAIN_MENU.createWindow().init();
         currentStage.close();
-        GalleryController gallery = new GalleryController();
-        MainMenuController mainMenu = new MainMenuController();
-        mainMenu.stage().show();
         }
         
     @FXML

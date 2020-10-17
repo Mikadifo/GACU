@@ -120,8 +120,6 @@ public class SignUpController implements Initializable, Window {
         Stage stage = (Stage) currentStag.getScene().getWindow();
 
         stage.close();
-        MainMenuController mainMenu = new MainMenuController();
-        mainMenu.stage().show();
     }
 
     @FXML

@@ -20,6 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -78,11 +79,11 @@ public class LogInController implements Initializable, Window {
 	    showAlert(AlertType.INFORMATION, null, result.get());
 	} else {
 	    currentStage.close();
-
-	    user.selectById();
+            
+	    user.selectById();            
             GalleryController gallery = (GalleryController) GALLERY.createWindow();
 	    gallery.init(Roles.USER, user.getUser());
-
+            
 	    isLogedIn = true;
 	    closeIfLogedIn();
 	}
@@ -101,8 +102,7 @@ public class LogInController implements Initializable, Window {
     @FXML
     private void onCancelAction(ActionEvent event) {
 	currentStage.close();
-        MainMenuController mainMenu = new MainMenuController();
-        mainMenu.stage().show();
+        GALLERY.createWindow().init();
     }
 
     @FXML

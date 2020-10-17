@@ -3,6 +3,8 @@ package com.mikadifo.controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import static com.mikadifo.controllers.MainMenuController.isLogedIn;
+import static com.mikadifo.controllers.MainMenuController.scene;
 
 import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.Roles;
@@ -45,6 +47,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -61,6 +64,7 @@ public class GalleryController implements Initializable, Window {
     private int selectedCategoryId;
     private static String roleName;
     private HamburgerBackArrowBasicTransition hamburgerTransition;
+    public static boolean isGallery;
 
     @FXML
     private Button btnExit;
@@ -326,7 +330,7 @@ public class GalleryController implements Initializable, Window {
 
         imgBoxes.add(imageBox);
     };
-
+    
     @FXML
     private void onExitAction(ActionEvent event) {
         boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea salir?");
@@ -335,7 +339,7 @@ public class GalleryController implements Initializable, Window {
             System.exit(0);
         }
     }
-
+    
     @FXML
     private void onTriviaAction(ActionEvent event) {
         TriviaController trivia = (TriviaController) TRIVIA.createWindow();
@@ -344,6 +348,7 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onAccountAction(ActionEvent event) {
+        currentStage.close();
         AccountController account = (AccountController) ACCOUNT.createWindow();
         account.init(currentUser);
     }
