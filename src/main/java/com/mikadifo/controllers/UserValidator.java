@@ -40,12 +40,14 @@ public interface UserValidator extends Function<UserDB, Optional<String>> {
 
     static UserValidator isUsernameValid() {
 	return user -> (user.getUsername().matches("^[A-Za-z]\\w{4,48}[A-Za-z\\d]$")) ?
-	    Optional.empty() : Optional.of("El nombre de usuario debe contener solo (letras,numeros,_)");
+	    Optional.empty() : Optional.of("El nombre de usuario debe comenzar con letras,"
+                    + " tener minimo una letra y contener solo (letras,numeros,_)");
     }
 
     static UserValidator isPasswordValid() {
 	return user -> (user.getPassword().matches("^(?=.*\\d)(?=.*[A-Z])(?=.*).{8,128}$")) ?
-	    Optional.empty() : Optional.of("La contrasena debe tener minimo (un numero y una letra mayuscula)") ;
+	    Optional.empty() : Optional.of("La contrasena debe tener minimo (un numero y una letra mayuscula),"
+                    + " 8 caracteres como minimo y 128 como maximo") ;
     }
 
     static UserValidator isCitySelected() {

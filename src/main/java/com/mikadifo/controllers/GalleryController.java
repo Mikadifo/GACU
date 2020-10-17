@@ -111,7 +111,7 @@ public class GalleryController implements Initializable, Window {
         currentScene.getStylesheets().add("/styles/gallery.css");
         currentStage.show();
         loadByRole();
-        showCategories(); //show when de stage is shown
+//        showCategories(); //show when de stage is shown
     }
 
     private void loadByRole() {
@@ -350,11 +350,13 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onLoginAction(ActionEvent event) {
+        currentStage.close();
         LOGIN.createWindow().init();
     }
 
     @FXML
     private void onSignupAction(ActionEvent event) {
+        currentStage.close();
         SIGNUP.createWindow().init();
     }
 
