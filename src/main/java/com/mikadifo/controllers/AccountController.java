@@ -152,6 +152,10 @@ public class AccountController implements Initializable, Window {
 	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
         if (isOk) getUserFromView().delete();
+        currentStage.close();
+        GalleryController gallery = new GalleryController();
+        MainMenuController mainMenu = new MainMenuController();
+        mainMenu.stage().show();
         }
         
     @FXML

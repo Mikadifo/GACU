@@ -73,8 +73,14 @@ public class MainMenuController implements Initializable, Window {
         return alert.showAndWait().get() == ButtonType.OK;
     }
     
+    public Stage stage(){
+        Stage stage = (Stage) scene.getWindow();
+	return stage;
+    }
+    
     @FXML
     private void onGuestAction(ActionEvent event) {
+        stage().close();
 	GALLERY.createWindow().init();
     }
 

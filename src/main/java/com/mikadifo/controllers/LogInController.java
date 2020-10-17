@@ -101,6 +101,8 @@ public class LogInController implements Initializable, Window {
     @FXML
     private void onCancelAction(ActionEvent event) {
 	currentStage.close();
+        MainMenuController mainMenu = new MainMenuController();
+        mainMenu.stage().show();
     }
 
     @FXML
