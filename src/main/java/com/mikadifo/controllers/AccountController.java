@@ -3,12 +3,9 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import static java.lang.Character.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.CountryDB;
 
@@ -68,6 +65,9 @@ public class AccountController implements Initializable, Window {
 	cities = FXCollections.observableArrayList(citiesFromDB);
 	setConverterComboBox();
 	comboCity.setItems(cities);
+	comboCity.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	    if(newValue) comboCity.show();
+	});
         filteredCities = new FilteredList<>(cities);
    }
     

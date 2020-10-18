@@ -7,11 +7,14 @@ import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import static com.mikadifo.controllers.UserValidator.*;
 import static java.lang.Character.*;
+
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 import javafx.util.StringConverter;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -52,6 +54,7 @@ public class SignUpController implements Initializable, Window {
     @FXML
     private ComboBox<CityDB> comboCity;
 
+    
     /**
      * Initializes the controller class.
      *
@@ -69,6 +72,9 @@ public class SignUpController implements Initializable, Window {
 	cities = FXCollections.observableArrayList(citiesFromDB);
 	setConverterComboBox();
 	comboCity.setItems(cities);
+	comboCity.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	    if(newValue) comboCity.show();
+	});
         filteredCities = new FilteredList<>(cities);
     }
 
