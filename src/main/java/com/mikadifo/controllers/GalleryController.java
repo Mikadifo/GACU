@@ -3,8 +3,6 @@ package com.mikadifo.controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import static com.mikadifo.controllers.MainMenuController.isLogedIn;
-import static com.mikadifo.controllers.MainMenuController.scene;
 
 import static com.mikadifo.controllers.WindowFactories.*;
 import com.mikadifo.models.Roles;
@@ -16,6 +14,7 @@ import com.mikadifo.models.table_statements.PlaceDB;
 import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import com.mikadifo.models.table_statements.User_PlaceDB;
+import com.sun.javafx.stage.StageHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -47,7 +46,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -115,7 +113,7 @@ public class GalleryController implements Initializable, Window {
         currentScene.getStylesheets().add("/styles/gallery.css");
         currentStage.show();
         loadByRole();
-//        showCategories(); //show when de stage is shown
+        showCategories(); //show when de stage is shown
     }
 
     private void loadByRole() {
@@ -184,7 +182,7 @@ public class GalleryController implements Initializable, Window {
     private Consumer<RandomImgForCategory> categoryConsumer = (record) -> {
         VBox imageBox = new VBox();
         ImageView imgView = new ImageView(getImage(record.getRandomImage()));
-        //imgView.setPreserveRatio(true);
+        imgView.setPreserveRatio(true);
         imgView.setFitWidth(300); //record.getWidth();
         imgView.setFitHeight(300);
         imgView.setSmooth(true);
@@ -330,7 +328,7 @@ public class GalleryController implements Initializable, Window {
 
         imgBoxes.add(imageBox);
     };
-    
+
     @FXML
     private void onExitAction(ActionEvent event) {
         boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¿Estas seguro que desea salir?");
@@ -339,7 +337,7 @@ public class GalleryController implements Initializable, Window {
             System.exit(0);
         }
     }
-    
+
     @FXML
     private void onTriviaAction(ActionEvent event) {
         TriviaController trivia = (TriviaController) TRIVIA.createWindow();
@@ -348,20 +346,17 @@ public class GalleryController implements Initializable, Window {
 
     @FXML
     private void onAccountAction(ActionEvent event) {
-        currentStage.close();
         AccountController account = (AccountController) ACCOUNT.createWindow();
         account.init(currentUser);
     }
 
     @FXML
     private void onLoginAction(ActionEvent event) {
-        currentStage.close();
         LOGIN.createWindow().init();
     }
 
     @FXML
     private void onSignupAction(ActionEvent event) {
-        currentStage.close();
         SIGNUP.createWindow().init();
     }
 

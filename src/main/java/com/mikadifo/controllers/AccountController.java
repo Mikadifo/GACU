@@ -1,15 +1,11 @@
 package com.mikadifo.controllers;
 
-import static com.mikadifo.controllers.MainMenuController.isLogedIn;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.WindowFactories.*;
 import static java.lang.Character.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.mikadifo.models.table_statements.CityDB;
 import com.mikadifo.models.table_statements.CountryDB;
 
@@ -21,13 +17,12 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 
 /**
@@ -60,81 +55,83 @@ public class AccountController implements Initializable, Window {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-	userCity = new CityDB();
-	userCountry = new CountryDB();
-	userCity.selectAll();
-	userCountry.selectAll();
-	citiesFromDB = userCity.getResults();
-	countriesFromDB = userCountry.getResults();
-	cities = FXCollections.observableArrayList(citiesFromDB);
-	setConverterComboBox();
-	comboCity.setItems(cities);
+        userCity = new CityDB();
+        userCountry = new CountryDB();
+        userCity.selectAll();
+        userCountry.selectAll();
+        citiesFromDB = userCity.getResults();
+        countriesFromDB = userCountry.getResults();
+        cities = FXCollections.observableArrayList(citiesFromDB);
+        setConverterComboBox();
+        comboCity.setItems(cities);
         filteredCities = new FilteredList<>(cities);
-   }
-    
+    }
+
     public void init(UserDB user) {
         currentUser = user;
-	userCity.setId(currentUser.getCityId());
-	userCity.selectById();
-	userCity = userCity.getCity();
+        userCity.setId(currentUser.getCityId());
+        userCity.selectById();
+        userCity = userCity.getCity();
         setUserInView(); //si no vale poner al otro init
-	init();
+        init();
     }
 
     @Override
     public void init() {
-	currentScene.getStylesheets().add("/styles/account.css");
-	currentStage.showAndWait();
+        currentScene.getStylesheets().add("/styles/account.css");
+        currentStage.showAndWait();
     }
 
     private void setConverterComboBox() {
-	comboCity.setConverter(new StringConverter<CityDB>(){
+        comboCity.setConverter(new StringConverter<CityDB>() {
 
-		@Override
-		public String toString(CityDB city) {
-		    if (city == null) return "Seleccione";
+            @Override
+            public String toString(CityDB city) {
+                if (city == null) {
+                    return "Seleccione";
+                }
 
-		    return replaceCountryIdWithName(city);		
-		}
+                return replaceCountryIdWithName(city);
+            }
 
-		@Override
-		public CityDB fromString(String string) {
-		    return citiesFromDB
-			.stream()
-			.filter(city -> replaceCountryIdWithName(city).equals(string))
-			.findFirst()
-			.orElse(null);
-		}
-	});
+            @Override
+            public CityDB fromString(String string) {
+                return citiesFromDB
+                        .stream()
+                        .filter(city -> replaceCountryIdWithName(city).equals(string))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
     }
 
     private String replaceCountryIdWithName(CityDB city) {
-	return city.toString()
-		.replaceAll("\\(\\d*\\)", getCountryNameById(city.getCountryId()));
+        return city.toString()
+                .replaceAll("\\(\\d*\\)", getCountryNameById(city.getCountryId()));
     }
 
     private String getCountryNameById(int id) {
-	return countriesFromDB.stream()
-		.filter(country -> country.getId() == id)
-		.findFirst()
-		.map(CountryDB::getName)
-		.map(countryName -> "(" + countryName + ")")
-		.orElse("N/C");
+        return countriesFromDB.stream()
+                .filter(country -> country.getId() == id)
+                .findFirst()
+                .map(CountryDB::getName)
+                .map(countryName -> "(" + countryName + ")")
+                .orElse("N/C");
     }
 
     private void setUserInView() {
-	txtLogin.setText(currentUser.getLogin());
-	txtUsername.setText(currentUser.getUsername());
-	comboCity.getSelectionModel().select(userCity);
+        txtLogin.setText(currentUser.getLogin());
+        txtUsername.setText(currentUser.getUsername());
+        comboCity.getSelectionModel().select(userCity);
     }
 
     @FXML
     private void onUsernameKeyTyped(KeyEvent event) {
-	String characterTyped = event.getCharacter();
+        String characterTyped = event.getCharacter();
         if (!characterTyped.isEmpty()) {
             char val = characterTyped.charAt(0);
-            
-            if (!(isLetterOrDigit(val)|| val == '_' )|| txtUsername.getText().length() > 49) {
+
+            if (!(isLetterOrDigit(val) || val == '_') || txtUsername.getText().length() > 49) {
                 event.consume();
             }
         }
@@ -142,89 +139,92 @@ public class AccountController implements Initializable, Window {
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-	currentStage.close();//ver si esto sirve en lugar de lo de abajo
-	Node currentStage = (Node) event.getSource();
-	Stage stage = (Stage) currentStage.getScene().getWindow();
-	stage.close();
-        GALLERY.createWindow().init();
+        currentStage.close();
     }
 
     @FXML
     private void onDeleteAction(ActionEvent event) {
-	boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
+        boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea eliminar la cuenta?");
 
-        if (isOk) getUserFromView().delete();
-        MAIN_MENU.createWindow().init();
-        currentStage.close();
+        if (isOk) {
+            getUserFromView().delete();
+            
+            closeAllStages();
+
+            MAIN_MENU.createWindow().init();
         }
-        
+
+    }
+
     @FXML
     private void onUpdateAction(ActionEvent event) {
-	UserDB userInView = getUserFromView();
+        UserDB userInView = getUserFromView();
 
-	Optional<String> result = isUsernameValid()
-		.and(isCitySelected())
-		.apply(userInView);
+        Optional<String> result = isUsernameValid()
+                .and(isCitySelected())
+                .apply(userInView);
 
-	if (result.isPresent()) {
-	    showAlert(Alert.AlertType.CONFIRMATION, null, result.get());
-	} else {
-	    boolean isNewData = false;
+        if (result.isPresent()) {
+            showAlert(Alert.AlertType.CONFIRMATION, null, result.get());
+        } else {
+            boolean isNewData = false;
 
-	    if (isUsernameDifferent(userInView)) {
-		isNewData = true;
-		currentUser.setUsername(userInView.getUsername());
-	    }
-	    if (isCityDifferent(userInView)) {
-		isNewData = true;
-		currentUser.setCityId(userInView.getCityId());
-	    }
+            if (isUsernameDifferent(userInView)) {
+                isNewData = true;
+                currentUser.setUsername(userInView.getUsername());
+            }
+            if (isCityDifferent(userInView)) {
+                isNewData = true;
+                currentUser.setCityId(userInView.getCityId());
+            }
 
-	    if (isNewData) {
-		boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea actualizar su cuenta?");
-		if (isOk) currentUser.update();
-	    }
-	}
+            if (isNewData) {
+                boolean isOk = showAlert(Alert.AlertType.CONFIRMATION, null, "¬øEsta seguro que desea actualizar su cuenta?");
+                if (isOk) {
+                    currentUser.update();
+                }
+            }
+        }
     }
 
     @FXML
     private void onChangePasswordAction(ActionEvent event) {
-	CHANGE_PASSWORD.createWindow().init();
+        CHANGE_PASSWORD.createWindow().init();
     }
-    
+
     private boolean showAlert(Alert.AlertType alertType, String header, String message) {
-	Alert alert = new Alert(alertType);
+        Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	return alert.showAndWait().get() == ButtonType.OK;
+        return alert.showAndWait().get() == ButtonType.OK;
     }
 
     private UserDB getUserFromView() {
         UserDB user = new UserDB();
-        
-	user.setLogin(txtLogin.getText());
+
+        user.setLogin(txtLogin.getText());
         user.setUsername(txtUsername.getText());
-	user.setCityId((comboCity.getValue() == null) ? 0: comboCity.getValue().getId());
+        user.setCityId((comboCity.getValue() == null) ? 0 : comboCity.getValue().getId());
 
         return user;
     }
 
     private boolean isUsernameDifferent(UserDB newUser) {
-	return ! currentUser.getUsername().equals(newUser.getUsername());
+        return !currentUser.getUsername().equals(newUser.getUsername());
     }
 
     private boolean isCityDifferent(UserDB newUser) {
-	return currentUser.getCityId() != newUser.getCityId();
+        return currentUser.getCityId() != newUser.getCityId();
     }
 
     @FXML
     private void onCityKeyReleased(KeyEvent event) {
         String filter = comboCity.getEditor().getText().toUpperCase();
-	filteredCities.setPredicate(item -> item.getName().contains(filter));//review
-	comboCity.setItems(filteredCities);
+        filteredCities.setPredicate(item -> item.getName().contains(filter));//review
+        comboCity.setItems(filteredCities);
     }
 
 }

@@ -7,11 +7,15 @@ import static com.mikadifo.controllers.UserValidator.*;
 import java.util.Optional;
 import static com.mikadifo.controllers.WindowFactories.*;
 import static com.mikadifo.controllers.MainMenuController.*;
+import com.sun.javafx.stage.StageHelper;
 import static java.lang.Character.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -21,6 +25,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -77,17 +82,17 @@ public class LogInController implements Initializable, Window {
 
 	if (result.isPresent()) {
 	    showAlert(AlertType.INFORMATION, null, result.get());
-	} else {
-	    currentStage.close();
+	} else {            
+            closeAllStages();
             
 	    user.selectById();            
             GalleryController gallery = (GalleryController) GALLERY.createWindow();
 	    gallery.init(Roles.USER, user.getUser());
             
-	    isLogedIn = true;
-	    closeIfLogedIn();
 	}
     }
+    
+    
 
     private boolean showAlert(AlertType alertType, String header, String message) {
 	Alert alert = new Alert(alertType);
@@ -102,7 +107,6 @@ public class LogInController implements Initializable, Window {
     @FXML
     private void onCancelAction(ActionEvent event) {
 	currentStage.close();
-        GALLERY.createWindow().init();
     }
 
     @FXML

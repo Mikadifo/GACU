@@ -3,6 +3,7 @@ package com.mikadifo.controllers;
 import com.mikadifo.models.table_statements.UserDB;
 import static com.mikadifo.controllers.UserValidator.*;
 import static com.mikadifo.controllers.WindowFactories.*;
+import static java.lang.Character.isDigit;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -32,22 +34,23 @@ public class ChangePasswordController implements Initializable, Window {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
+
     @Override
     public void init() {
-	currentScene.getStylesheets().add("/styles/account.css");
-	currentStage.showAndWait();
+        currentScene.getStylesheets().add("/styles/account.css");
+        currentStage.showAndWait();
     }
 
     @FXML
     private void onCancelAction(ActionEvent event) {
-	Node currentStage = (Node) event.getSource();
+        Node currentStage = (Node) event.getSource();
         Stage stage = (Stage) currentStage.getScene().getWindow();
         stage.close();
     }
@@ -58,37 +61,49 @@ public class ChangePasswordController implements Initializable, Window {
         String password = txtOldPassword.getText();
         String newPasword = txtNewPassword.getText();
 
-	UserDB user = new UserDB();
-	user.setLogin(login);
-	user.setPassword(password);
-        
-	Optional<String> result = isLoginValid()
-		//.and(isPasswordValid())
-		.and(userExists())
-		.and(isUserAuthenticated())
-		.apply(user);
+        UserDB user = new UserDB();
+        user.setLogin(login);
+        user.setPassword(password);
 
-	if (result.isPresent()) {
-	    showAlert(AlertType.INFORMATION, null, result.get());
-	} else {
-	    user.selectById();
+        Optional<String> result = isLoginValid()
+                //.and(isPasswordValid())
+                .and(userExists())
+                .and(isUserAuthenticated())
+                .apply(user);
 
-	    user = user.getUser();
-	    user.setPassword(newPasword);
-	    user.update();
+        if (result.isPresent()) {
+            showAlert(AlertType.INFORMATION, null, result.get());
+        } else {
+            user.selectById();
 
-	    showAlert(AlertType.INFORMATION, "Datos:", "La contraseña se actualizó con exito");
-	}
+            user = user.getUser();
+            user.setPassword(newPasword);
+            user.update();
+
+            showAlert(AlertType.INFORMATION, "Datos:", "La contraseña se actualizó con exito");
+        }
     }
 
     private boolean showAlert(AlertType alertType, String header, String message) {
-	Alert alert = new Alert(alertType);
+        Alert alert = new Alert(alertType);
 
         alert.setHeaderText(header);
         alert.setTitle(null);
         alert.setContentText(message);
 
-	return alert.showAndWait().get() == ButtonType.OK;
+        return alert.showAndWait().get() == ButtonType.OK;
     }
 
+    @FXML
+    private void onLoginKeyTyped(KeyEvent event) {
+        String characterTyped = event.getCharacter();
+
+        if (!characterTyped.isEmpty()) {
+            char val = characterTyped.charAt(0);
+
+            if (!isDigit(val) || txtLogin.getText().length() > 9) {
+                event.consume();
+            }
+        }
+    }
 }
