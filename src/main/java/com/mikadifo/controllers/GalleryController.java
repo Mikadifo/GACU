@@ -14,6 +14,7 @@ import com.mikadifo.models.table_statements.PlaceDB;
 import com.mikadifo.models.table_statements.RoleDB;
 import com.mikadifo.models.table_statements.UserDB;
 import com.mikadifo.models.table_statements.User_PlaceDB;
+import com.sun.javafx.stage.StageHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -62,6 +63,7 @@ public class GalleryController implements Initializable, Window {
     private int selectedCategoryId;
     private static String roleName;
     private HamburgerBackArrowBasicTransition hamburgerTransition;
+    public static boolean isGallery;
 
     @FXML
     private Button btnExit;
@@ -181,7 +183,7 @@ public class GalleryController implements Initializable, Window {
     private Consumer<RandomImgForCategory> categoryConsumer = (record) -> {
         VBox imageBox = new VBox();
         ImageView imgView = new ImageView(getImage(record.getRandomImage()));
-        //imgView.setPreserveRatio(true);
+        imgView.setPreserveRatio(true);
         imgView.setFitWidth(300); //record.getWidth();
         imgView.setFitHeight(300);
         imgView.setSmooth(true);
